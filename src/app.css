@@ -2902,3 +2902,239 @@ ul.link-list li a .icon {
     width: 10em;
   }
 }
+
+/*** Custom Junimo additions ***/
+
+:root {
+  --public-color: #00CC00;
+  --local-color: #00f7ff;
+  --unlisted-color: #1B1BB3;
+  --private-color: #FFBF00;
+  --list-color: #FF00FB;
+  --direct-color: #FF0000;
+}
+
+.status.compact-reply,
+.status-reblog,
+.status-reblog .status.status-reply-to,
+.boosts-carousel,
+.boosts-carousel:after {
+  background-image: none;
+  background-repeat: repeat;
+}
+
+.status.visibility-public,
+.status-pre-meta:has(+ .status.visibility-public),
+.form-visibility-public {
+  --current-bg: var(--public-color);
+}
+
+.status.visibility-unlisted,
+.status-pre-meta:has(+ .status.visibility-unlisted),
+.form-visibility-unlisted {
+  --current-bg: var(--unlisted-color);
+}
+
+.status.visibility-private,
+.status-pre-meta:has(+ .status.visibility-private),
+.form-visibility-private {
+  --current-bg: var(--private-color);
+}
+
+.status.visibility-direct,
+.status-pre-meta:has(+ .status.visibility-direct),
+.form-visibility-direct {
+  --current-bg: var(--direct-color);
+}
+
+.status.visibility-local,
+.status-pre-meta:has(+ .status.visibility-local),
+.form-visibility-local {
+  --current-bg: var(--local-color);
+}
+
+.status.visibility-list,
+.status-pre-meta:has(+ .status.visibility-list),
+.form-visibility-list {
+  --current-bg: var(--list-color);
+}
+
+:is(.timeline-item-container:not(.timeline-item-container-end):has(.status.visibility-public) + .timeline-item-container) .status.status-reply-to {
+  --previous-bg: var(--public-color);
+}
+
+:is(.timeline-item-container:not(.timeline-item-container-end):has(.status.visibility-unlisted) + .timeline-item-container) .status.status-reply-to {
+  --previous-bg: var(--unlisted-color);
+}
+
+:is(.timeline-item-container:not(.timeline-item-container-end):has(.status.visibility-private) + .timeline-item-container) .status.status-reply-to {
+  --previous-bg: var(--private-color);
+}
+
+:is(.timeline-item-container:not(.timeline-item-container-end):has(.status.visibility-direct) + .timeline-item-container) .status.status-reply-to {
+  --previous-bg: var(--direct-color);
+}
+
+:is(.timeline-item-container:not(.timeline-item-container-end):has(.status.visibility-local) + .timeline-item-container) .status.status-reply-to {
+  --previous-bg: var(--local-color);
+}
+
+:is(.timeline-item-container:not(.timeline-item-container-end):has(.status.visibility-list) + .timeline-item-container) .status.status-reply-to {
+  --previous-bg: var(--list-color);
+}
+
+.status.compact-reply + .status {
+  --previous-bg: transparent;
+}
+
+.status-pre-meta,
+.status,
+#compose-container form {
+  --upper-bg: color-mix(in srgb, var(--previous-bg, var(--current-bg)) 10%, transparent);
+  --lower-bg: color-mix(in srgb, var(--current-bg, var(--bg-color)) 10%, transparent);
+  
+  background-image: linear-gradient(in srgb, var(--upper-bg), var(--lower-bg) 15%) !important;
+}
+
+.status-link:hover .status.compact-reply {
+  --current-bg: color-mix(in srgb, white 10%, var(--bg-color));
+}
+
+.status-link:hover :is(.status.compact-reply + .status) {
+  --previous-bg: color-mix(in srgb, white 10%, var(--bg-color));
+}
+
+.status-link:hover :is(.status-pre-meta, .status) {
+  --upper-bg: color-mix(in srgb, var(--previous-bg, var(--current-bg)) 23%, transparent);
+  --lower-bg: color-mix(in srgb, var(--current-bg, var(--bg-color)) 23%, transparent);
+}
+
+#compose-container textarea,
+#compose-container .media-attachments,
+#compose-container .media-sensitive {
+  background-color: color-mix(in srgb, var(--current-bg) 20%, transparent) !important;
+  border-color: color-mix(in srgb, var(--current-bg) 30%, transparent);
+}
+
+#compose-container .toolbar-button {
+  color: color-mix(in srgb, white 30%, var(--current-bg));
+}
+
+#compose-container option[value="public"] {
+  color: var(--public-color);
+}
+
+#compose-container option[value="unlisted"] {
+  color: var(--unlisted-color);
+}
+
+#compose-container option[value="private"] {
+  color: var(--private-color);
+}
+
+#compose-container option[value="direct"] {
+  color: var(--direct-color);
+}
+
+#compose-container option[value="local"] {
+  color: var(--direct-color);
+}
+
+#compose-container option[value="list"] {
+  color: var(--list-color);
+}
+
+.status-pre-meta,
+.status.compact-reply {
+  margin-bottom: 0;
+  opacity: 1;
+}
+
+.status-pre-meta > * {
+  opacity: 0.75;
+}
+
+.status-direct-badge,
+.icon[title="Unlisted"],
+.icon[title="Followers only"],
+.icon[title="Selected only"] {
+  display: none;
+}
+
+.notification .status-link {
+  filter: saturate(0) brightness(0.75);
+}
+
+.status-link:hover {
+  --link-bg-hover-color: transparent;
+}
+
+.notification .status-link.status-type-mention {
+  border-color: var(--outline-color);
+  box-shadow: none;
+}
+
+.notification .status-link.status-type-mention:hover,
+.notification .status-link.status-type-mention:focus {
+  border-color: var(--outline-hover-color);
+  box-shadow: none;
+}
+
+.status-thread-badge {
+  color: var(--text-insignificant-color);
+  border-color: var(--text-insignificant-color);
+  background-color: color-mix(in srgb, var(--text-insignificant-color) 10%, transparent);
+}
+
+a:is(.mention, .hashtag) {
+  color: var(--link-faded-color);
+  text-decoration-color: var(--link-faded-color);
+}
+
+a:is(.mention, .hashtag):is(:hover, :focus) {
+  color: var(--link-color);
+  text-decoration-color: var(--link-color);
+}
+
+a:is(.mention, .hashtag) span {
+  color: color-mix(in srgb, var(--text-color) 35%, var(--link-color));
+}
+
+a:is(.mention, .hashtag):is(:hover, :focus) span {
+  filter: brightness(1.5);
+}
+
+a.mention {
+  --link-color: var(--reply-to-color);
+  --link-faded-color: color-mix(in srgb, var(--link-color) 50%, transparent);
+}
+
+a.hashtag {
+  --link-color: var(--hashtag-color);
+  --link-faded-color: color-mix(in srgb, var(--link-color) 50%, transparent);
+}
+
+#compose-container button {
+  background-color: color-mix(in srgb, var(--current-bg) 30%, transparent);
+}
+
+#compose-container button:hover {
+  background-color: color-mix(in srgb, var(--current-bg) 60%, transparent);
+}
+
+button.checked:not(.does-not-exist) {
+  background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.timeline:not(.flat) > li.timeline-item-diff-author > .status-link > .status > a > .avatar,
+.timeline:not(.flat) > li.timeline-item-diff-author > .status-focus > .status > a > .avatar {
+  filter: none;
+}
+
+li.descendant {
+  padding-bottom: 0 !important;
+}
+
+details.replies {
+  margin-top: 0 !important;
+}
