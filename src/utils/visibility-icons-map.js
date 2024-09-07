@@ -4,4 +4,5 @@ export default {
   private: 'lock',
   direct: 'message',
   local: 'building',
+  list: 'list',
 };

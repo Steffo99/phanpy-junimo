@@ -94,6 +94,7 @@ const visibilityText = {
   local: msg`Local`,
   unlisted: msg`Unlisted`,
   private: msg`Followers only`,
+  list: msg`Restricted`,
   direct: msg`Private mention`,
 };
 
