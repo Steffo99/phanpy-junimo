@@ -197,6 +197,7 @@ function highlightText(text, { maxCharacters = Infinity }) {
 
 // const rtf = new Intl.RelativeTimeFormat();
 const RTF = mem((locale) => new Intl.RelativeTimeFormat(locale || undefined));
+const LF = mem((locale) => new Intl.ListFormat(locale || undefined));
 
 const CUSTOM_EMOJIS_COUNT = 100;
 
@@ -210,6 +211,7 @@ function Compose({
 }) {
   const { i18n } = useLingui();
   const rtf = RTF(i18n.locale);
+  const lf = LF(i18n.locale);
 
   console.warn('RENDER COMPOSER');
   const { masto, instance } = api();
@@ -226,7 +228,7 @@ function Compose({
   const {
     statuses: {
       maxCharacters,
-      maxMediaAttachments,  // Beware: it can be undefined on *oma instances!
+      maxMediaAttachments,  // Beware: it can be undefined!
       charactersReservedPerUrl,
     } = {},
     mediaAttachments: {
@@ -600,14 +602,14 @@ function Compose({
     const handleItems = (e) => {
       const { items } = e.clipboardData || e.dataTransfer;
       const files = [];
+      const unattachableFiles = [];
       const unsupportedFiles = [];
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
         if (item.kind === 'file') {
           const file = item.getAsFile();
           if (!file) {
-            alert(t`Unable to attach file.`);
-            return;
+            unattachableFiles.push(file);
           }
           else if (supportedMimeTypes !== undefined && !supportedMimeTypes.includes(file.type)) {
             unsupportedFiles.push(file);
@@ -617,11 +619,20 @@ function Compose({
           }
         }
       }
+      console.error(unattachableFiles, unsupportedFiles)
+      if (unattachableFiles.length > 0) {
+        alert(
+          plural(unattachableFiles.length, {
+            one: `Couldn't attach file ${unattachableFiles[0].name}.`,
+            other: `Couldn't attach files ${lf.format(unattachableFiles.map(f => f.name))}.`,
+          }),
+        );
+      }
       if (unsupportedFiles.length > 0) {
         alert(
           plural(unsupportedFiles.length, {
-            one: `File ${unsupportedFiles[0]} is not supported by your instance.`,
-            other: `Files ${unsupportedFiles.join(", ")} are not supported by your instance.`,
+            one: `File ${unsupportedFiles[0].name} is not supported.`,
+            other: `Files ${lf.format(unsupportedFiles.map(f => f.name))} are not supported.`,
           }),
         );
       }
@@ -1323,7 +1334,7 @@ function Compose({
                 <input
                   type="file"
                   accept={supportedMimeTypes?.join(',')}
-                  multiple={!(mediaAttachments.length > maxMediaAttachments)}
+                  multiple={!(maxMediaAttachments - mediaAttachments.length < 2)}
                   disabled={
                     uiState === 'loading' ||
                     mediaAttachments.length >= maxMediaAttachments ||
