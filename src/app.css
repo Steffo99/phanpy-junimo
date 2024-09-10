@@ -3037,7 +3037,7 @@ ul.link-list li a .icon {
 }
 
 #compose-container option[value="local"] {
-  color: var(--direct-color);
+  color: var(--local-color);
 }
 
 #compose-container option[value="list"] {
