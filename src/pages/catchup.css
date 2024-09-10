@@ -579,11 +579,6 @@
     &:dir(rtl) {
       --bg-gradient-angle: -140deg;
     }
-    background-image: linear-gradient(
-      var(--bg-gradient-angle),
-      var(--post-bg-color),
-      transparent min(160px, 50%)
-    );
     /* background-image: linear-gradient(
       90deg,
       var(--post-bg-color),
