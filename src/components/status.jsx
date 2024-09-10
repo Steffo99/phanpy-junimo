@@ -1838,7 +1838,8 @@ function Status({
           {visibility === 'direct' && (
             <>
               <div class="status-direct-badge">
-                <Trans>Private mention</Trans>
+                <Icon icon="message" size="s" />
+                <Trans>PM</Trans>
               </div>{' '}
             </>
           )}
@@ -1848,9 +1849,8 @@ function Status({
                 <div class="status-thread-badge">
                   <Icon icon="thread" size="s" />
                   <Trans>
-                    Thread
                     {snapStates.statusThreadNumber[sKey]
-                      ? ` ${snapStates.statusThreadNumber[sKey]}/X`
+                      ? ` ${snapStates.statusThreadNumber[sKey]}`
                       : ''}
                   </Trans>
                 </div>
@@ -3501,7 +3501,7 @@ function FilteredStatus({
           }}
         >
           <span>
-            <Trans>Filtered</Trans>
+            <Icon icon="filters" size="s" />
           </span>
           <span>{filterTitleStr}</span>
         </b>{' '}
@@ -3579,7 +3579,7 @@ function FilteredStatus({
             </button>
             <header>
               <b class="status-filtered-badge">
-                <Trans>Filtered</Trans>
+                <Icon icon="filters" size="s" />
               </b>{' '}
               {filterTitleStr}
             </header>

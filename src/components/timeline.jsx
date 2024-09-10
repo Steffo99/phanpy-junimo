@@ -943,7 +943,7 @@ function TimelineStatusCompact({ status, instance, filterContext }) {
         <div class="status-thread-badge">
           <Icon icon="thread" size="s" alt={t`Thread`} />
           {snapStates.statusThreadNumber[sKey]
-            ? ` ${snapStates.statusThreadNumber[sKey]}/X`
+            ? ` ${snapStates.statusThreadNumber[sKey]}`
             : ''}
         </div>
       ) : (
@@ -962,9 +962,10 @@ function TimelineStatusCompact({ status, instance, filterContext }) {
             class="status-filtered-badge badge-meta horizontal"
             title={filterInfo?.titlesStr || ''}
           >
+            <Icon icon="filters" size="s" />
             {filterInfo?.titlesStr ? (
               <Trans>
-                <span>Filtered</span>: <span>{filterInfo.titlesStr}</span>
+                <span>{filterInfo.titlesStr}</span>
               </Trans>
             ) : (
               <span>
