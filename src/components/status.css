@@ -9,51 +9,6 @@
   }
 }
 
-.status-reblog {
-  background: linear-gradient(
-    var(--post-gradient-angle),
-    var(--reblog-faded-color),
-    transparent min(160px, 50%)
-  );
-}
-.status-group {
-  background: linear-gradient(
-    var(--post-gradient-angle),
-    var(--group-faded-color),
-    transparent min(160px, 50%)
-  );
-}
-.status-followed-tags {
-  background: linear-gradient(
-    var(--post-gradient-angle),
-    var(--hashtag-faded-color),
-    transparent min(160px, 50%)
-  );
-
-  .timeline-item-container:not(.timeline-item-container-start) & {
-    background: radial-gradient(
-      ellipse at 0 1.2em,
-      var(--hashtag-faded-color),
-      transparent max(160px, 50%)
-    );
-    background-size: 100% 3em;
-    background-repeat: no-repeat;
-  }
-}
-.status-reply-to {
-  background: linear-gradient(
-    var(--post-gradient-angle),
-    var(--reply-to-faded-color),
-    transparent min(160px, 50%)
-  );
-}
-:is(.status-reblog, .status-group, .status-followed-tags) .status-reply-to {
-  background: linear-gradient(
-    var(--post-gradient-chip-angle),
-    var(--reply-to-faded-color),
-    transparent min(160px, 50%)
-  );
-}
 .visibility-direct {
   --yellow-stripes: repeating-linear-gradient(
     135deg,
@@ -362,12 +317,6 @@
   padding-top: var(--top-padding);
   padding-bottom: 0;
   margin-bottom: calc(-1 * var(--top-padding) / 2);
-  background-image: linear-gradient(
-    var(--post-gradient-angle),
-    transparent 2.5%,
-    var(--reply-to-faded-color) 10%,
-    transparent
-  );
   background-repeat: no-repeat;
   background-size: 100% calc(100% - var(--top-padding) / 2);
 

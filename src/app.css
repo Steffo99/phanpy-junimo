@@ -936,12 +936,6 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
 }
 
 .status-carousel {
-  --carousel-faded-color: var(--bg-faded-color);
-  background: linear-gradient(
-    to bottom var(--forward),
-    var(--carousel-faded-color),
-    transparent
-  );
   position: relative;
   container-type: inline-size;
 }
@@ -950,12 +944,6 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(
-      ellipse 50% 32px at bottom center,
-      var(--carousel-faded-color),
-      transparent
-    ),
-    linear-gradient(to top, var(--bg-color) 8px, transparent 64px);
   background-repeat: no-repeat;
   background-position: bottom center;
 }
