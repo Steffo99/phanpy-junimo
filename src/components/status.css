@@ -2735,3 +2735,30 @@ a.card:is(:hover, :focus):visited {
     }
   }
 }
+
+@property --gradient-color {
+  syntax: '<color>';
+  initial-value: transparent;
+  inherits: true;
+}
+
+.status-link {
+  transition-property: --gradient-color;
+  transition-delay: 0.25s;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
+  
+  background-image: linear-gradient(225deg, var(--gradient-color), transparent 50%, transparent);
+}
+
+.status-link:has(.bookmark) {
+  --gradient-color: color-mix(in srgb, var(--blue-color) 15%, transparent);
+}
+
+.status-link:has(.favourite) {
+  --gradient-color: color-mix(in srgb, var(--red-color) 15%, transparent);
+}
+
+.status-link:has(.reblog) {
+  --gradient-color: color-mix(in srgb, var(--purple-color) 15%, transparent);
+}
