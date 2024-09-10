@@ -1822,7 +1822,7 @@ function Status({
                 //   {StatusMenuItems}
                 // </Menu>
                 <span class="time">
-                  {visibility !== 'public' && visibility !== 'direct' && (
+                  {visibility !== 'public' && (
                     <>
                       <Icon
                         icon={visibilityIconsMap[visibility]}
