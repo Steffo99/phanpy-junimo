@@ -518,18 +518,7 @@
   font-size: smaller;
 }
 
-.status-reply-badge {
-  display: inline-flex;
-  margin: 2px 0;
-  margin-inline-start: 4px;
-  gap: 4px;
-  align-items: center;
-  vertical-align: middle;
-}
-.status-reply-badge .icon {
-  color: var(--reply-to-color);
-}
-.status-thread-badge, .status-direct-badge, .status-filtered-badge {
+.status-thread-badge, .status-direct-badge, .status-filtered-badge, .status-reply-badge {
   vertical-align: middle;
   display: inline-flex;
   margin: 2px 0;
@@ -542,7 +531,6 @@
   padding: 4px;
   font-size: 10px;
   line-height: 1;
-  text-transform: uppercase;
   opacity: 0.75;
   background-image: repeating-linear-gradient(
     -70deg,

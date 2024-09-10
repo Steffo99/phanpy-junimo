@@ -1862,7 +1862,7 @@ function Status({
                     return mention.id === inReplyToAccountId;
                   })) && (
                   <div class="status-reply-badge">
-                    <Icon icon="reply" />{' '}
+                    <Icon icon="reply" size={"s"}/>{' '}
                     <NameText
                       account={inReplyToAccount}
                       instance={instance}
