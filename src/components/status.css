@@ -160,7 +160,11 @@
 
 .status-card-link {
   text-decoration: none;
-  color: var(--text-color);
+  color: inherit;
+  
+  &:is(:hover, :focus) {
+    color: inherit;
+  }
 }
 .status-card-link:not(
     .truncated .status-card-link, /* parent status already truncated */
