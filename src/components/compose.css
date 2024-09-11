@@ -316,19 +316,6 @@
   justify-content: center;
 }
 
-#compose-container .form-visibility-direct {
-  --yellow-stripes: repeating-linear-gradient(
-    135deg,
-    var(--reply-to-faded-color),
-    var(--reply-to-faded-color) 10px,
-    var(--reply-to-faded-color) 10px,
-    transparent 10px,
-    transparent 20px
-  );
-  /* diagonal stripes of yellow */
-  background-image: var(--yellow-stripes);
-}
-
 #compose-container .media-attachments {
   background-color: var(--bg-faded-color);
   padding: 8px;
