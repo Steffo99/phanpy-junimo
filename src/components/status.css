@@ -2692,7 +2692,8 @@ a.card:is(:hover, :focus):visited {
   inherits: true;
 }
 
-.status-link {
+.status-link,
+.status.large {
   transition-property: --gradient-color;
   transition-delay: 0.25s;
   transition-duration: 0.25s;
@@ -2701,14 +2702,17 @@ a.card:is(:hover, :focus):visited {
   background-image: linear-gradient(225deg, var(--gradient-color), transparent 50%, transparent);
 }
 
-.status-link:has(.bookmark) {
+.status-link:has(.bookmark),
+.status.large:has(.bookmark-button.checked) {
   --gradient-color: color-mix(in srgb, var(--blue-color) 15%, transparent);
 }
 
-.status-link:has(.favourite) {
+.status-link:has(.favourite),
+.status.large:has(.favourite-button.checked) {
   --gradient-color: color-mix(in srgb, var(--red-color) 15%, transparent);
 }
 
-.status-link:has(.reblog) {
+.status-link:has(.reblog),
+.status.large:has(.reblog-button.checked) {
   --gradient-color: color-mix(in srgb, var(--purple-color) 15%, transparent);
 }
