@@ -393,9 +393,17 @@
 }
 .account-container .stats a:not(.insignificant) {
   color: inherit;
+  
+  &:is(:hover, :focus) {
+    color: inherit;
+  }
 }
 .account-container .stats a:hover {
   color: inherit;
+  
+  &:is(:hover, :focus) {
+    color: inherit;
+  }
 }
 
 .account-container footer {

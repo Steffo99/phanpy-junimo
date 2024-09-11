@@ -80,6 +80,10 @@
   width: min-content;
   min-width: 2em;
   flex-shrink: 1 !important;
+  
+  &:is(:hover, :focus) {
+    color: inherit;
+  }
 }
 .status-translation-block .translated-block output {
   display: block;

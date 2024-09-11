@@ -83,6 +83,10 @@
     min-height: 160px;
     height: 320px;
     max-height: 50vh;
+    
+    &:is(:hover, :focus) {
+      color: inherit;
+    }
 
     &:not(:active):is(:hover, :focus-visible) {
       border-color: var(--accent-color, var(--link-light-color));

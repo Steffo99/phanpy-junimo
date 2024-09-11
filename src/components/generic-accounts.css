@@ -23,6 +23,10 @@
       display: block;
       text-decoration: none;
       color: inherit;
+      
+      &:is(:hover, :focus) {
+        color: inherit;
+      }
 
       &:hover {
         border-color: var(--outline-hover-color);
