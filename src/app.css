@@ -28,8 +28,10 @@ body {
 
 a.mention {
   text-decoration-line: none;
+  color: var(--reply-to-text-color);
 }
 a.mention span {
+  color: var(--text-color);
   text-decoration-line: underline;
   text-decoration-color: inherit;
   text-decoration-thickness: 2px;
@@ -37,12 +39,37 @@ a.mention span {
   font-variant-numeric: slashed-zero;
   font-feature-settings: 'ss01';
 }
+a.mention.u-url {
+  color: color-mix(in srgb, var(--reply-to-text-color) 60%, transparent);
+}
+a.mention.u-url span {
+  color: color-mix(in srgb, var(--reply-to-text-color) 40%, var(--text-color));
+  text-decoration-color: color-mix(in srgb, var(--reply-to-text-color) 60%, transparent);
+}
+a.mention.u-url:hover {
+  color: var(--reply-to-text-color);
+}
+a.mention.u-url:hover span {
+  color: var(--text-color);
+  text-decoration-color: var(--reply-to-text-color);
+}
+a.mention.hashtag {
+  color: color-mix(in srgb, var(--hashtag-color) 60%, transparent);
+}
+a.mention.hashtag span {
+  color: color-mix(in srgb, var(--hashtag-color) 40%, var(--text-color));
+  text-decoration-color: color-mix(in srgb, var(--hashtag-color) 60%, transparent);
+}
+a.mention.hashtag:hover {
+  color: var(--hashtag-color);
+}
+a.mention.hashtag:hover span {
+  color: var(--text-color);
+  text-decoration-color: var(--hashtag-color);
+}
 /* a.mention:has(span).hashtag {
   color: var(--link-light-color);
 } */
-a.mention span {
-  color: var(--text-color);
-}
 a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   color: var(--link-visited-color);
   text-decoration-color: var(--link-visited-color);
@@ -914,6 +941,10 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   -webkit-tap-highlight-color: transparent;
   animation: appear 0.2s ease-out;
   -webkit-touch-callout: none;
+  
+  &:is(:hover, :focus) {
+    color: inherit;
+  }
 }
 @media (pointer: coarse) {
   .status-focus:not(.hero .status-focus) {
@@ -1099,6 +1130,10 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   border-radius: 16px;
   overflow: clip;
   box-shadow: 0 1px var(--bg-color);
+  
+  &:is(:hover, :focus) {
+    color: inherit;
+  }
 
   &:has(.status-badge:not(:empty)) {
     border-start-end-radius: 8px;
@@ -1914,6 +1949,10 @@ body > .szh-menu-container {
   align-items: center;
   user-select: none;
   -webkit-touch-callout: none;
+  
+  &:is(:hover, :focus) {
+    color: inherit;
+  }
 }
 .szh-menu .szh-menu__item a.is-active {
   font-weight: bold;
@@ -2112,6 +2151,10 @@ body > .szh-menu-container {
     .icon {
       opacity: 1;
       color: inherit;
+      
+      &:is(:hover, :focus) {
+        color: inherit;
+      }
     }
   }
 }

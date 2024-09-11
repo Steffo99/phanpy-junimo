@@ -1830,6 +1830,10 @@ body:has(#modal-container .carousel) .status .media img:hover {
   align-items: stretch;
   background-color: var(--bg-color);
   max-width: 480px;
+  
+  &:is(:hover, :focus) {
+    color: inherit;
+  }
   /* max-height: 160px; */
 }
 .status.large .card.large,
@@ -2119,6 +2123,10 @@ a.card:is(:hover, :focus):visited {
   vertical-align: baseline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
+  
+  &:is(:hover, :focus) {
+    color: inherit;
+  }
 }
 .status .extra-meta a:is(:hover, :focus) {
   text-decoration: underline;
@@ -2269,6 +2277,10 @@ a.card:is(:hover, :focus):visited {
 
       .szh-menu__item:not(.szh-menu__item--hover) {
         color: inherit;
+        
+        &:is(:hover, :focus) {
+          color: inherit;
+        }
       }
 
       .icon + span {

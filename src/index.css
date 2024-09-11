@@ -211,6 +211,7 @@ a {
   overflow-wrap: anywhere;
 }
 a:is(:hover, :focus) {
+  color: color-mix(in srgb, var(--link-color) 60%, var(--text-color));
   text-decoration-color: var(--link-color);
 }
 
