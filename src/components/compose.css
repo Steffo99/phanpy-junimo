@@ -863,41 +863,20 @@
     mark {
       color: inherit;
     }
-
-    .compose-highlight-url,
-    .compose-highlight-hashtag {
-      background-color: transparent;
-      text-decoration: underline;
-      text-decoration-color: var(--link-faded-color);
-      text-decoration-thickness: 2px;
-      text-underline-offset: 2px;
+    .compose-highlight-url {
+      background-color: color-mix(in srgb, var(--blue-color) 30%, transparent);
     }
-    .compose-highlight-mention,
-    .compose-highlight-emoji-shortcode,
-    .compose-highlight-exceeded {
-      mix-blend-mode: multiply;
-      border-radius: 4px;
-      box-shadow: 0 0 0 1px;
+    .compose-highlight-hashtag {
+      background-color: color-mix(in srgb, var(--hashtag-color) 30%, transparent);
     }
     .compose-highlight-mention {
-      background-color: var(--orange-light-bg-color);
-      box-shadow-color: var(--orange-light-bg-color);
+      background-color: color-mix(in srgb, var(--orange-color) 30%, transparent);
     }
     .compose-highlight-emoji-shortcode {
-      background-color: var(--bg-faded-color);
-      box-shadow-color: var(--bg-faded-color);
+      background-color: color-mix(in srgb, var(--purple-color) 30%, transparent);
     }
     .compose-highlight-exceeded {
-      background-color: var(--red-bg-color);
-      box-shadow-color: var(--red-bg-color);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .compose-highlight-mention,
-      .compose-highlight-emoji-shortcode,
-      .compose-highlight-exceeded {
-        mix-blend-mode: screen;
-      }
+      background-color: color-mix(in srgb, var(--red-color) 30%, transparent);
     }
   }
 }
