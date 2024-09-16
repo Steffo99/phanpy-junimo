@@ -2748,6 +2748,7 @@ a.card:is(:hover, :focus):visited {
   transition-duration: 0.25s;
   transition-timing-function: ease-out;
   
+  --gradient-color: transparent;
   --interaction-gradient: linear-gradient(225deg, var(--gradient-color), transparent 50%, transparent);
   background-image: var(--interaction-gradient);
 }
