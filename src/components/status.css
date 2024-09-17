@@ -2702,33 +2702,78 @@ a.card:is(:hover, :focus):visited {
   }
 }
 
-@property --gradient-color {
+@property --gradient-color-1 {
   syntax: '<color>';
   initial-value: transparent;
   inherits: true;
 }
 
-.status-link,
-.status.large {
-  transition-property: --gradient-color;
+@property --gradient-color-2 {
+  syntax: '<color>';
+  initial-value: transparent;
+  inherits: true;
+}
+
+@property --gradient-color-3 {
+  syntax: '<color>';
+  initial-value: transparent;
+  inherits: true;
+}
+
+.status {
+  transition-property: --gradient-color-1, --gradient-color-2, --gradient-color-3;
   transition-delay: 0.25s;
   transition-duration: 0.25s;
   transition-timing-function: ease-out;
   
-  background-image: linear-gradient(225deg, var(--gradient-color), transparent 50%, transparent);
+  --gradient-color-1: transparent;
+  --gradient-color-2: transparent;
+  --gradient-color-3: transparent;
+  --interaction-gradient: linear-gradient(225deg, var(--gradient-color-1), var(--gradient-color-2) 50%, var(--gradient-color-3));
+  background-image: var(--interaction-gradient);
 }
 
-.status-link:has(.bookmark),
+.status.large,
+.status.large.visibility-direct {
+  background-image: var(--interaction-gradient), var(--fade-in-out-bg);
+}
+
+.status:has(> .status-badge > .bookmark),
 .status.large:has(.bookmark-button.checked) {
-  --gradient-color: color-mix(in srgb, var(--blue-color) 15%, transparent);
+  --gradient-color-1: color-mix(in srgb, var(--blue-color) 15%, transparent);
 }
 
-.status-link:has(.favourite),
+.status:has(> .status-badge > .favourite),
 .status.large:has(.favourite-button.checked) {
-  --gradient-color: color-mix(in srgb, var(--red-color) 15%, transparent);
+  --gradient-color-1: color-mix(in srgb, var(--red-color) 15%, transparent);
 }
 
-.status-link:has(.reblog),
+.status:has(> .status-badge > .reblog),
 .status.large:has(.reblog-button.checked) {
-  --gradient-color: color-mix(in srgb, var(--purple-color) 15%, transparent);
+  --gradient-color-1: color-mix(in srgb, var(--purple-color) 15%, transparent);
+}
+
+.status:has(> .status-badge > .bookmark):has(> .status-badge > .favourite),
+.status.large:has(.bookmark-button.checked):has(.favourite-button.checked) {
+  --gradient-color-1: color-mix(in srgb, var(--red-color) 15%, transparent);
+  --gradient-color-3: color-mix(in srgb, var(--blue-color) 15%, transparent);
+}
+
+.status:has(> .status-badge > .bookmark):has(> .status-badge > .reblog),
+.status.large:has(.bookmark-button.checked):has(.reblog-button.checked)  {
+  --gradient-color-1: color-mix(in srgb, var(--purple-color) 15%, transparent);
+  --gradient-color-3: color-mix(in srgb, var(--blue-color) 15%, transparent);
+}
+
+.status:has(> .status-badge > .favourite):has(> .status-badge > .reblog),
+.status.large:has(.favourite-button.checked):has(.reblog-button.checked) {
+  --gradient-color-1: color-mix(in srgb, var(--purple-color) 15%, transparent);
+  --gradient-color-3: color-mix(in srgb, var(--red-color) 15%, transparent);
+}
+
+.status:has(> .status-badge > .bookmark):has(> .status-badge > .favourite):has(> .status-badge > .reblog),
+.status.large:has(.bookmark-button.checked):has(.favourite-button.checked):has(.reblog-button.checked) {
+  --gradient-color-1: color-mix(in srgb, var(--blue-color) 15%, transparent);
+  --gradient-color-2: color-mix(in srgb, var(--purple-color) 15%, transparent);
+  --gradient-color-3: color-mix(in srgb, var(--red-color) 15%, transparent);
 }
