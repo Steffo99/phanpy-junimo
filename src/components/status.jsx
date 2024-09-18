@@ -288,7 +288,7 @@ function Status({
     mediaAttachments,
     reblog,
     uri,
-    url,
+    url: originalUrl,
     emojis,
     tags,
     pinned,
@@ -299,6 +299,9 @@ function Status({
     // Non-Mastodon
     emojiReactions,
   } = status;
+  
+  const junimoUrl = `https://junimo.party/notice/${statusID}`
+  const phanpyUrl = `${window.location.origin}/#${instance ? `/${instance}/s/${id}` : `/s/${id}`}?view=full`
 
   const [languageAutoDetected, setLanguageAutoDetected] = useState(null);
   useEffect(() => {
@@ -825,7 +828,7 @@ function Status({
     <>
       {!isSizeLarge && sameInstance && (
         <>
-          <div class="menu-control-group-horizontal status-menu">
+          <div className="menu-control-group-horizontal status-menu">
             <MenuItem onClick={replyStatus}>
               <Icon icon="comment" />
               <span>
@@ -846,7 +849,7 @@ function Status({
                   onClick={() => {
                     showCompose({
                       draftStatus: {
-                        status: `\n${url}`,
+                        status: `\n${originalUrl}`,
                       },
                     });
                   }}
@@ -859,13 +862,13 @@ function Status({
               }
               menuFooter={
                 mediaNoDesc && !reblogged ? (
-                  <div class="footer">
+                  <div className="footer">
                     <Icon icon="alert" />
                     <Trans>Some media have no descriptions.</Trans>
                   </div>
                 ) : (
                   statusMonthsAgo >= 3 && (
-                    <div class="footer">
+                    <div className="footer">
                       <Icon icon="info" />
                       <span>
                         <Trans>
@@ -884,23 +887,25 @@ function Status({
               onClick={async () => {
                 try {
                   const done = await confirmBoostStatus();
-                  if (!isSizeLarge && done) {
+                  if(!isSizeLarge && done) {
                     showToast(
                       reblogged
-                        ? t`Unboosted @${username || acct}'s post`
-                        : t`Boosted @${username || acct}'s post`,
+                      ? t`Unboosted @${username || acct}'s post`
+                      : t`Boosted @${username || acct}'s post`,
                     );
                   }
-                } catch (e) {}
+                }
+                catch(e) {
+                }
               }}
             >
               <Icon icon="rocket" />
               <span>
                 {reblogsCount > 0
-                  ? shortenNumber(reblogsCount)
-                  : reblogged
-                  ? t`Unboost`
-                  : t`Boost…`}
+                 ? shortenNumber(reblogsCount)
+                 : reblogged
+                   ? t`Unboost`
+                   : t`Boost…`}
               </span>
             </MenuConfirm>
             <MenuItem
@@ -910,10 +915,10 @@ function Status({
               <Icon icon="heart" />
               <span>
                 {favouritesCount > 0
-                  ? shortenNumber(favouritesCount)
-                  : favourited
-                  ? t`Unlike`
-                  : t`Like`}
+                 ? shortenNumber(favouritesCount)
+                 : favourited
+                   ? t`Unlike`
+                   : t`Like`}
               </span>
             </MenuItem>
             {supports('@mastodon/post-bookmark') && (
@@ -928,10 +933,17 @@ function Status({
           </div>
         </>
       )}
-      {!isSizeLarge && sameInstance && (isSizeLarge || showActionsBar) && (
-        <MenuDivider />
-      )}
-      {(isSizeLarge || showActionsBar) && (
+      {!isSizeLarge &&
+        sameInstance &&
+        (
+          isSizeLarge || showActionsBar
+        ) &&
+        (
+          <MenuDivider />
+        )}
+      {(
+        isSizeLarge || showActionsBar
+      ) && (
         <>
           <MenuItem
             onClick={() => {
@@ -953,11 +965,13 @@ function Status({
       )}
       {!mediaFirst && (
         <>
-          {(enableTranslate || !language || differentLanguage) && (
+          {(
+            enableTranslate || !language || differentLanguage
+          ) && (
             <MenuDivider />
           )}
           {enableTranslate ? (
-            <div class={supportsTTS ? 'menu-horizontal' : ''}>
+            <div className={supportsTTS ? 'menu-horizontal' : ''}>
               <MenuItem
                 disabled={forceTranslate}
                 onClick={() => {
@@ -973,7 +987,7 @@ function Status({
                 <MenuItem
                   onClick={() => {
                     const postText = getPostText(status);
-                    if (postText) {
+                    if(postText) {
                       speak(postText, language);
                     }
                   }}
@@ -986,62 +1000,46 @@ function Status({
               )}
             </div>
           ) : (
-            (!language || differentLanguage) && (
-              <div class={supportsTTS ? 'menu-horizontal' : ''}>
-                <MenuLink
-                  to={`${instance ? `/${instance}` : ''}/s/${id}?translate=1`}
-                >
-                  <Icon icon="translate" />
-                  <span>
+             (
+               !language || differentLanguage
+             ) && (
+               <div className={supportsTTS ? 'menu-horizontal' : ''}>
+                 <MenuLink
+                   to={`${instance ? `/${instance}` : ''}/s/${id}?translate=1`}
+                 >
+                   <Icon icon="translate" />
+                   <span>
                     <Trans>Translate</Trans>
                   </span>
-                </MenuLink>
-                {supportsTTS && (
-                  <MenuItem
-                    onClick={() => {
-                      const postText = getPostText(status);
-                      if (postText) {
-                        speak(postText, language);
-                      }
-                    }}
-                  >
-                    <Icon icon="speak" />
-                    <span>
+                 </MenuLink>
+                 {supportsTTS && (
+                   <MenuItem
+                     onClick={() => {
+                       const postText = getPostText(status);
+                       if(postText) {
+                         speak(postText, language);
+                       }
+                     }}
+                   >
+                     <Icon icon="speak" />
+                     <span>
                       <Trans>Speak</Trans>
                     </span>
-                  </MenuItem>
-                )}
-              </div>
-            )
-          )}
+                   </MenuItem>
+                 )}
+               </div>
+             )
+           )}
         </>
       )}
-      {((!isSizeLarge && sameInstance) ||
+      {(
+        (
+          !isSizeLarge && sameInstance
+        ) ||
         enableTranslate ||
         !language ||
-        differentLanguage) && <MenuDivider />}
-      {!isSizeLarge && (
-        <>
-          <MenuLink
-            to={instance ? `/${instance}/s/${id}` : `/s/${id}`}
-            onClick={(e) => {
-              onStatusLinkClick(e, status);
-            }}
-          >
-            <Icon icon="arrows-right" />
-            <small>
-              <Trans>
-                View post by{' '}
-                <span class="bidi-isolate">@{username || acct}</span>
-              </Trans>
-              <br />
-              <span class="more-insignificant">
-                {_(visibilityText[visibility])} • {createdDateText}
-              </span>
-            </small>
-          </MenuLink>
-        </>
-      )}
+        differentLanguage
+      ) && <MenuDivider />}
       {!!editedAt && (
         <>
           <MenuItem
@@ -1060,7 +1058,7 @@ function Status({
           </MenuItem>
         </>
       )}
-      <MenuItem href={url} target="_blank">
+      <MenuItem href={originalUrl} target="_blank">
         <Icon icon="external" />
         <small
           class="menu-double-lines"
@@ -1068,39 +1066,100 @@ function Status({
             maxWidth: '16em',
           }}
         >
-          {nicePostURL(url)}
+          {nicePostURL(originalUrl)}
         </small>
       </MenuItem>
-      <div class="menu-horizontal">
+      {isSizeLarge && (
+        <div className="menu-horizontal">
+          <MenuItem
+            onClick={() => {
+              // Copy url to clipboard
+              try {
+                navigator.clipboard.writeText(originalUrl);
+                showToast(t`Link copied`);
+              }
+              catch(e) {
+                console.error(e);
+                showToast(t`Unable to copy link`);
+              }
+            }}
+          >
+            <Icon icon="link" />
+            <span className="menu-double-lines" style={{ maxWidth: '16em' }}>
+              <Trans>Copy</Trans>
+              <small>
+                <br />
+                <Trans>Original</Trans>
+              </small>
+            </span>
+          </MenuItem>
+          {isPublic &&
+            navigator?.share &&
+            navigator?.canShare?.({
+              url: originalUrl,
+            }) && (
+              <MenuItem
+                onClick={() => {
+                  try {
+                    navigator.share({
+                      url: originalUrl,
+                    });
+                  }
+                  catch(e) {
+                    console.error(e);
+                    alert(t`Sharing doesn't seem to work.`);
+                  }
+                }}
+              >
+                <Icon icon="share" />
+                <span>
+                  <Trans>Share</Trans>
+                  <small>
+                    <br />
+                    <Trans>Original</Trans>
+                  </small>
+                </span>
+              </MenuItem>
+            )}
+        </div>
+      )}
+      {isSizeLarge && (
+        <div className="menu-horizontal">
         <MenuItem
           onClick={() => {
             // Copy url to clipboard
             try {
-              navigator.clipboard.writeText(url);
+              navigator.clipboard.writeText(junimoUrl);
               showToast(t`Link copied`);
-            } catch (e) {
+            }
+            catch(e) {
               console.error(e);
               showToast(t`Unable to copy link`);
             }
           }}
         >
           <Icon icon="link" />
-          <span>
+          <span className="menu-double-lines" style={{maxWidth: '16em'}}>
             <Trans>Copy</Trans>
+            <small>
+              <br />
+              <Trans>AkkomaFE</Trans>
+            </small>
           </span>
         </MenuItem>
         {isPublic &&
           navigator?.share &&
           navigator?.canShare?.({
-            url,
+            url: junimoUrl,
           }) && (
             <MenuItem
               onClick={() => {
                 try {
                   navigator.share({
-                    url,
+                    url: junimoUrl,
                   });
-                } catch (e) {
+                }
+                catch(e) {
                   console.error(e);
                   alert(t`Sharing doesn't seem to work.`);
                 }
@@ -1108,7 +1167,68 @@ function Status({
             >
               <Icon icon="share" />
               <span>
-                <Trans>Share…</Trans>
+                <Trans>Share</Trans>
+                <small>
+                  <br />
+                  <Trans>AkkomaFE</Trans>
+                </small>
+              </span>
+            </MenuItem>
+          )}
+        </div>
+      )}
+      <div className="menu-horizontal">
+        <MenuItem
+          onClick={() => {
+            // Copy url to clipboard
+            try {
+              navigator.clipboard.writeText(phanpyUrl);
+              showToast(t`Link copied`);
+            }
+            catch(e) {
+              console.error(e);
+              showToast(t`Unable to copy link`);
+            }
+          }}
+        >
+          <Icon icon="link" />
+          <span className="menu-double-lines" style={{ maxWidth: '16em' }}>
+            <Trans>Copy</Trans>
+            {isSizeLarge &&
+              <small>
+                <br />
+                <Trans>Phanpy</Trans>
+              </small>
+            }
+          </span>
+        </MenuItem>
+        {isPublic &&
+          navigator?.share &&
+          navigator?.canShare?.({
+            url: phanpyUrl,
+          }) && (
+            <MenuItem
+              onClick={() => {
+                try {
+                  navigator.share({
+                    url: phanpyUrl,
+                  });
+                }
+                catch(e) {
+                  console.error(e);
+                  alert(t`Sharing doesn't seem to work.`);
+                }
+              }}
+            >
+              <Icon icon="share" />
+              <span>
+                <Trans>Share</Trans>
+                {isSizeLarge &&
+                  <small>
+                    <br />
+                    <Trans>Phanpy</Trans>
+                  </small>
+                }
               </span>
             </MenuItem>
           )}
@@ -1125,24 +1245,29 @@ function Status({
           </span>
         </MenuItem>
       )}
-      {(isSelf || mentionSelf) && <MenuDivider />}
-      {(isSelf || mentionSelf) && (
+      {(
+        isSelf || mentionSelf
+      ) && <MenuDivider />}
+      {(
+        isSelf || mentionSelf
+      ) && (
         <MenuItem
           onClick={async () => {
             try {
               const newStatus = await masto.v1.statuses
-                .$select(id)
+                                           .$select(id)
                 [muted ? 'unmute' : 'mute']();
               saveStatus(newStatus, instance);
               showToast(
                 muted ? t`Conversation unmuted` : t`Conversation muted`,
               );
-            } catch (e) {
+            }
+            catch(e) {
               console.error(e);
               showToast(
                 muted
-                  ? t`Unable to unmute conversation`
-                  : t`Unable to mute conversation`,
+                ? t`Unable to unmute conversation`
+                : t`Unable to mute conversation`,
               );
             }
           }}
@@ -1155,29 +1280,30 @@ function Status({
               </span>
             </>
           ) : (
-            <>
-              <Icon icon="mute" />
-              <span>
+             <>
+               <Icon icon="mute" />
+               <span>
                 <Trans>Mute conversation</Trans>
               </span>
-            </>
-          )}
+             </>
+           )}
         </MenuItem>
       )}
-      {isSelf && isPinnable && (
+      {isSelf && isPinnable && isSizeLarge && (
         <MenuItem
           onClick={async () => {
             try {
               const newStatus = await masto.v1.statuses
-                .$select(id)
+                                           .$select(id)
                 [pinned ? 'unpin' : 'pin']();
               saveStatus(newStatus, instance);
               showToast(
                 pinned
-                  ? t`Post unpinned from profile`
-                  : t`Post pinned to profile`,
+                ? t`Post unpinned from profile`
+                : t`Post pinned to profile`,
               );
-            } catch (e) {
+            }
+            catch(e) {
               console.error(e);
               showToast(
                 pinned ? t`Unable to unpin post` : t`Unable to pin post`,
@@ -1193,17 +1319,17 @@ function Status({
               </span>
             </>
           ) : (
-            <>
-              <Icon icon="pin" />
-              <span>
+             <>
+               <Icon icon="pin" />
+               <span>
                 <Trans>Pin to profile</Trans>
               </span>
-            </>
-          )}
+             </>
+           )}
         </MenuItem>
       )}
       {isSelf && (
-        <div class="menu-horizontal">
+        <div className="menu-horizontal">
           {supports('@mastodon/post-edit') && (
             <MenuItem
               onClick={() => {
@@ -1218,41 +1344,42 @@ function Status({
               </span>
             </MenuItem>
           )}
-          {isSizeLarge && (
-            <MenuConfirm
-              subMenu
-              confirmLabel={
-                <>
-                  <Icon icon="trash" />
-                  <span>
-                    <Trans>Delete this post?</Trans>
-                  </span>
-                </>
-              }
-              menuItemClassName="danger"
-              onClick={() => {
-                // const yes = confirm('Delete this post?');
-                // if (yes) {
-                (async () => {
+          <MenuConfirm
+            subMenu
+            confirmLabel={
+              <>
+                <Icon icon="trash" />
+                <span>
+                  <Trans>Delete this post?</Trans>
+                </span>
+              </>
+            }
+            menuItemClassName="danger"
+            onClick={() => {
+              // const yes = confirm('Delete this post?');
+              // if (yes) {
+              (
+                async () => {
                   try {
                     await masto.v1.statuses.$select(id).remove();
                     const cachedStatus = getStatus(id, instance);
                     cachedStatus._deleted = true;
                     showToast(t`Post deleted`);
-                  } catch (e) {
+                  }
+                  catch(e) {
                     console.error(e);
                     showToast(t`Unable to delete post`);
                   }
-                })();
-                // }
-              }}
-            >
-              <Icon icon="trash" />
-              <span>
-                <Trans>Delete…</Trans>
-              </span>
-            </MenuConfirm>
-          )}
+                }
+              )();
+              // }
+            }}
+          >
+            <Icon icon="trash" />
+            <span>
+              <Trans>Delete…</Trans>
+            </span>
+          </MenuConfirm>
         </div>
       )}
       {!isSelf && isSizeLarge && (
@@ -1276,36 +1403,42 @@ function Status({
       )}
     </>
   );
-
+  
   const contextMenuRef = useRef();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const [contextMenuProps, setContextMenuProps] = useState({});
-
+  
   const showContextMenu =
-    allowContextMenu || (!isSizeLarge && !previewMode && !_deleted && !quoted);
-
+    allowContextMenu ||
+    (
+      !isSizeLarge && !previewMode && !_deleted && !quoted
+    );
+  
   // Only iOS/iPadOS browsers don't support contextmenu
   // Some comments report iPadOS might support contextmenu if a mouse is connected
   const bindLongPressContext = useLongPress(
     isIOS && showContextMenu
-      ? (e) => {
-          if (e.pointerType === 'mouse') return;
-          // There's 'pen' too, but not sure if contextmenu event would trigger from a pen
-
-          const { clientX, clientY } = e.touches?.[0] || e;
-          // link detection copied from onContextMenu because here it works
-          const link = e.target.closest('a');
-          if (
-            link &&
-            statusRef.current.contains(link) &&
-            !link.getAttribute('href').startsWith('#')
-          )
-            return;
-          e.preventDefault();
-          setContextMenuProps({
-            anchorPoint: {
-              x: clientX,
-              y: clientY,
+    ? (e) => {
+      if(e.pointerType === 'mouse') {
+        return;
+      }
+      // There's 'pen' too, but not sure if contextmenu event would trigger from a pen
+      
+      const { clientX, clientY } = e.touches?.[0] || e;
+      // link detection copied from onContextMenu because here it works
+      const link = e.target.closest('a');
+      if(
+        link &&
+        statusRef.current.contains(link) &&
+        !link.getAttribute('href').startsWith('#')
+      ) {
+        return;
+      }
+      e.preventDefault();
+      setContextMenuProps({
+        anchorPoint: {
+          x: clientX,
+          y: clientY,
             },
             direction: 'right',
           });
@@ -1719,7 +1852,7 @@ function Status({
                 <span class="status-deleted-tag">
                   <Trans>Deleted</Trans>
                 </span>
-              ) : url && !previewMode && !readOnly && !quoted ? (
+              ) : originalUrl && !previewMode && !readOnly && !quoted ? (
                 <Link
                   to={instance ? `/${instance}/s/${id}` : `/s/${id}`}
                   onClick={(e) => {
@@ -2178,7 +2311,7 @@ function Status({
                       alt={visibilityText[visibility]}
                     /> */}
                     <span>{_(visibilityText[visibility])}</span> &bull;{' '}
-                    <a href={url} target="_blank" rel="noopener noreferrer">
+                    <a href={originalUrl} target="_blank" rel="noopener noreferrer">
                       <time
                         class="created"
                         datetime={createdAtDate.toISOString()}
@@ -2300,7 +2433,7 @@ function Status({
                       onClick={() => {
                         showCompose({
                           draftStatus: {
-                            status: `\n${url}`,
+                            status: `\n${originalUrl}`,
                           },
                         });
                       }}
