@@ -1094,16 +1094,19 @@ function Status({
         </small>
       </MenuItem>
       {isPublic && isSizeLarge && (
-        <MenuItem
-          onClick={() => {
-            setShowEmbed(true);
-          }}
-        >
-          <Icon icon="code" />
-          <span>
-            <Trans>Embed post</Trans>
-          </span>
-        </MenuItem>
+        <>
+          <MenuDivider />
+          <MenuItem
+            onClick={() => {
+              setShowEmbed(true);
+            }}
+          >
+            <Icon icon="code" />
+            <span>
+              <Trans>Embed post</Trans>
+            </span>
+          </MenuItem>
+        </>
       )}
       {(
         isSelf || mentionSelf
