@@ -2857,7 +2857,7 @@ ul.link-list li a .icon {
     margin-top: 24px;
   }
   .timeline:not(.flat) > li {
-    --item-radius: 16px;
+    --item-radius: 8px;
     border: 1px solid var(--divider-color);
     margin: 16px 0;
     background-color: var(--bg-color);
@@ -2876,12 +2876,6 @@ ul.link-list li a .icon {
   }
   .timeline:not(.flat) > li:not(:has(.status-carousel)) {
     transform: translate3d(0, 0, 0);
-  }
-  .timeline:not(.flat)
-    > li:not(.timeline-item-container-end, .timeline-item-container-middle):has(
-      .status-badge:not(:empty)
-    ) {
-    border-start-end-radius: 8px;
   }
   .timeline:not(.flat) > li:has(.status-link.is-active) {
     transition: var(--back-transition);
