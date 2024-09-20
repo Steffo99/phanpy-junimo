@@ -1057,8 +1057,33 @@ function Status({
           </MenuItem>
         </>
       )}
+      {!!editedAt && (
+        <MenuDivider />
+      )}
+      <MenuItem href={phanpyUrl}>
+        <Icon icon="layout5" />
+        <small
+          class="menu-double-lines"
+          style={{
+            maxWidth: '16em',
+          }}
+        >
+          {nicePostURL(phanpyUrl)}
+        </small>
+      </MenuItem>
+      <MenuItem href={junimoUrl} target="_blank">
+        <Icon icon="building" />
+        <small
+          class="menu-double-lines"
+          style={{
+            maxWidth: '16em',
+          }}
+        >
+          {nicePostURL(junimoUrl)}
+        </small>
+      </MenuItem>
       <MenuItem href={originalUrl} target="_blank">
-        <Icon icon="external" />
+        <Icon icon="earth" />
         <small
           class="menu-double-lines"
           style={{
@@ -1068,170 +1093,6 @@ function Status({
           {nicePostURL(originalUrl)}
         </small>
       </MenuItem>
-      {isSizeLarge && (
-        <div className="menu-horizontal">
-          <MenuItem
-            onClick={() => {
-              // Copy url to clipboard
-              try {
-                navigator.clipboard.writeText(originalUrl);
-                showToast(t`Link copied`);
-              }
-              catch(e) {
-                console.error(e);
-                showToast(t`Unable to copy link`);
-              }
-            }}
-          >
-            <Icon icon="link" />
-            <span className="menu-double-lines" style={{ maxWidth: '16em' }}>
-              <Trans>Copy</Trans>
-              <small>
-                <br />
-                <Trans>Original</Trans>
-              </small>
-            </span>
-          </MenuItem>
-          {isPublic &&
-            navigator?.share &&
-            navigator?.canShare?.({
-              url: originalUrl,
-            }) && (
-              <MenuItem
-                onClick={() => {
-                  try {
-                    navigator.share({
-                      url: originalUrl,
-                    });
-                  }
-                  catch(e) {
-                    console.error(e);
-                    alert(t`Sharing doesn't seem to work.`);
-                  }
-                }}
-              >
-                <Icon icon="share" />
-                <span>
-                  <Trans>Share</Trans>
-                  <small>
-                    <br />
-                    <Trans>Original</Trans>
-                  </small>
-                </span>
-              </MenuItem>
-            )}
-        </div>
-      )}
-      {isSizeLarge && (
-        <div className="menu-horizontal">
-        <MenuItem
-          onClick={() => {
-            // Copy url to clipboard
-            try {
-              navigator.clipboard.writeText(junimoUrl);
-              showToast(t`Link copied`);
-            }
-            catch(e) {
-              console.error(e);
-              showToast(t`Unable to copy link`);
-            }
-          }}
-        >
-          <Icon icon="link" />
-          <span className="menu-double-lines" style={{maxWidth: '16em'}}>
-            <Trans>Copy</Trans>
-            <small>
-              <br />
-              <Trans>AkkomaFE</Trans>
-            </small>
-          </span>
-        </MenuItem>
-        {isPublic &&
-          navigator?.share &&
-          navigator?.canShare?.({
-            url: junimoUrl,
-          }) && (
-            <MenuItem
-              onClick={() => {
-                try {
-                  navigator.share({
-                    url: junimoUrl,
-                  });
-                }
-                catch(e) {
-                  console.error(e);
-                  alert(t`Sharing doesn't seem to work.`);
-                }
-              }}
-            >
-              <Icon icon="share" />
-              <span>
-                <Trans>Share</Trans>
-                <small>
-                  <br />
-                  <Trans>AkkomaFE</Trans>
-                </small>
-              </span>
-            </MenuItem>
-          )}
-        </div>
-      )}
-      <div className="menu-horizontal">
-        <MenuItem
-          onClick={() => {
-            // Copy url to clipboard
-            try {
-              navigator.clipboard.writeText(phanpyUrl);
-              showToast(t`Link copied`);
-            }
-            catch(e) {
-              console.error(e);
-              showToast(t`Unable to copy link`);
-            }
-          }}
-        >
-          <Icon icon="link" />
-          <span className="menu-double-lines" style={{ maxWidth: '16em' }}>
-            <Trans>Copy</Trans>
-            {isSizeLarge &&
-              <small>
-                <br />
-                <Trans>Phanpy</Trans>
-              </small>
-            }
-          </span>
-        </MenuItem>
-        {isPublic &&
-          navigator?.share &&
-          navigator?.canShare?.({
-            url: phanpyUrl,
-          }) && (
-            <MenuItem
-              onClick={() => {
-                try {
-                  navigator.share({
-                    url: phanpyUrl,
-                  });
-                }
-                catch(e) {
-                  console.error(e);
-                  alert(t`Sharing doesn't seem to work.`);
-                }
-              }}
-            >
-              <Icon icon="share" />
-              <span>
-                <Trans>Share</Trans>
-                {isSizeLarge &&
-                  <small>
-                    <br />
-                    <Trans>Phanpy</Trans>
-                  </small>
-                }
-              </span>
-            </MenuItem>
-          )}
-      </div>
       {isPublic && isSizeLarge && (
         <MenuItem
           onClick={() => {
@@ -3499,8 +3360,10 @@ function StatusButton({
 function nicePostURL(url) {
   if (!url) return;
   const urlObj = URL.parse(url);
-  const { host, pathname } = urlObj;
-  const path = pathname.replace(/\/$/, '');
+  const { host, pathname, hash } = urlObj;
+  const pathnameAndHash = pathname + hash
+  const path = pathnameAndHash.replace(/\/$/, '');
+  console.debug("Nice ", url)
   // split only first slash
   const [_, username, restPath] = path.match(/\/(@[^\/]+)\/(.*)/) || [];
   return (
