@@ -2789,24 +2789,32 @@ a.card:is(:hover, :focus):visited {
 }
 
 .status:has(> .status-badge > .bookmark):has(> .status-badge > .favourite),
+.status-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .favourite),
+.status-carousel-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .favourite),
 .status.large:has(.bookmark-button.checked):has(.favourite-button.checked) {
   --gradient-color-1: color-mix(in srgb, var(--blue-color) 15%, transparent);
   --gradient-color-3: color-mix(in srgb, var(--red-color) 15%, transparent);
 }
 
 .status:has(> .status-badge > .bookmark):has(> .status-badge > .reblog),
+.status-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .reblog),
+.status-carousel-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .reblog),
 .status.large:has(.bookmark-button.checked):has(.reblog-button.checked)  {
   --gradient-color-1: color-mix(in srgb, var(--purple-color) 15%, transparent);
   --gradient-color-3: color-mix(in srgb, var(--blue-color) 15%, transparent);
 }
 
 .status:has(> .status-badge > .favourite):has(> .status-badge > .reblog),
+.status-link:has(.status > .status-badge > .favourite):has(.status > .status-badge > .reblog),
+.status-carousel-link:has(.status > .status-badge > .favourite):has(.status > .status-badge > .reblog),
 .status.large:has(.favourite-button.checked):has(.reblog-button.checked) {
   --gradient-color-1: color-mix(in srgb, var(--purple-color) 15%, transparent);
   --gradient-color-3: color-mix(in srgb, var(--red-color) 15%, transparent);
 }
 
 .status:has(> .status-badge > .bookmark):has(> .status-badge > .favourite):has(> .status-badge > .reblog),
+.status-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .favourite):has(.status > .status-badge > .reblog),
+.status-carousel-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .favourite):has(.status > .status-badge > .reblog),
 .status.large:has(.bookmark-button.checked):has(.favourite-button.checked):has(.reblog-button.checked) {
   --gradient-color-1: color-mix(in srgb, var(--blue-color) 15%, transparent);
   --gradient-color-2: color-mix(in srgb, var(--purple-color) 15%, transparent);
