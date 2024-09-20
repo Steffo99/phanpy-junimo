@@ -2754,8 +2754,9 @@ a.card:is(:hover, :focus):visited {
   inherits: true;
 }
 
-.status {
-  transition-property: --gradient-color-1, --gradient-color-2, --gradient-color-3;
+.status,
+.status-link,
+.status-carousel-link {
   transition-delay: 0.25s;
   transition-duration: 0.25s;
   transition-timing-function: ease-out;
@@ -2767,22 +2768,44 @@ a.card:is(:hover, :focus):visited {
   background-image: var(--interaction-gradient);
 }
 
+.status {
+  transition-property: --gradient-color-1, --gradient-color-2, --gradient-color-3;
+}
+
+.status-link, .status-carousel-link {
+  transition-property: --gradient-color-1, --gradient-color-2, --gradient-color-3, background-color;
+  transition-delay: 0.25s, 0.25s, 0.25s, 0s;
+  transition-duration: 0.25s, 0.25s, 0.25s, 0.1s;
+  transition-timing-function: ease-out, ease-out, ease-out, ease-out;
+}
+
+.status-link .status,
+.status-carousel-link .status {
+  background-image: none;
+}
+
 .status.large,
 .status.large.visibility-direct {
   background-image: var(--interaction-gradient), var(--fade-in-out-bg);
 }
 
 .status:has(> .status-badge > .bookmark),
+.status-link:has(.status > .status-badge > .bookmark),
+.status-carousel-link:has(.status > .status-badge > .bookmark),
 .status.large:has(.bookmark-button.checked) {
   --gradient-color-1: color-mix(in srgb, var(--blue-color) 15%, transparent);
 }
 
 .status:has(> .status-badge > .favourite),
+.status-link:has(.status > .status-badge > .favourite),
+.status-carousel-link:has(.status > .status-badge > .favourite),
 .status.large:has(.favourite-button.checked) {
   --gradient-color-1: color-mix(in srgb, var(--red-color) 15%, transparent);
 }
 
 .status:has(> .status-badge > .reblog),
+.status-link:has(.status > .status-badge > .reblog),
+.status-carousel-link:has(.status > .status-badge > .reblog),
 .status.large:has(.reblog-button.checked) {
   --gradient-color-1: color-mix(in srgb, var(--purple-color) 15%, transparent);
 }
