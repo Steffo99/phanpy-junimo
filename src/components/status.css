@@ -2789,8 +2789,8 @@ a.card:is(:hover, :focus):visited {
 
 .status:has(> .status-badge > .bookmark):has(> .status-badge > .favourite),
 .status.large:has(.bookmark-button.checked):has(.favourite-button.checked) {
-  --gradient-color-1: color-mix(in srgb, var(--red-color) 15%, transparent);
-  --gradient-color-3: color-mix(in srgb, var(--blue-color) 15%, transparent);
+  --gradient-color-1: color-mix(in srgb, var(--blue-color) 15%, transparent);
+  --gradient-color-3: color-mix(in srgb, var(--red-color) 15%, transparent);
 }
 
 .status:has(> .status-badge > .bookmark):has(> .status-badge > .reblog),
