@@ -1275,7 +1275,7 @@ function RelatedActions({
                 }
               }}
             >
-              <Icon icon="at" />
+              <Icon icon="fingerprint" />
               <span
                 class="menu-double-lines"
                 style={{
@@ -1284,7 +1284,7 @@ function RelatedActions({
               >
                 <Trans>Handle</Trans>
                 <br />
-                <small class="more-insignificant bidi-isolate">
+                <small class="bidi-isolate">
                   @{acctWithInstance}
                 </small>
               </span>
