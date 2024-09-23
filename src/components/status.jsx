@@ -302,6 +302,7 @@ function Status({
   
   const junimoUrl = `https://junimo.party/notice/${statusID}`
   const phanpyUrl = `${window.location.origin}/#${instance ? `/${instance}/s/${id}` : `/s/${id}`}?view=full`
+  const isLocal = originalUrl === junimoUrl
 
   const [languageAutoDetected, setLanguageAutoDetected] = useState(null);
   useEffect(() => {
@@ -1063,37 +1064,57 @@ function Status({
       )}
       <MenuItem href={phanpyUrl}>
         <Icon icon="layout5" />
-        <small
+        <span
           class="menu-double-lines"
           style={{
             maxWidth: '16em',
           }}
         >
-          {nicePostURL(phanpyUrl)}
-        </small>
+          <span>
+            <Trans>Full view</Trans>
+          </span>
+          <br/>
+          <small>
+            {nicePostURL(phanpyUrl)}
+          </small>
+        </span>
       </MenuItem>
       <MenuItem href={junimoUrl} target="_blank">
         <Icon icon="building" />
-        <small
+        <span
           class="menu-double-lines"
           style={{
             maxWidth: '16em',
           }}
         >
-          {nicePostURL(junimoUrl)}
-        </small>
+          <span>
+            <Trans>On your server</Trans>
+          </span>
+          <br />
+          <small>
+            {nicePostURL(junimoUrl)}
+          </small>
+        </span>
       </MenuItem>
-      <MenuItem href={originalUrl} target="_blank">
-        <Icon icon="earth" />
-        <small
-          class="menu-double-lines"
-          style={{
-            maxWidth: '16em',
-          }}
-        >
-          {nicePostURL(originalUrl)}
-        </small>
-      </MenuItem>
+      {!isLocal && (
+        <MenuItem href={originalUrl} target="_blank">
+          <Icon icon="earth" />
+          <span
+            class="menu-double-lines"
+            style={{
+              maxWidth: '16em',
+            }}
+          >
+            <span>
+              <Trans>On the original server</Trans>
+            </span>
+            <br />
+            <small>
+              {nicePostURL(originalUrl)}
+            </small>
+          </span>
+        </MenuItem>
+      )}
       {isPublic && isSizeLarge && (
         <>
           <MenuDivider />
@@ -1153,7 +1174,7 @@ function Status({
            )}
         </MenuItem>
       )}
-      {isSelf && isPinnable && isSizeLarge && (
+      {isSelf && isPinnable && (
         <MenuItem
           onClick={async () => {
             try {
@@ -1246,7 +1267,7 @@ function Status({
           </MenuConfirm>
         </div>
       )}
-      {!isSelf && isSizeLarge && (
+      {!isSelf && (
         <>
           <MenuDivider />
           <MenuItem
@@ -3367,7 +3388,6 @@ function nicePostURL(url) {
   const { host, pathname, hash } = urlObj;
   const pathnameAndHash = pathname + hash
   const path = pathnameAndHash.replace(/\/$/, '');
-  console.debug("Nice ", url)
   // split only first slash
   const [_, username, restPath] = path.match(/\/(@[^\/]+)\/(.*)/) || [];
   return (
