@@ -186,7 +186,7 @@ function AccountInfo({
     locked,
     note,
     statusesCount,
-    url,
+    url: originalUrl,
     username,
     memorial,
     moved,
@@ -234,10 +234,10 @@ function AccountInfo({
   }, [isSelf, info, instance]);
 
   const accountInstance = useMemo(() => {
-    if (!url) return null;
-    const domain = punycode.toUnicode(URL.parse(url).hostname);
+    if (!originalUrl) return null;
+    const domain = punycode.toUnicode(URL.parse(originalUrl).hostname);
     return domain;
-  }, [url]);
+  }, [originalUrl]);
 
   const [headerCornerColors, setHeaderCornerColors] = useState([]);
 
@@ -378,7 +378,7 @@ function AccountInfo({
           </p>
           <p>
             <a
-              href={isString ? account : url}
+              href={isString ? account : originalUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -591,12 +591,6 @@ function AccountInfo({
                     <Icon icon="link" />
                     <span>
                       <Trans>Copy handle</Trans>
-                    </span>
-                  </MenuItem>
-                  <MenuItem href={url} target="_blank">
-                    <Icon icon="external" />
-                    <span>
-                      <Trans>Go to original profile page</Trans>
                     </span>
                   </MenuItem>
                   <MenuDivider />
@@ -947,9 +941,13 @@ function RelatedActions({
   const [relationshipUIState, setRelationshipUIState] = useState('default');
   const [relationship, setRelationship] = useState(null);
 
-  const { id, acct, url, username, locked, lastStatusAt, note, fields, moved } =
+  const { id, acct, url: originalUrl, username, locked, lastStatusAt, note, fields, moved } =
     info;
   const accountID = useRef(id);
+  
+  const junimoUrl = `https://junimo.party/users/${username}`
+  const phanpyUrl = `${window.location.origin}/#${currentInstance ? `/${currentInstance}/a/${username}` : `/a/${username}`}`
+  const isLocal = originalUrl === junimoUrl
 
   const {
     following,
@@ -1267,7 +1265,7 @@ function RelatedActions({
             )}
             <MenuItem
               onClick={() => {
-                const handle = `@${currentInfo?.acct || acctWithInstance}`;
+                const handle = `@${acctWithInstance}`;
                 try {
                   navigator.clipboard.writeText(handle);
                   showToast(t`Handle copied`);
@@ -1277,60 +1275,82 @@ function RelatedActions({
                 }
               }}
             >
-              <Icon icon="copy" />
-              <small>
-                <Trans>Copy handle</Trans>
-                <br />
-                <span class="more-insignificant bidi-isolate">
-                  @{currentInfo?.acct || acctWithInstance}
-                </span>
-              </small>
-            </MenuItem>
-            <MenuItem href={url} target="_blank">
-              <Icon icon="external" />
-              <small class="menu-double-lines">{niceAccountURL(url)}</small>
-            </MenuItem>
-            <div class="menu-horizontal">
-              <MenuItem
-                onClick={() => {
-                  // Copy url to clipboard
-                  try {
-                    navigator.clipboard.writeText(url);
-                    showToast(t`Link copied`);
-                  } catch (e) {
-                    console.error(e);
-                    showToast(t`Unable to copy link`);
-                  }
+              <Icon icon="at" />
+              <span
+                class="menu-double-lines"
+                style={{
+                  maxWidth: '16em',
                 }}
               >
-                <Icon icon="link" />
+                <Trans>Handle</Trans>
+                <br />
+                <small class="more-insignificant bidi-isolate">
+                  @{acctWithInstance}
+                </small>
+              </span>
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                try {
+                  navigator.clipboard.writeText(phanpyUrl);
+                  showToast(t`Permalink copied`);
+                } catch (e) {
+                  console.error(e);
+                  showToast(t`Unable to copy permalink`);
+                }
+              }}>
+              <Icon icon="layout5" />
+              <span
+                class="menu-double-lines"
+                style={{
+                  maxWidth: '16em',
+                }}
+              >
                 <span>
-                  <Trans>Copy</Trans>
+                  <Trans>Permalink</Trans>
+                </span>
+                <br/>
+                <small>
+                  {niceAccountURL(phanpyUrl)}
+                </small>
+              </span>
+            </MenuItem>
+            <MenuItem href={junimoUrl} target="_blank">
+              <Icon icon="building" />
+              <span
+                class="menu-double-lines"
+                style={{
+                  maxWidth: '16em',
+                }}
+              >
+                <span>
+                  <Trans>On your server</Trans>
+                </span>
+                <br />
+                <small>
+                  {niceAccountURL(junimoUrl)}
+                </small>
+              </span>
+            </MenuItem>
+            {!isLocal && (
+              <MenuItem href={originalUrl} target="_blank">
+                <Icon icon="earth" />
+                <span
+                  class="menu-double-lines"
+                  style={{
+                    maxWidth: '16em',
+                  }}
+                >
+                  <span>
+                    <Trans>On the original server</Trans>
+                  </span>
+                  <br />
+                  <small>
+                    {niceAccountURL(originalUrl)}
+                  </small>
                 </span>
               </MenuItem>
-              {navigator?.share &&
-                navigator?.canShare?.({
-                  url,
-                }) && (
-                  <MenuItem
-                    onClick={() => {
-                      try {
-                        navigator.share({
-                          url,
-                        });
-                      } catch (e) {
-                        console.error(e);
-                        alert(t`Sharing doesn't seem to work.`);
-                      }
-                    }}
-                  >
-                    <Icon icon="share" />
-                    <span>
-                      <Trans>Share…</Trans>
-                    </span>
-                  </MenuItem>
-                )}
-            </div>
+            )}
             {!!relationship && (
               <>
                 <MenuDivider />
@@ -1776,13 +1796,23 @@ function lightenRGB([r, g, b]) {
 function niceAccountURL(url) {
   if (!url) return;
   const urlObj = URL.parse(url);
-  const { host, pathname } = urlObj;
-  const path = pathname.replace(/\/$/, '').replace(/^\//, '');
+  const { host, pathname, hash } = urlObj;
+  const pathnameAndHash = pathname + hash
+  const path = pathnameAndHash.replace(/\/$/, '');
+  // split only first slash
+  const [_, username, restPath] = path.match(/\/(@[^\/]+)\/(.*)/) || [];
   return (
     <>
-      <span class="more-insignificant">{punycode.toUnicode(host)}/</span>
-      <wbr />
-      <span>{path}</span>
+      {punycode.toUnicode(host)}
+      {username ? (
+        <>
+          /{username}
+          <wbr />
+          <span class="more-insignificant">/{restPath}</span>
+        </>
+      ) : (
+         <span class="more-insignificant">{path}</span>
+       )}
     </>
   );
 }

@@ -3387,7 +3387,6 @@ function nicePostURL(url) {
   const { host, pathname, hash } = urlObj;
   const pathnameAndHash = pathname + hash
   const path = pathnameAndHash.replace(/\/$/, '');
-  console.debug("Nice ", url)
   // split only first slash
   const [_, username, restPath] = path.match(/\/(@[^\/]+)\/(.*)/) || [];
   return (
