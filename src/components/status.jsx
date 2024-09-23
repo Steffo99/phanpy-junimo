@@ -1909,7 +1909,7 @@ function Status({
                 {(!!spoilerText || !!sensitive) && !readingExpandSpoilers && (
                   <>
                     <button
-                      class={`light spoiler-button media-first-spoiler-button ${
+                      class={`plain spoiler-button media-first-spoiler-button ${
                         showSpoiler ? 'spoiling' : ''
                       }`}
                       lang={language}
