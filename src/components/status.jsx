@@ -1964,7 +1964,7 @@ function Status({
                       </div>
                     ) : (
                       <button
-                        class={`light spoiler-button ${
+                        class={`plain spoiler-button ${
                           showSpoiler ? 'spoiling' : ''
                         }`}
                         type="button"
