@@ -3188,7 +3188,7 @@ function CustomEmojisModal({
               Object.entries(customEmojisCatList).map(
                 ([category, emojis]) =>
                   !!emojis?.length && (
-                    <>
+                    <div class="section-container">
                       <div class="section-header">
                         {{
                           '--recent--': t`Recently used`,
@@ -3199,7 +3199,7 @@ function CustomEmojisModal({
                         emojis={emojis}
                         onSelect={onSelectEmoji}
                       />
-                    </>
+                    </div>
                   ),
               )}
           </div>

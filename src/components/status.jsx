@@ -2171,6 +2171,9 @@ function Status({
                       selfReferential={
                         card?.url === status.url || card?.url === status.uri
                       }
+                      selfAuthor={card?.authors?.some(
+                        (a) => a.account?.url === accountURL,
+                      )}
                       instance={currentInstance}
                     />
                   )}
@@ -2583,7 +2586,8 @@ function isCardPost(domain) {
   return ['x.com', 'twitter.com', 'threads.net', 'bsky.app'].includes(domain);
 }
 
-function Byline({ authors, children }) {
+function Byline({ authors, hidden, children }) {
+  if (hidden) return children;
   if (!authors?.[0]?.account?.id) return children;
   const author = authors[0].account;
 
@@ -2602,7 +2606,7 @@ function Byline({ authors, children }) {
   );
 }
 
-function Card({ card, selfReferential, instance }) {
+function Card({ card, selfReferential, selfAuthor, instance }) {
   const snapStates = useSnapshot(states);
   const {
     blurhash,
@@ -2716,7 +2720,7 @@ function Card({ card, selfReferential, instance }) {
     const isPost = isCardPost(domain);
 
     return (
-      <Byline authors={authors}>
+      <Byline hidden={!!selfAuthor} authors={authors}>
         <a
           href={cardStatusURL || url}
           target={cardStatusURL ? null : '_blank'}
