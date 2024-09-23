@@ -609,8 +609,7 @@ function Compose({
           const file = item.getAsFile();
           if (supportedMimeTypes !== undefined && !supportedMimeTypes.includes(file.type)) {
             unsupportedFiles.push(file);
-          }
-          else {
+          } else {
             files.push(file);
           }
         }
@@ -1426,7 +1425,7 @@ function Compose({
                   class="toolbar-button gif-picker-button"
                   disabled={
                     uiState === 'loading' ||
-                    !(mediaAttachments.length < maxMediaAttachments) ||
+                    (maxMediaAttachments !== undefined && mediaAttachments.length >= maxMediaAttachments) ||
                     !!poll
                   }
                   onClick={() => {
