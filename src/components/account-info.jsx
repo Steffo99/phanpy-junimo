@@ -1266,6 +1266,8 @@ function RelatedActions({
                 <MenuDivider />
               </>
             )}
+            
+            {/* Handle */}
             <MenuItem
               onClick={() => {
                 const handle = `@${acctWithInstance}`;
@@ -1292,6 +1294,8 @@ function RelatedActions({
                 </small>
               </span>
             </MenuItem>
+            
+            {/* Phanpy */}
             <MenuItem
               onClick={() => {
                 try {
@@ -1310,7 +1314,7 @@ function RelatedActions({
                 }}
               >
                 <span>
-                  <Trans>Permalink</Trans>
+                  <Trans>This page</Trans>
                 </span>
                 <br/>
                 <small>
