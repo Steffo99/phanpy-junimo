@@ -31,17 +31,6 @@ function _enhanceContent(content, opts = {}) {
     });
   }
 
-  // Add 'has-url-text' to all links that contains a url
-  if (hasLink) {
-    const links = dom.querySelectorAll('a[href]');
-    links.forEach((link) => {
-      if (/^https?:\/\//i.test(link.textContent.trim())) {
-        link.classList.add('has-url-text');
-        shortenLink(link);
-      }
-    });
-  }
-
   // Spanify un-spanned mentions
   if (hasLink) {
     const links = dom.querySelectorAll('a[href]');
@@ -288,6 +277,17 @@ function _enhanceContent(content, opts = {}) {
         p.title = p.innerText;
       });
     }
+  }
+  
+  // Add 'has-url-text' to all links that contains a url
+  if (hasLink) {
+    const links = dom.querySelectorAll('a[href]');
+    links.forEach((link) => {
+      if (/^https?:\/\//i.test(link.textContent.trim())) {
+        link.classList.add('has-url-text');
+        shortenLink(link);
+      }
+    });
   }
 
   // ADD ASPECT RATIO TO ALL IMAGES
