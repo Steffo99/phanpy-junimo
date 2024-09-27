@@ -970,6 +970,7 @@ function RelatedActions({
   const [isSelf, setIsSelf] = useState(false);
 
   const acctWithInstance = acct.includes('@') ? acct : `${acct}@${instance}`;
+  const [acctWithoutInstance, acctInstance] = acct.split("@");
 
   useEffect(() => {
     if (info) {
@@ -1287,7 +1288,7 @@ function RelatedActions({
                 <Trans>Handle</Trans>
                 <br />
                 <small class="bidi-isolate">
-                  @{acctWithInstance}
+                  <span>@{acctWithoutInstance}</span><span class={"more-insignificant"}>@{acctInstance}</span>
                 </small>
               </span>
             </MenuItem>
