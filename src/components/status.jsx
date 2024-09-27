@@ -299,7 +299,7 @@ function Status({
     emojiReactions,
   } = status;
   
-  const junimoUrl = `https://junimo.party/notice/${statusID}`
+  const junimoUrl = `https://junimo.party/notice/${id}`
   const phanpyUrl = `${window.location.origin}/#${instance ? `/${instance}/s/${id}` : `/s/${id}`}?view=full`
   const isLocal = originalUrl === junimoUrl
 
@@ -1040,27 +1040,6 @@ function Status({
         !language ||
         differentLanguage
       ) && <MenuDivider />}
-      {!!editedAt && (
-        <>
-          <MenuItem
-            onClick={() => {
-              setShowEdited(id);
-            }}
-          >
-            <Icon icon="history" />
-            <small>
-              <Trans>Show Edit History</Trans>
-              <br />
-              <span class="more-insignificant">
-                <Trans>Edited: {editedDateText}</Trans>
-              </span>
-            </small>
-          </MenuItem>
-        </>
-      )}
-      {!!editedAt && (
-        <MenuDivider />
-      )}
       <MenuItem href={phanpyUrl}>
         <Icon icon="layout5" />
         <span
@@ -1114,7 +1093,7 @@ function Status({
           </span>
         </MenuItem>
       )}
-      {isPublic && isSizeLarge && (
+      {isPublic && (
         <>
           <MenuDivider />
           <MenuItem
@@ -1129,8 +1108,31 @@ function Status({
           </MenuItem>
         </>
       )}
+      {!!editedAt && (
+        <>
+          <MenuItem
+            onClick={() => {
+              setShowEdited(id);
+            }}
+          >
+            <Icon icon="history" />
+            <span
+              class="menu-double-lines"
+              style={{
+                maxWidth: '16em',
+              }}
+            >
+              <Trans>Show Edit History</Trans>
+              <br />
+              <small class="more-insignificant">
+                <Trans>Edited: {editedDateText}</Trans>
+              </small>
+            </span>
+          </MenuItem>
+        </>
+      )}
       {(
-        isSelf || mentionSelf
+        isSelf || mentionSelf || editedAt
       ) && <MenuDivider />}
       {(
         isSelf || mentionSelf
@@ -1268,7 +1270,6 @@ function Status({
       )}
       {!isSelf && (
         <>
-          <MenuDivider />
           <MenuItem
             className="danger"
             onClick={() => {
