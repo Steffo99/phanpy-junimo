@@ -940,13 +940,15 @@ function RelatedActions({
 
   const [relationshipUIState, setRelationshipUIState] = useState('default');
   const [relationship, setRelationship] = useState(null);
+  
+  console.debug("Account info:", info)
 
   const { id, acct, url: originalUrl, username, locked, lastStatusAt, note, fields, moved } =
     info;
   const accountID = useRef(id);
   
-  const junimoUrl = `https://junimo.party/users/${username}`
-  const phanpyUrl = `${window.location.origin}/#${currentInstance ? `/${currentInstance}/a/${username}` : `/a/${username}`}`
+  const junimoUrl = `https://junimo.party/users/${id}`
+  const phanpyUrl = `${window.location.origin}/#${currentInstance ? `/${currentInstance}/a/${id}` : `/a/${id}`}`
   const isLocal = originalUrl === junimoUrl
 
   const {
@@ -968,6 +970,7 @@ function RelatedActions({
   const [isSelf, setIsSelf] = useState(false);
 
   const acctWithInstance = acct.includes('@') ? acct : `${acct}@${instance}`;
+  const [acctWithoutInstance, acctInstance] = acct.split("@");
 
   useEffect(() => {
     if (info) {
@@ -1144,7 +1147,7 @@ function RelatedActions({
                   <Icon icon="at" />
                   <span>
                     <Trans>
-                      Mention <span class="bidi-isolate">@{username}</span>
+                      Mention
                     </Trans>
                   </span>
                 </MenuItem>
@@ -1158,111 +1161,11 @@ function RelatedActions({
                     <Trans>Translate bio</Trans>
                   </span>
                 </MenuItem>
-                {supports('@mastodon/profile-private-note') && (
-                  <MenuItem
-                    onClick={() => {
-                      setShowPrivateNoteModal(true);
-                    }}
-                  >
-                    <Icon icon="pencil" />
-                    <span>
-                      {privateNote ? t`Edit private note` : t`Add private note`}
-                    </span>
-                  </MenuItem>
-                )}
-                {following && !!relationship && (
-                  <>
-                    <MenuItem
-                      onClick={() => {
-                        setRelationshipUIState('loading');
-                        (async () => {
-                          try {
-                            const rel = await currentMasto.v1.accounts
-                              .$select(accountID.current)
-                              .follow({
-                                notify: !notifying,
-                              });
-                            if (rel) setRelationship(rel);
-                            setRelationshipUIState('default');
-                            showToast(
-                              rel.notifying
-                                ? t`Notifications enabled for @${username}'s posts.`
-                                : t` Notifications disabled for @${username}'s posts.`,
-                            );
-                          } catch (e) {
-                            alert(e);
-                            setRelationshipUIState('error');
-                          }
-                        })();
-                      }}
-                    >
-                      <Icon icon="notification" />
-                      <span>
-                        {notifying
-                          ? t`Disable notifications`
-                          : t`Enable notifications`}
-                      </span>
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        setRelationshipUIState('loading');
-                        (async () => {
-                          try {
-                            const rel = await currentMasto.v1.accounts
-                              .$select(accountID.current)
-                              .follow({
-                                reblogs: !showingReblogs,
-                              });
-                            if (rel) setRelationship(rel);
-                            setRelationshipUIState('default');
-                            showToast(
-                              rel.showingReblogs
-                                ? t`Boosts from @${username} enabled.`
-                                : t`Boosts from @${username} disabled.`,
-                            );
-                          } catch (e) {
-                            alert(e);
-                            setRelationshipUIState('error');
-                          }
-                        })();
-                      }}
-                    >
-                      <Icon icon="rocket" />
-                      <span>
-                        {showingReblogs ? t`Disable boosts` : t`Enable boosts`}
-                      </span>
-                    </MenuItem>
-                  </>
-                )}
-                {/* Add/remove from lists is only possible if following the account */}
-                {following && (
-                  <MenuItem
-                    onClick={() => {
-                      setShowAddRemoveLists(true);
-                    }}
-                  >
-                    <Icon icon="list" />
-                    {lists.length ? (
-                      <>
-                        <small class="menu-grow">
-                          <Trans>Add/Remove from Lists</Trans>
-                          <br />
-                          <span class="more-insignificant">
-                            {lists.map((list) => list.title).join(', ')}
-                          </span>
-                        </small>
-                        <small class="more-insignificant">{lists.length}</small>
-                      </>
-                    ) : (
-                      <span>
-                        <Trans>Add/Remove from Lists</Trans>
-                      </span>
-                    )}
-                  </MenuItem>
-                )}
                 <MenuDivider />
               </>
             )}
+            
+            {/* Handle */}
             <MenuItem
               onClick={() => {
                 const handle = `@${acctWithInstance}`;
@@ -1285,10 +1188,12 @@ function RelatedActions({
                 <Trans>Handle</Trans>
                 <br />
                 <small class="bidi-isolate">
-                  @{acctWithInstance}
+                  <span>@{acctWithoutInstance}</span><span class={"more-insignificant"}>@{acctInstance}</span>
                 </small>
               </span>
             </MenuItem>
+            
+            {/* Phanpy */}
             <MenuItem
               onClick={() => {
                 try {
@@ -1307,7 +1212,7 @@ function RelatedActions({
                 }}
               >
                 <span>
-                  <Trans>Permalink</Trans>
+                  <Trans>This page</Trans>
                 </span>
                 <br/>
                 <small>
@@ -1351,9 +1256,114 @@ function RelatedActions({
                 </span>
               </MenuItem>
             )}
+            {supports('@mastodon/profile-private-note') && (
+              <>
+                <MenuDivider />
+                <MenuItem
+                  onClick={() => {
+                    setShowPrivateNoteModal(true);
+                  }}
+                >
+                  <Icon icon="pencil" />
+                  <span>
+                        {privateNote ? t`Edit private note` : t`Add private note`}
+                      </span>
+                </MenuItem>
+              </>
+            )}
+            {/* Add/remove from lists is only possible if following the account */}
+            {following && (
+              <MenuItem
+                onClick={() => {
+                  setShowAddRemoveLists(true);
+                }}
+              >
+                <Icon icon="list" />
+                {lists.length ? (
+                  <>
+                    <small class="menu-grow">
+                      <Trans>Add/Remove from Lists</Trans>
+                      <br />
+                      <span class="more-insignificant">
+                            {lists.map((list) => list.title).join(', ')}
+                          </span>
+                    </small>
+                    <small class="more-insignificant">{lists.length}</small>
+                  </>
+                ) : (
+                   <span>
+                        <Trans>Add to list</Trans>
+                      </span>
+                 )}
+              </MenuItem>
+            )}
             {!!relationship && (
               <>
                 <MenuDivider />
+                {following && !!relationship && (
+                  <>
+                    <MenuItem
+                      onClick={() => {
+                        setRelationshipUIState('loading');
+                        (async () => {
+                          try {
+                            const rel = await currentMasto.v1.accounts
+                                                          .$select(accountID.current)
+                                                          .follow({
+                                                            notify: !notifying,
+                                                          });
+                            if (rel) setRelationship(rel);
+                            setRelationshipUIState('default');
+                            showToast(
+                              rel.notifying
+                              ? t`Notifications enabled for @${username}'s posts.`
+                              : t` Notifications disabled for @${username}'s posts.`,
+                            );
+                          } catch (e) {
+                            alert(e);
+                            setRelationshipUIState('error');
+                          }
+                        })();
+                      }}
+                    >
+                      <Icon icon="notification" />
+                      <span>
+                        {notifying
+                         ? t`Disable post notifications`
+                         : t`Enable post notifications`}
+                      </span>
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        setRelationshipUIState('loading');
+                        (async () => {
+                          try {
+                            const rel = await currentMasto.v1.accounts
+                                                          .$select(accountID.current)
+                                                          .follow({
+                                                            reblogs: !showingReblogs,
+                                                          });
+                            if (rel) setRelationship(rel);
+                            setRelationshipUIState('default');
+                            showToast(
+                              rel.showingReblogs
+                              ? t`Boosts from @${username} muted.`
+                              : t`Boosts from @${username} unmuted.`,
+                            );
+                          } catch (e) {
+                            alert(e);
+                            setRelationshipUIState('error');
+                          }
+                        })();
+                      }}
+                    >
+                      <Icon icon="rocket" />
+                      <span>
+                        {showingReblogs ? t`Mute boosts` : t`Unmute boosts`}
+                      </span>
+                    </MenuItem>
+                  </>
+                )}
                 {muting ? (
                   <MenuItem
                     onClick={() => {
@@ -1451,10 +1461,16 @@ function RelatedActions({
                     </div>
                   </SubMenu2>
                 )}
+                
+                <MenuDivider />
+
                 {followedBy && (
                   <MenuConfirm
                     subMenu
                     menuItemClassName="danger"
+                    itemProps={{
+                      className: 'danger',
+                    }}
                     confirmLabel={
                       <>
                         <Icon icon="user-x" />
