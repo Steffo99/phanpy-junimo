@@ -191,6 +191,30 @@ function _enhanceContent(content, opts = {}) {
       node.replaceWith(...fauxDiv.childNodes);
     });
   }
+  
+  // YOUTUBE USERNAMES
+  // =================
+  // Convert @username@youtube.com to <a href="https://youtube.com/@username">@username@youtube.com</a>
+  if (/youtube\.com|youtu.be/i.test(enhancedContent)) {
+    textNodes = extractTextNodes(dom, {
+      rejectFilter: ['A'],
+    });
+    textNodes.forEach((node) => {
+      let html = node.nodeValue
+                     .replace(/&/g, '&amp;')
+                     .replace(/</g, '&lt;')
+                     .replace(/>/g, '&gt;');
+      if (/@[a-zA-Z0-9_]+@youtube\.com/g.test(html)) {
+        html = html.replaceAll(
+          /(@([a-zA-Z0-9_]+)@youtube\.com)/g,
+          '<a href="https://youtube.com/$2" rel="nofollow noopener noreferrer" target="_blank">$1</a>',
+        );
+      }
+      fauxDiv.innerHTML = html;
+      // const nodes = [...fauxDiv.childNodes];
+      node.replaceWith(...fauxDiv.childNodes);
+    });
+  }
 
   // HASHTAG STUFFING
   // ================
