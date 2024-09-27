@@ -167,7 +167,7 @@ function _enhanceContent(content, opts = {}) {
       node.replaceWith(...fauxDiv.childNodes);
     });
   }
-
+  
   // TWITTER USERNAMES
   // =================
   // Convert @username@twitter.com to <a href="https://twitter.com/username">@username@twitter.com</a>
@@ -177,13 +177,37 @@ function _enhanceContent(content, opts = {}) {
     });
     textNodes.forEach((node) => {
       let html = node.nodeValue
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+                     .replace(/&/g, '&amp;')
+                     .replace(/</g, '&lt;')
+                     .replace(/>/g, '&gt;');
       if (/@[a-zA-Z0-9_]+@twitter\.com/g.test(html)) {
         html = html.replaceAll(
           /(@([a-zA-Z0-9_]+)@twitter\.com)/g,
           '<a href="https://twitter.com/$2" rel="nofollow noopener noreferrer" target="_blank">$1</a>',
+        );
+      }
+      fauxDiv.innerHTML = html;
+      // const nodes = [...fauxDiv.childNodes];
+      node.replaceWith(...fauxDiv.childNodes);
+    });
+  }
+  
+  // GITHUB USERNAMES
+  // =================
+  // Convert @username@github.com to <a href="https://github.com/username">@username@github.com</a>
+  if (/github\.com/i.test(enhancedContent)) {
+    textNodes = extractTextNodes(dom, {
+      rejectFilter: ['A'],
+    });
+    textNodes.forEach((node) => {
+      let html = node.nodeValue
+                     .replace(/&/g, '&amp;')
+                     .replace(/</g, '&lt;')
+                     .replace(/>/g, '&gt;');
+      if (/@[a-zA-Z0-9_]+@github\.com/g.test(html)) {
+        html = html.replaceAll(
+          /(@([a-zA-Z0-9_]+)@github\.com)/g,
+          '<a href="https://github.com/$2" rel="nofollow noopener noreferrer" target="_blank">$1</a>',
         );
       }
       fauxDiv.innerHTML = html;
