@@ -35,7 +35,7 @@
     var(--text-color) 40%
   );
   --orange-bg-color: color-mix(in srgb, var(--orange-color) 10%, transparent);
-  --red-color: orangered;
+  --red-color: hsl(16, 100%, 50%);
   --red-text-color: color-mix(
     in srgb-linear,
     var(--red-color) 60%,
@@ -148,7 +148,7 @@
       var(--favourite-color) 90%,
       transparent
   );
-  --hashtag-color: LightSeaGreen;
+  --hashtag-color: var(--cyan-color);
   --hashtag-faded-color: color-mix(
     in srgb,
     var(--hashtag-color) 10%,
@@ -218,10 +218,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --blue-color: CornflowerBlue;
-    --purple-color: #b190f1;
-    --green-color: lightgreen;
-    --orange-color: orange;
+    --red-color: #ff4129;
+    --orange-color: #fcaf00;
+    --green-color: #54dd7d;
+    --cyan-color: #00d5ef;
+    --blue-color: #6b83ff;
+    --purple-color: #ff74ff;
     --bg-color: #242526;
     --bg-faded-color: #18191a;
     --bg-blur-color: #0009;
