@@ -2231,10 +2231,6 @@ a.card:is(:hover, :focus):visited {
   line-height: 1.2;
 }
 
-.status .content p code {
-  color: var(--green-color);
-}
-
 /* ACTIONS */
 
 .status-actions {

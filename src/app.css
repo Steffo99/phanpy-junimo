@@ -40,32 +40,32 @@ a.mention span {
   font-feature-settings: 'ss01';
 }
 a.mention.u-url {
-  color: color-mix(in srgb, var(--reply-to-text-color) 60%, transparent);
+  color: var(--reply-to-off-color);
 }
 a.mention.u-url span {
-  color: color-mix(in srgb, var(--reply-to-text-color) 40%, var(--text-color));
-  text-decoration-color: color-mix(in srgb, var(--reply-to-text-color) 60%, transparent);
+  color: var(--reply-to-text-color);
+  text-decoration-color: var(--reply-to-off-color);
 }
 a.mention.u-url:hover {
-  color: var(--reply-to-text-color);
+  color: var(--reply-to-on-color);
 }
 a.mention.u-url:hover span {
   color: var(--text-color);
-  text-decoration-color: var(--reply-to-text-color);
+  text-decoration-color: var(--reply-to-on-color);
 }
 a.mention.hashtag {
-  color: color-mix(in srgb, var(--hashtag-color) 60%, transparent);
+  color: var(--hashtag-off-color);
 }
 a.mention.hashtag span {
-  color: color-mix(in srgb, var(--hashtag-color) 40%, var(--text-color));
-  text-decoration-color: color-mix(in srgb, var(--hashtag-color) 60%, transparent);
+  color: var(--hashtag-text-color);
+  text-decoration-color: var(--hashtag-off-color);
 }
 a.mention.hashtag:hover {
-  color: var(--hashtag-color);
+  color: var(--hashtag-on-color);
 }
 a.mention.hashtag:hover span {
   color: var(--text-color);
-  text-decoration-color: var(--hashtag-color);
+  text-decoration-color: var(--hashtag-on-color);
 }
 /* a.mention:has(span).hashtag {
   color: var(--link-light-color);
