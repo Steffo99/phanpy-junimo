@@ -940,13 +940,15 @@ function RelatedActions({
 
   const [relationshipUIState, setRelationshipUIState] = useState('default');
   const [relationship, setRelationship] = useState(null);
+  
+  console.debug("Account info:", info)
 
   const { id, acct, url: originalUrl, username, locked, lastStatusAt, note, fields, moved } =
     info;
   const accountID = useRef(id);
   
-  const junimoUrl = `https://junimo.party/users/${username}`
-  const phanpyUrl = `${window.location.origin}/#${currentInstance ? `/${currentInstance}/a/${username}` : `/a/${username}`}`
+  const junimoUrl = `https://junimo.party/users/${id}`
+  const phanpyUrl = `${window.location.origin}/#${currentInstance ? `/${currentInstance}/a/${id}` : `/a/${id}`}`
   const isLocal = originalUrl === junimoUrl
 
   const {
