@@ -48,22 +48,36 @@
   --bg-faded-blur-color: #f0f2f599;
   --text-color: #1c1e21;
   --text-insignificant-color: #1c1e2199;
-  --link-color: var(--blue-color);
-  --link-bg-color: #4169e122;
-  --link-light-color: #4169e199;
-  --link-faded-color: #4169e155;
   --link-bg-hover-color: #f0f2f599;
   --link-visited-color: mediumslateblue;
-  --link-text-color: color-mix(
-    in lch,
-    var(--link-color) 60%,
-    var(--text-color) 40%
-  );
   --focus-ring-color: var(--link-color);
   --button-bg-color: var(--blue-color);
   --button-bg-blur-color: #4169e1aa;
   --button-text-color: white;
   --button-plain-bg-hover-color: rgba(128, 128, 128, 0.1);
+  --link-color: var(--blue-color);
+  --link-text-color: color-mix(
+      in srgb,
+      var(--link-color) 50%,
+      var(--text-color)
+  );
+  --link-bg-color: #4169e122;
+  --link-light-color: #4169e199;
+  --link-faded-color: color-mix(
+      in srgb,
+      var(--link-color) 15%,
+      transparent
+  );
+  --link-off-color: color-mix(
+      in srgb,
+      var(--link-color) 55%,
+      transparent
+  );
+  --link-on-color: color-mix(
+      in srgb,
+      var(--link-color) 90%,
+      transparent
+  );
   --reblog-color: var(--purple-color);
   --reblog-text-color: color-mix(
       in srgb,
@@ -72,7 +86,7 @@
   );
   --reblog-faded-color: color-mix(
       in srgb,
-      var(--reblog-color) 10%,
+      var(--reblog-color) 8%,
       transparent
   );
   --reblog-off-color: color-mix(
@@ -231,7 +245,6 @@
     --text-color: #f0f2f5;
     --text-insignificant-color: #f0f2f599;
     --link-light-color: #6494ed99;
-    --link-faded-color: #6494ed88;
     --link-bg-hover-color: #34353799;
     --link-visited-color: color-mix(
       in lch,
@@ -290,14 +303,14 @@ body {
 
 a {
   color: var(--link-color);
-  text-decoration-color: var(--link-faded-color);
+  text-decoration-color: var(--link-off-color);
   text-decoration-thickness: 2px;
   text-underline-offset: 2px;
   overflow-wrap: anywhere;
 }
 a:is(:hover, :focus) {
-  color: color-mix(in srgb, var(--link-color) 60%, var(--text-color));
-  text-decoration-color: var(--link-color);
+  color: var(--link-text-color);
+  text-decoration-color: var(--link-on-color);
 }
 
 img {
