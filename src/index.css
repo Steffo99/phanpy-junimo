@@ -65,23 +65,109 @@
   --button-text-color: white;
   --button-plain-bg-hover-color: rgba(128, 128, 128, 0.1);
   --reblog-color: var(--purple-color);
-  --reblog-faded-color: #892be220;
-  --group-color: var(--green-color);
-  --group-faded-color: #00640020;
-  --reply-to-color: var(--orange-color);
-  --reply-to-text-color: #b36200;
+  --reblog-text-color: color-mix(
+      in srgb,
+      var(--reblog-color) 50%,
+      var(--text-color)
+  );
+  --reblog-faded-color: color-mix(
+      in srgb,
+      var(--reblog-color) 10%,
+      transparent
+  );
+  --reblog-off-color: color-mix(
+      in srgb,
+      var(--reblog-color) 55%,
+      transparent
+  );
+  --reblog-on-color: color-mix(
+      in srgb,
+      var(--reblog-color) 90%,
+      transparent
+  );
+  --group-color: var(--orange-color);
+  --group-text-color: color-mix(
+      in srgb,
+      var(--group-color) 50%,
+      var(--text-color)
+  );
+  --group-faded-color: color-mix(
+      in srgb,
+      var(--group-color) 10%,
+      transparent
+  );
+  --group-off-color: color-mix(
+      in srgb,
+      var(--group-color) 55%,
+      transparent
+  );
+  --group-on-color: color-mix(
+      in srgb,
+      var(--group-color) 90%,
+      transparent
+  );
+  --reply-to-color: var(--green-color);
+  --reply-to-text-color: color-mix(
+      in srgb,
+      var(--reply-to-color) 50%,
+      var(--text-color)
+  );
+  --reply-to-faded-color: color-mix(
+      in srgb,
+      var(--reply-to-color) 10%,
+      transparent
+  );
+  --reply-to-off-color: color-mix(
+      in srgb,
+      var(--reply-to-color) 55%,
+      transparent
+  );
+  --reply-to-on-color: color-mix(
+      in srgb,
+      var(--reply-to-color) 90%,
+      transparent
+  );
   --favourite-color: var(--red-color);
-  --reply-to-faded-color: #ffa60020;
+  --favourite-faded-color: color-mix(
+      in srgb,
+      var(--favourite-color) 10%,
+      transparent
+  );
+  --favourite-text-color: color-mix(
+      in srgb,
+      var(--favourite-color) 50%,
+      var(--text-color)
+  );
+  --favourite-off-color: color-mix(
+      in srgb,
+      var(--favourite-color) 55%,
+      transparent
+  );
+  --favourite-on-color: color-mix(
+      in srgb,
+      var(--favourite-color) 90%,
+      transparent
+  );
   --hashtag-color: LightSeaGreen;
   --hashtag-faded-color: color-mix(
     in srgb,
-    var(--hashtag-color) 15%,
+    var(--hashtag-color) 10%,
     transparent
   );
   --hashtag-text-color: color-mix(
-    in lch,
-    var(--hashtag-color) 40%,
-    var(--text-color) 60%
+    in srgb,
+    var(--hashtag-color) 50%,
+    var(--text-color)
+  );
+  --hashtag-off-color: color-mix(
+      in srgb,
+      var(--hashtag-color) 55%,
+      transparent
+  );
+  --hashtag-on-color: color-mix(
+      in srgb,
+      var(--hashtag-color) 90%,
+      transparent
   );
   --outline-color: rgba(128, 128, 128, 0.2);
   --outline-stronger-color: rgba(128, 128, 128, 0.4);
@@ -155,9 +241,6 @@
       var(--blue-color) 80%,
       var(--bg-color) 20%
     );
-    --reblog-faded-color: #b190f141;
-    --reply-to-text-color: var(--reply-to-color);
-    --reply-to-faded-color: #ffa60017;
     --divider-color: rgba(255, 255, 255, 0.1);
     --bg-blur-color: #24252699;
     --backdrop-color: rgba(0, 0, 0, 0.5);
