@@ -207,7 +207,7 @@ function _enhanceContent(content, opts = {}) {
       if (/@[a-zA-Z0-9_]+@youtube\.com/g.test(html)) {
         html = html.replaceAll(
           /(@([a-zA-Z0-9_]+)@youtube\.com)/g,
-          '<a href="https://youtube.com/$2" rel="nofollow noopener noreferrer" target="_blank">$1</a>',
+          '<a href="https://youtube.com/@$2" rel="nofollow noopener noreferrer" target="_blank">$1</a>',
         );
       }
       fauxDiv.innerHTML = html;
