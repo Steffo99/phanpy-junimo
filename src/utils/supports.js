@@ -26,6 +26,8 @@ const platformFeatures = {
   '@akkoma/local-visibility-post': containAkkoma,
   '@pleroma/list-visibility-post': containPleroma,
   '@akkoma/list-visibility-post': containAkkoma,
+  '@pleroma/post-content-type': containPleroma,
+  '@akkoma/post-content-type': containAkkoma,
 };
 const supportsCache = {};
 
