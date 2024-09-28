@@ -13,17 +13,20 @@
   --hairline-width: 1px;
   --monospace-font: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono',
     Menlo, Courier, monospace;
+  
+  --red-color: #fb5b44;
+  --orange-color: #fcaf00;
+  --green-color: #67db70;
+  --cyan-color: #00d8e1;
+  --blue-color: #5e87ff;
+  --purple-color: #c176ff;
 
-  --blue-color: royalblue;
-  --purple-color: blueviolet;
   --purple-fg-color: color-mix(
     in srgb-linear,
     var(--purple-color) 60%,
     var(--text-color) 40%
   );
   --purple-bg-color: color-mix(in srgb, var(--purple-color) 10%, transparent);
-  --green-color: darkgreen;
-  --orange-color: darkorange;
   --orange-light-bg-color: color-mix(
     in srgb,
     var(--orange-color) 20%,
@@ -35,13 +38,13 @@
     var(--text-color) 40%
   );
   --orange-bg-color: color-mix(in srgb, var(--orange-color) 10%, transparent);
-  --red-color: hsl(16, 100%, 50%);
   --red-text-color: color-mix(
     in srgb-linear,
     var(--red-color) 60%,
     var(--text-color) 40%
   );
   --red-bg-color: color-mix(in lch, var(--red-color) 40%, transparent);
+  
   --bg-color: #fff;
   --bg-faded-color: #f0f2f5;
   --bg-blur-color: #fff9;
@@ -55,134 +58,141 @@
   --button-bg-blur-color: #4169e1aa;
   --button-text-color: white;
   --button-plain-bg-hover-color: rgba(128, 128, 128, 0.1);
+  
+  --text-color-percent: 35%;
+  --faded-color-percent: 20%;
+  --off-color-percent: 90%;
+  --on-color-percent: 90%;
+  
   --link-color: var(--blue-color);
   --link-text-color: color-mix(
       in srgb,
-      var(--link-color) 50%,
+      var(--link-color) var(--text-color-percent),
       var(--text-color)
   );
   --link-bg-color: #4169e122;
   --link-light-color: #4169e199;
   --link-faded-color: color-mix(
       in srgb,
-      var(--link-color) 15%,
+      var(--link-color) var(--faded-color-percent),
       transparent
   );
   --link-off-color: color-mix(
       in srgb,
-      var(--link-color) 55%,
+      var(--link-color) var(--off-color-percent),
       transparent
   );
   --link-on-color: color-mix(
       in srgb,
-      var(--link-color) 90%,
+      var(--link-color) var(--on-color-percent),
       transparent
   );
   --reblog-color: var(--purple-color);
   --reblog-text-color: color-mix(
       in srgb,
-      var(--reblog-color) 50%,
+      var(--reblog-color) var(--text-color-percent),
       var(--text-color)
   );
   --reblog-faded-color: color-mix(
       in srgb,
-      var(--reblog-color) 8%,
+      var(--reblog-color) var(--faded-color-percent),
       transparent
   );
   --reblog-off-color: color-mix(
       in srgb,
-      var(--reblog-color) 55%,
+      var(--reblog-color) var(--off-color-percent),
       transparent
   );
   --reblog-on-color: color-mix(
       in srgb,
-      var(--reblog-color) 90%,
+      var(--reblog-color) var(--on-color-percent),
       transparent
   );
-  --group-color: var(--orange-color);
+  --group-color: var(--green-color);
   --group-text-color: color-mix(
       in srgb,
-      var(--group-color) 50%,
+      var(--group-color) var(--text-color-percent),
       var(--text-color)
   );
   --group-faded-color: color-mix(
       in srgb,
-      var(--group-color) 10%,
+      var(--group-color) var(--faded-color-percent),
       transparent
   );
   --group-off-color: color-mix(
       in srgb,
-      var(--group-color) 55%,
+      var(--group-color) var(--off-color-percent),
       transparent
   );
   --group-on-color: color-mix(
       in srgb,
-      var(--group-color) 90%,
+      var(--group-color) var(--on-color-percent),
       transparent
   );
-  --reply-to-color: var(--green-color);
+  --reply-to-color: var(--orange-color);
   --reply-to-text-color: color-mix(
       in srgb,
-      var(--reply-to-color) 50%,
+      var(--reply-to-color) var(--text-color-percent),
       var(--text-color)
   );
   --reply-to-faded-color: color-mix(
       in srgb,
-      var(--reply-to-color) 10%,
+      var(--reply-to-color) var(--faded-color-percent),
       transparent
   );
   --reply-to-off-color: color-mix(
       in srgb,
-      var(--reply-to-color) 55%,
+      var(--reply-to-color) var(--off-color-percent),
       transparent
   );
   --reply-to-on-color: color-mix(
       in srgb,
-      var(--reply-to-color) 90%,
+      var(--reply-to-color) var(--on-color-percent),
       transparent
   );
   --favourite-color: var(--red-color);
-  --favourite-faded-color: color-mix(
-      in srgb,
-      var(--favourite-color) 10%,
-      transparent
-  );
   --favourite-text-color: color-mix(
       in srgb,
-      var(--favourite-color) 50%,
+      var(--favourite-color) var(--text-color-percent),
       var(--text-color)
+  );
+  --favourite-faded-color: color-mix(
+      in srgb,
+      var(--favourite-color) var(--faded-color-percent),
+      transparent
   );
   --favourite-off-color: color-mix(
       in srgb,
-      var(--favourite-color) 55%,
+      var(--favourite-color) var(--off-color-percent),
       transparent
   );
   --favourite-on-color: color-mix(
       in srgb,
-      var(--favourite-color) 90%,
+      var(--favourite-color) var(--on-color-percent),
       transparent
   );
   --hashtag-color: var(--cyan-color);
-  --hashtag-faded-color: color-mix(
-    in srgb,
-    var(--hashtag-color) 10%,
-    transparent
-  );
   --hashtag-text-color: color-mix(
     in srgb,
-    var(--hashtag-color) 50%,
+    var(--hashtag-color) var(--text-color-percent),
     var(--text-color)
+  );
+  --hashtag-faded-color: color-mix(
+      in srgb,
+      var(--hashtag-color) var(--faded-color-percent),
+      transparent
   );
   --hashtag-off-color: color-mix(
       in srgb,
-      var(--hashtag-color) 55%,
+      var(--hashtag-color) var(--off-color-percent),
       transparent
   );
   --hashtag-on-color: color-mix(
       in srgb,
-      var(--hashtag-color) 90%,
+      var(--hashtag-color) var(--on-color-percent),
       transparent
   );
+  
   --outline-color: rgba(128, 128, 128, 0.2);
   --outline-stronger-color: rgba(128, 128, 128, 0.4);
   --outline-hover-color: rgba(128, 128, 128, 0.7);
@@ -232,15 +242,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --red-color: #ff4129;
-    --orange-color: #fcaf00;
-    --green-color: #54dd7d;
-    --cyan-color: #00d5ef;
-    --blue-color: #6b83ff;
-    --purple-color: #ff74ff;
+    --link-faded-color: color-mix(
+        in srgb,
+        var(--link-color) 35%,
+        transparent
+    );
+    
+    --faded-color-percent: 12%;
+    --off-color-percent: 60%;
+    
     --bg-color: #242526;
     --bg-faded-color: #18191a;
-    --bg-blur-color: #0009;
     --bg-faded-blur-color: #18191a99;
     --text-color: #f0f2f5;
     --text-insignificant-color: #f0f2f599;
