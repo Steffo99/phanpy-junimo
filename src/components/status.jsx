@@ -1233,6 +1233,7 @@ function Status({
           )}
           <MenuConfirm
             subMenu
+            className={"danger"}
             confirmLabel={
               <>
                 <Icon icon="trash" />
@@ -1241,7 +1242,6 @@ function Status({
                 </span>
               </>
             }
-            menuItemClassName="danger"
             onClick={() => {
               // const yes = confirm('Delete this post?');
               // if (yes) {
