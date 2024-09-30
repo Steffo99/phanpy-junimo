@@ -16,7 +16,7 @@ import {
 } from 'preact/hooks';
 import { useHotkeys } from 'react-hotkeys-hook';
 import stringLength from 'string-length';
-import { detectAll } from 'tinyld/light';
+// import { detectAll } from 'tinyld/light';
 import { uid } from 'uid/single';
 import { useDebouncedCallback, useThrottledCallback } from 'use-debounce';
 import { useSnapshot } from 'valtio';
@@ -1199,11 +1199,12 @@ function Compose({
                 <option value="public">
                   <Trans>Public</Trans>
                 </option>
-                {(supports('@pleroma/local-visibility-post') || supports('@akkoma/local-visibility-post')) &&
+                {(supports('@pleroma/local-visibility-post') ||
+                  supports('@akkoma/local-visibility-post')) && (
                   <option value="local">
                     <Trans>Local</Trans>
                   </option>
-                }
+                )}
                 <option value="unlisted">
                   <Trans>Unlisted</Trans>
                 </option>
@@ -1274,7 +1275,10 @@ function Compose({
                     onDescriptionChange={(value) => {
                       setMediaAttachments((attachments) => {
                         const newAttachments = [...attachments];
-                        newAttachments[i].description = value;
+                        newAttachments[i] = {
+                          ...newAttachments[i],
+                          description: value,
+                        };
                         return newAttachments;
                       });
                     }}
@@ -1700,7 +1704,8 @@ const getCustomEmojis = pmem(_getCustomEmojis, {
   maxAge: 30 * 60 * 1000, // 30 minutes
 });
 
-const detectLangs = (text) => {
+const detectLangs = async (text) => {
+  const { detectAll } = await import('tinyld/light');
   const langs = detectAll(text);
   if (langs?.length) {
     // return max 2
@@ -1990,13 +1995,15 @@ const Textarea = forwardRef((props, ref) => {
     });
     const text = dom.innerText?.trim();
     if (!text) return;
-    const langs = detectLangs(text);
-    if (langs?.length) {
-      onTrigger?.({
-        name: 'auto-detect-language',
-        languages: langs,
-      });
-    }
+    (async () => {
+      const langs = await detectLangs(text);
+      if (langs?.length) {
+        onTrigger?.({
+          name: 'auto-detect-language',
+          languages: langs,
+        });
+      }
+    })();
   }, 2000);
 
   return (
@@ -3185,7 +3192,7 @@ function CustomEmojisModal({
               Object.entries(customEmojisCatList).map(
                 ([category, emojis]) =>
                   !!emojis?.length && (
-                    <>
+                    <div class="section-container">
                       <div class="section-header">
                         {{
                           '--recent--': t`Recently used`,
@@ -3196,7 +3203,7 @@ function CustomEmojisModal({
                         emojis={emojis}
                         onSelect={onSelectEmoji}
                       />
-                    </>
+                    </div>
                   ),
               )}
           </div>

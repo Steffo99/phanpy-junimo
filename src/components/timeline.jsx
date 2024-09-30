@@ -69,6 +69,7 @@ function Timeline({
   const scrollableRef = useRef();
 
   console.debug('RENDER Timeline', id, refresh);
+  __BENCHMARK.start(`timeline-${id}-load`);
 
   const mediaFirst = useMemo(() => isMediaFirstInstance(), []);
 
@@ -119,6 +120,7 @@ function Timeline({
             setShowMore(false);
           }
           setUIState('default');
+          __BENCHMARK.end(`timeline-${id}-load`);
         } catch (e) {
           console.error(e);
           setUIState('error');
@@ -388,10 +390,10 @@ function Timeline({
         }`}
         ref={(node) => {
           scrollableRef.current = node;
-          jRef.current = node;
-          kRef.current = node;
-          oRef.current = node;
-          dotRef.current = node;
+          jRef(node);
+          kRef(node);
+          oRef(node);
+          dotRef(node);
         }}
         tabIndex="-1"
         onClick={(e) => {
