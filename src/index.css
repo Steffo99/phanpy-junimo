@@ -59,7 +59,7 @@
   --button-text-color: white;
   --button-plain-bg-hover-color: rgba(128, 128, 128, 0.1);
   
-  --text-color-percent: 35%;
+  --text-color-percent: 45%;
   --faded-color-percent: 20%;
   --off-color-percent: 90%;
   --on-color-percent: 90%;
@@ -316,7 +316,7 @@ body {
 a {
   color: var(--link-color);
   text-decoration-color: var(--link-off-color);
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 1px;
   text-underline-offset: 2px;
   overflow-wrap: anywhere;
 }

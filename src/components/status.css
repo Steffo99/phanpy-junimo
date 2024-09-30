@@ -109,7 +109,7 @@
       font-size: 12px;
       text-decoration-color: var(--hashtag-faded-color);
       text-underline-offset: 2px;
-      text-decoration-thickness: 2px;
+      text-decoration-thickness: 1px;
       display: inline-block;
       padding: 2px;
       vertical-align: top;
@@ -915,7 +915,7 @@
     position: absolute;
     content: '';
     width: 3px;
-    background-color: var(--link-faded-color);
+    background-color: var(--reply-to-faded-color);
     inset-block: 0;
     inset-inline-start: 0;
     border-radius: 9999px;
