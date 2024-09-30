@@ -498,10 +498,9 @@
   }
 }
 .status > .container > .meta a.time:is(:hover, :focus) {
-  .more {
-    transform: scale(1.2);
-    color: var(--link-color);
-  }
+  transition: color 0.2s ease-out;
+  color: var(--link-text-color);
+  text-decoration: 1px solid underline var(--link-off-color); /* TODO Fix on merge */
 }
 .status > .container > .meta a.time:active,
 .status > .container > .meta a.time.is-open {
@@ -540,7 +539,7 @@
     var(--reply-to-faded-color) 4px
   );
   font-weight: bold;
-  min-width: 50px;
+  min-width: 36px;
   justify-content: center;
 }
 .status-filtered-badge:not(.horizontal).badge-meta {
@@ -548,7 +547,7 @@
   flex-direction: column;
   position: relative;
   top: calc((9px + 2px) / 2 * -1);
-  min-width: 50px;
+  min-width: 36px;
   max-width: 100px;
   text-align: center;
 }

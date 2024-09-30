@@ -936,9 +936,7 @@ function TimelineStatusCompact({ status, instance, filterContext }) {
   const filterInfo = isFiltered(status.filtered, filterContext);
   return (
     <article
-      class={`status compact-thread ${
-        visibility === 'direct' ? 'visibility-direct' : ''
-      }`}
+      class={`status compact-thread visibility-${visibility}`}
       tabindex="-1"
     >
       {!!snapStates.statusThreadNumber[sKey] ? (

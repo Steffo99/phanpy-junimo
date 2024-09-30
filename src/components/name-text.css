@@ -20,7 +20,7 @@
 a.name-text:is(:hover, :focus) b,
 a.name-text.short:is(:hover, :focus) i {
   text-decoration: underline;
-  text-decoration-color: var(--text-insignificant-color);
+  text-decoration-color: currentColor;
 }
 .name-text i {
   font-style: normal;

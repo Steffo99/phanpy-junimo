@@ -98,6 +98,15 @@ const visibilityText = {
   direct: msg`Private mention`,
 };
 
+const visibilityTextShort = {
+  public: msg`P`,
+  local: msg`L`,
+  unlisted: msg`U`,
+  private: msg`F`,
+  list: msg`R`,
+  direct: msg`DM`,
+}
+
 const isIOS =
   window.ontouchstart !== undefined &&
   /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -1783,7 +1792,7 @@ function Status({
                 <span class="status-deleted-tag">
                   <Trans>Deleted</Trans>
                 </span>
-              ) : url && !previewMode && !readOnly && !quoted ? (
+              ) : url && !previewMode && !readOnly && !quoted && (
                 <Link
                   to={instance ? `/${instance}/s/${id}` : `/s/${id}`}
                   onClick={(e) => {
@@ -1815,7 +1824,7 @@ function Status({
                       : ''
                   }`}
                 >
-                  {showCommentHint && !showCommentCount ? (
+                  {showCommentHint && !showCommentCount && (
                     <Icon
                       icon="comment2"
                       size="s"
@@ -1827,86 +1836,16 @@ function Status({
                         other: '# replies',
                       })}
                     />
-                  ) : (
-                    visibility !== 'public' &&
-                    visibility !== 'direct' && (
-                      <Icon
-                        icon={visibilityIconsMap[visibility]}
-                        alt={_(visibilityText[visibility])}
-                        size="s"
-                      />
-                    )
                   )}{' '}
                   <RelativeTime datetime={createdAtDate} format="micro" />
                   {!previewMode && !readOnly && (
-                    <Icon icon="more2" class="more" alt={t`More`} />
+                    <Icon icon={visibilityIconsMap[visibility]} alt={_(visibilityTextShort[visibility])} />
                   )}
                 </Link>
-              ) : (
-                // <Menu
-                //   instanceRef={menuInstanceRef}
-                //   portal={{
-                //     target: document.body,
-                //   }}
-                //   containerProps={{
-                //     style: {
-                //       // Higher than the backdrop
-                //       zIndex: 1001,
-                //     },
-                //     onClick: (e) => {
-                //       if (e.target === e.currentTarget)
-                //         menuInstanceRef.current?.closeMenu?.();
-                //     },
-                //   }}
-                //   align="end"
-                //   gap={4}
-                //   overflow="auto"
-                //   viewScroll="close"
-                //   boundingBoxPadding="8 8 8 8"
-                //   unmountOnClose
-                //   menuButton={({ open }) => (
-                //     <Link
-                //       to={instance ? `/${instance}/s/${id}` : `/s/${id}`}
-                //       onClick={(e) => {
-                //         e.preventDefault();
-                //         e.stopPropagation();
-                //         onStatusLinkClick?.(e, status);
-                //       }}
-                //       class={`time ${open ? 'is-open' : ''}`}
-                //     >
-                //       <Icon
-                //         icon={visibilityIconsMap[visibility]}
-                //         alt={visibilityText[visibility]}
-                //         size="s"
-                //       />{' '}
-                //       <RelativeTime datetime={createdAtDate} format="micro" />
-                //     </Link>
-                //   )}
-                // >
-                //   {StatusMenuItems}
-                // </Menu>
-                <span class="time">
-                  {visibility !== 'public' && visibility !== 'direct' && (
-                    <>
-                      <Icon
-                        icon={visibilityIconsMap[visibility]}
-                        alt={_(visibilityText[visibility])}
-                        size="s"
-                      />{' '}
-                    </>
-                  )}
-                  <RelativeTime datetime={createdAtDate} format="micro" />
-                </span>
-              ))}
+                )
+              )
+            }
           </div>
-          {visibility === 'direct' && (
-            <>
-              <div class="status-direct-badge">
-                <Icon icon="message" size="s" />
-                <Trans>PM</Trans>
-              </div>{' '}
-            </>
-          )}
           {!withinContext && (
             <>
               {isThread ? (
@@ -1934,7 +1873,7 @@ function Status({
                     />
                   </div>
                 )
-              )}
+              )}{' '}
             </>
           )}
           <div
