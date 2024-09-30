@@ -27,49 +27,44 @@ body {
 /* MENTIONS */
 
 a.mention {
-  text-decoration-line: none;
-  color: var(--reply-to-text-color);
+  --kind-text-color: var(--link-text-color);
+  --kind-off-color: var(--link-off-color);
+  --kind-on-color: var(--link-on-color);
+  
+  --highlight-text-color: var(--kind-text-color);
+  --highlight-deco-color: var(--kind-off-color);
 }
-a.mention span {
-  color: var(--text-color);
+a.mention:hover {
+  --highlight-text-color: var(--text-color);
+  --highlight-deco-color: var(--kind-on-color);
+}
+
+a.mention.u-url {
+  --kind-text-color: var(--reply-to-text-color);
+  --kind-off-color: var(--reply-to-off-color);
+  --kind-on-color: var(--reply-to-on-color);
+}
+
+a.mention.hashtag {
+  --kind-text-color: var(--hashtag-text-color);
+  --kind-off-color: var(--hashtag-off-color);
+  --kind-on-color: var(--hashtag-on-color);
+}
+
+a.mention, a.mention:has(span) span {
   text-decoration-line: underline;
-  text-decoration-color: inherit;
-  text-decoration-thickness: 2px;
+  text-decoration-color: var(--highlight-deco-color);
+  text-decoration-thickness: 1px;
   text-underline-offset: 2px;
   font-variant-numeric: slashed-zero;
   font-feature-settings: 'ss01';
+  color: var(--highlight-text-color);
 }
-a.mention.u-url {
-  color: var(--reply-to-off-color);
+a.mention:has(span) {
+  text-decoration-line: none;
+  color: var(--highlight-deco-color);
 }
-a.mention.u-url span {
-  color: var(--reply-to-text-color);
-  text-decoration-color: var(--reply-to-off-color);
-}
-a.mention.u-url:hover {
-  color: var(--reply-to-on-color);
-}
-a.mention.u-url:hover span {
-  color: var(--text-color);
-  text-decoration-color: var(--reply-to-on-color);
-}
-a.mention.hashtag {
-  color: var(--hashtag-off-color);
-}
-a.mention.hashtag span {
-  color: var(--hashtag-text-color);
-  text-decoration-color: var(--hashtag-off-color);
-}
-a.mention.hashtag:hover {
-  color: var(--hashtag-on-color);
-}
-a.mention.hashtag:hover span {
-  color: var(--text-color);
-  text-decoration-color: var(--hashtag-on-color);
-}
-/* a.mention:has(span).hashtag {
-  color: var(--link-light-color);
-} */
+
 a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   color: var(--link-visited-color);
   text-decoration-color: var(--link-visited-color);
