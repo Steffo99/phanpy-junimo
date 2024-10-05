@@ -15,7 +15,7 @@ import useTitle from '../utils/useTitle';
 
 const LIMIT = 20;
 
-function Public({ variant = "federated", columnMode, ...props }) {
+function Public({ variant = 'federated', columnMode, ...props }) {
   const snapStates = useSnapshot(states);
   const params = columnMode ? {} : useParams();
   const { masto, instance } = api({
@@ -23,26 +23,26 @@ function Public({ variant = "federated", columnMode, ...props }) {
   });
   const { masto: currentMasto, instance: currentInstance } = api();
   const title = {
-    "local": t`Local timeline (${instance})`,
-    "bubble": t`Bubble timeline (${instance})`,
-    "federated": t`Federated timeline (${instance})`,
+    local: t`Local timeline (${instance})`,
+    bubble: t`Bubble timeline (${instance})`,
+    federated: t`Federated timeline (${instance})`,
   }[variant];
   const headerText = {
-    "local": t`Local timeline`,
-    "bubble": t`Bubble timeline`,
-    "federated": t`Federated timeline`,
+    local: t`Local timeline`,
+    bubble: t`Bubble timeline`,
+    federated: t`Federated timeline`,
   }[variant];
   const path = {
-    "local": "/:instance?/p/l",
-    "bubble": "/:instance?/p/b",
-    "federated": "/:instance?/p",
-  }[variant]
+    local: '/:instance?/p/l',
+    bubble: '/:instance?/p/b',
+    federated: '/:instance?/p',
+  }[variant];
   const source = {
-    "local": masto.v1.timelines.public.list,
-    "bubble": masto.v1.timelines.bubble.list,  // Bubble timeline isn't officially supported in Masto, but this seems to work nevertheless
-    "federated": masto.v1.timelines.public.list
-  }[variant]
-  
+    local: masto.v1.timelines.public.list,
+    bubble: masto.v1.timelines.bubble.list, // Bubble timeline isn't officially supported in Masto, but this seems to work nevertheless
+    federated: masto.v1.timelines.public.list,
+  }[variant];
+
   useTitle(title, path);
   // const navigate = useNavigate();
   const latestItem = useRef();
@@ -52,9 +52,9 @@ function Public({ variant = "federated", columnMode, ...props }) {
     if (firstLoad || !publicIterator.current) {
       const opts = {
         limit: LIMIT,
-        local: variant === "local",
+        local: variant === 'local',
       };
-      if (variant === "federated" && supports('@pixelfed/global-feed')) {
+      if (variant === 'federated' && supports('@pixelfed/global-feed')) {
         opts.remote = true;
       }
       publicIterator.current = source(opts);
@@ -82,7 +82,7 @@ function Public({ variant = "federated", columnMode, ...props }) {
       const results = await source
         .list({
           limit: 1,
-          local: variant === "local",
+          local: variant === 'local',
           since_id: latestItem.current,
         })
         .next();
@@ -132,7 +132,7 @@ function Public({ variant = "federated", columnMode, ...props }) {
             </button>
           }
         >
-          {variant !== "local" && (
+          {variant !== 'local' && (
             <MenuItem href={`/#/${instance}/p/l`}>
               <Icon icon="transfer" />{' '}
               <span>
@@ -140,7 +140,7 @@ function Public({ variant = "federated", columnMode, ...props }) {
               </span>
             </MenuItem>
           )}
-          {variant !== "bubble" && (
+          {variant !== 'bubble' && (
             <MenuItem href={`/#/${instance}/p/b`}>
               <Icon icon="transfer" />{' '}
               <span>
@@ -148,7 +148,7 @@ function Public({ variant = "federated", columnMode, ...props }) {
               </span>
             </MenuItem>
           )}
-          {variant !== "federated" && (
+          {variant !== 'federated' && (
             <MenuItem href={`/#/${instance}/p`}>
               <Icon icon="transfer" />{' '}
               <span>
