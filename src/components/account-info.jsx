@@ -1139,7 +1139,7 @@ function RelatedActions({
                   onClick={() => {
                     showCompose({
                       draftStatus: {
-                        status: `@${currentInfo?.acct || acct} `,
+                        status: `@${currentInfo?.acct || acct}\n\n`,
                       },
                     });
                   }}

@@ -285,7 +285,7 @@ function Compose({
       if (allMentions.length > 0) {
         textareaRef.current.value = `${allMentions
           .map((m) => `@${m}`)
-          .join(' ')} `;
+          .join(' ')}\n\n`;
         oninputTextarea();
       }
       focusTextarea();

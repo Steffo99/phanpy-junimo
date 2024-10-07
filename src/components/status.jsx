@@ -923,7 +923,7 @@ function Status({
                   onClick={() => {
                     showCompose({
                       draftStatus: {
-                        status: `\n${originalUrl}`,
+                        status: `\n\n${originalUrl}`,
                       },
                     });
                   }}
@@ -2309,7 +2309,7 @@ function Status({
                       onClick={() => {
                         showCompose({
                           draftStatus: {
-                            status: `\n${originalUrl}`,
+                            status: `\n\n${originalUrl}`,
                           },
                         });
                       }}
