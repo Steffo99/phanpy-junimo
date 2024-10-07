@@ -277,11 +277,7 @@ function _enhanceContent(content, opts = {}) {
         // Only consider "stuffing" if:
         // - there are more than 3 entities
         // - there are more than 1 entity in adjacent paragraphs
-        if (entitiesCount > 3) {
-          prevIndex = index;
-          return true;
-        }
-        if (entitiesCount > 1 && prevIndex && index === prevIndex + 1) {
+        if (entitiesCount > 0) {
           prevIndex = index;
           return true;
         }
