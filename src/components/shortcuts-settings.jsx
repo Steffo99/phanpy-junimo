@@ -67,9 +67,10 @@ const TYPE_PARAMS = {
   ],
   public: [
     {
-      text: msg`Local only`,
-      name: 'local',
-      type: 'checkbox',
+      text: msg`Variant`,
+      name: 'variant',
+      type: 'text',
+      placeholder: msg`'local', 'bubble' or 'federated'`,
     },
     {
       text: msg`Instance`,
@@ -159,10 +160,27 @@ export const SHORTCUTS_META = {
   },
   public: {
     id: 'public',
-    title: ({ local }) => (local ? t`Local` : t`Federated`),
+    title: ({ variant }) =>
+      ({
+        local: t`Local`,
+        bubble: t`Bubble`,
+        federated: t`Federated`,
+      }[variant]),
     subtitle: ({ instance }) => instance || api().instance,
-    path: ({ local, instance }) => `/${instance}/p${local ? '/l' : ''}`,
-    icon: ({ local }) => (local ? 'building' : 'earth'),
+    path: ({ variant, instance }) => {
+      const suffix = {
+        local: '/l',
+        bubble: '/b',
+        federated: '',
+      }[variant];
+      return `/${instance}/p${suffix}`;
+    },
+    icon: ({ variant }) =>
+      ({
+        local: 'building',
+        bubble: 'star2',
+        federated: 'earth',
+      }[variant]),
   },
   trending: {
     id: 'trending',
