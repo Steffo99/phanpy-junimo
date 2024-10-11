@@ -12,7 +12,7 @@ import { getLists } from '../utils/lists';
 import safeBoundingBoxPadding from '../utils/safe-bounding-box-padding';
 import states from '../utils/states';
 import store from '../utils/store';
-import { getCurrentAccountID } from '../utils/store-utils';
+import { getCurrentAccountID, getCurrentInstance } from '../utils/store-utils';
 import supports from '../utils/supports';
 
 import Avatar from './avatar';
@@ -84,6 +84,10 @@ function NavMenu(props) {
     const results = await blocksIterator.current.next();
     return results;
   }
+
+  const instanceData = getCurrentInstance();
+  const hasBubbleTimeline =
+    instanceData?.pleroma?.metadata?.features?.includes?.('bubble_timeline');
 
   const supportsLists = supports('@mastodon/lists');
   const [lists, setLists] = useState([]);
@@ -386,7 +390,7 @@ function NavMenu(props) {
               <Trans>Local</Trans>
             </span>
           </MenuLink>
-          {supports('@akkoma/bubble-timeline') && (
+          {hasBubbleTimeline && (
             <MenuLink to={`/${instance}/p/b`}>
               <Icon icon="star2" size="l" />{' '}
               <span>
