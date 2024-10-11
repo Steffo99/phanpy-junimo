@@ -2374,10 +2374,10 @@ a.card:is(:hover, :focus):visited {
   color: var(--reblog-color);
 }
 .status-badge .bookmark {
-  color: var(--link-color);
+  color: var(--bookmark-color);
 }
 .status-badge .pin {
-  color: var(--link-text-color);
+  color: var(--pin-color);
 }
 @keyframes swoosh-from-right {
   0% {

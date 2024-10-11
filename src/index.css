@@ -108,6 +108,48 @@
       var(--reblog-color) var(--on-color-percent),
       transparent
   );
+  --bookmark-color: var(--blue-color);
+  --bookmark-text-color: color-mix(
+      in srgb,
+      var(--bookmark-color) var(--text-color-percent),
+      var(--text-color)
+  );
+  --bookmark-faded-color: color-mix(
+      in srgb,
+      var(--bookmark-color) var(--faded-color-percent),
+      transparent
+  );
+  --bookmark-off-color: color-mix(
+      in srgb,
+      var(--bookmark-color) var(--off-color-percent),
+      transparent
+  );
+  --bookmark-on-color: color-mix(
+      in srgb,
+      var(--bookmark-color) var(--on-color-percent),
+      transparent
+  );
+  --pin-color: var(--green-color);
+  --pin-text-color: color-mix(
+      in srgb,
+      var(--pin-color) var(--text-color-percent),
+      var(--text-color)
+  );
+  --pin-faded-color: color-mix(
+      in srgb,
+      var(--pin-color) var(--faded-color-percent),
+      transparent
+  );
+  --pin-off-color: color-mix(
+      in srgb,
+      var(--pin-color) var(--off-color-percent),
+      transparent
+  );
+  --pin-on-color: color-mix(
+      in srgb,
+      var(--pin-color) var(--on-color-percent),
+      transparent
+  );
   --group-color: var(--green-color);
   --group-text-color: color-mix(
       in srgb,
