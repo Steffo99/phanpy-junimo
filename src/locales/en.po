@@ -51,7 +51,7 @@ msgstr ""
 #: src/components/account-info.jsx:742
 #: src/components/account-info.jsx:756
 #: src/components/account-info.jsx:1668
-#: src/components/nav-menu.jsx:193
+#: src/components/nav-menu.jsx:197
 #: src/components/shortcuts-settings.jsx:137
 #: src/pages/following.jsx:20
 #: src/pages/following.jsx:134
@@ -525,7 +525,7 @@ msgid "Cloak mode enabled"
 msgstr ""
 
 #: src/components/columns.jsx:19
-#: src/components/nav-menu.jsx:184
+#: src/components/nav-menu.jsx:188
 #: src/components/shortcuts-settings.jsx:137
 #: src/components/timeline.jsx:437
 #: src/pages/catchup.jsx:876
@@ -621,7 +621,7 @@ msgid "Public"
 msgstr ""
 
 #: src/components/compose.jsx:1175
-#: src/components/nav-menu.jsx:386
+#: src/components/nav-menu.jsx:390
 #: src/components/shortcuts-settings.jsx:162
 #: src/components/status.jsx:94
 msgid "Local"
@@ -697,7 +697,7 @@ msgstr ""
 
 #: src/components/compose.jsx:1750
 #: src/components/compose.jsx:1827
-#: src/components/nav-menu.jsx:287
+#: src/components/nav-menu.jsx:291
 msgid "More…"
 msgstr ""
 
@@ -974,7 +974,7 @@ msgid "The end."
 msgstr ""
 
 #: src/components/keyboard-shortcuts-help.jsx:43
-#: src/components/nav-menu.jsx:413
+#: src/components/nav-menu.jsx:417
 #: src/pages/catchup.jsx:1619
 msgid "Keyboard shortcuts"
 msgstr ""
@@ -1063,7 +1063,7 @@ msgid "<0>Ctrl</0> + <1>Enter</1> or <2>⌘</2> + <3>Enter</3>"
 msgstr ""
 
 #: src/components/keyboard-shortcuts-help.jsx:139
-#: src/components/nav-menu.jsx:374
+#: src/components/nav-menu.jsx:378
 #: src/components/search-form.jsx:72
 #: src/components/shortcuts-settings.jsx:52
 #: src/components/shortcuts-settings.jsx:176
@@ -1228,24 +1228,24 @@ msgstr ""
 msgid "Post updated. Check it out."
 msgstr ""
 
-#: src/components/nav-menu.jsx:126
+#: src/components/nav-menu.jsx:130
 msgid "Menu"
 msgstr ""
 
-#: src/components/nav-menu.jsx:162
+#: src/components/nav-menu.jsx:166
 msgid "Reload page now to update?"
 msgstr ""
 
-#: src/components/nav-menu.jsx:174
+#: src/components/nav-menu.jsx:178
 msgid "New update available…"
 msgstr ""
 
-#: src/components/nav-menu.jsx:200
+#: src/components/nav-menu.jsx:204
 #: src/pages/catchup.jsx:871
 msgid "Catch-up"
 msgstr ""
 
-#: src/components/nav-menu.jsx:207
+#: src/components/nav-menu.jsx:211
 #: src/components/shortcuts-settings.jsx:58
 #: src/components/shortcuts-settings.jsx:143
 #: src/pages/home.jsx:224
@@ -1256,7 +1256,7 @@ msgstr ""
 msgid "Mentions"
 msgstr ""
 
-#: src/components/nav-menu.jsx:214
+#: src/components/nav-menu.jsx:218
 #: src/components/shortcuts-settings.jsx:49
 #: src/components/shortcuts-settings.jsx:149
 #: src/pages/filters.jsx:24
@@ -1267,16 +1267,16 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: src/components/nav-menu.jsx:217
+#: src/components/nav-menu.jsx:221
 msgid "New"
 msgstr ""
 
-#: src/components/nav-menu.jsx:228
+#: src/components/nav-menu.jsx:232
 msgid "Profile"
 msgstr ""
 
-#: src/components/nav-menu.jsx:241
-#: src/components/nav-menu.jsx:268
+#: src/components/nav-menu.jsx:245
+#: src/components/nav-menu.jsx:272
 #: src/components/shortcuts-settings.jsx:50
 #: src/components/shortcuts-settings.jsx:155
 #: src/pages/list.jsx:126
@@ -1285,13 +1285,13 @@ msgstr ""
 msgid "Lists"
 msgstr ""
 
-#: src/components/nav-menu.jsx:249
+#: src/components/nav-menu.jsx:253
 #: src/components/shortcuts.jsx:209
 #: src/pages/list.jsx:133
 msgid "All Lists"
 msgstr ""
 
-#: src/components/nav-menu.jsx:276
+#: src/components/nav-menu.jsx:280
 #: src/components/shortcuts-settings.jsx:54
 #: src/components/shortcuts-settings.jsx:192
 #: src/pages/bookmarks.jsx:11
@@ -1299,7 +1299,7 @@ msgstr ""
 msgid "Bookmarks"
 msgstr ""
 
-#: src/components/nav-menu.jsx:296
+#: src/components/nav-menu.jsx:300
 #: src/components/shortcuts-settings.jsx:55
 #: src/components/shortcuts-settings.jsx:198
 #: src/pages/catchup.jsx:1446
@@ -1310,13 +1310,13 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
-#: src/components/nav-menu.jsx:302
+#: src/components/nav-menu.jsx:306
 #: src/pages/followed-hashtags.jsx:14
 #: src/pages/followed-hashtags.jsx:44
 msgid "Followed Hashtags"
 msgstr ""
 
-#: src/components/nav-menu.jsx:310
+#: src/components/nav-menu.jsx:314
 #: src/pages/account-statuses.jsx:331
 #: src/pages/filters.jsx:54
 #: src/pages/filters.jsx:93
@@ -1324,55 +1324,55 @@ msgstr ""
 msgid "Filters"
 msgstr ""
 
-#: src/components/nav-menu.jsx:318
+#: src/components/nav-menu.jsx:322
 msgid "Muted users"
 msgstr ""
 
-#: src/components/nav-menu.jsx:326
+#: src/components/nav-menu.jsx:330
 msgid "Muted users…"
 msgstr ""
 
-#: src/components/nav-menu.jsx:333
+#: src/components/nav-menu.jsx:337
 msgid "Blocked users"
 msgstr ""
 
-#: src/components/nav-menu.jsx:341
+#: src/components/nav-menu.jsx:345
 msgid "Blocked users…"
 msgstr ""
 
-#: src/components/nav-menu.jsx:353
+#: src/components/nav-menu.jsx:357
 msgid "Accounts…"
 msgstr ""
 
-#: src/components/nav-menu.jsx:363
+#: src/components/nav-menu.jsx:367
 #: src/pages/login.jsx:189
 #: src/pages/status.jsx:792
 #: src/pages/welcome.jsx:64
 msgid "Log in"
 msgstr ""
 
-#: src/components/nav-menu.jsx:380
+#: src/components/nav-menu.jsx:384
 #: src/components/shortcuts-settings.jsx:57
 #: src/components/shortcuts-settings.jsx:169
 #: src/pages/trending.jsx:441
 msgid "Trending"
 msgstr ""
 
-#: src/components/nav-menu.jsx:393
+#: src/components/nav-menu.jsx:397
 msgid "Bubble"
 msgstr "Bubble"
 
-#: src/components/nav-menu.jsx:400
+#: src/components/nav-menu.jsx:404
 #: src/components/shortcuts-settings.jsx:162
 msgid "Federated"
 msgstr ""
 
-#: src/components/nav-menu.jsx:423
+#: src/components/nav-menu.jsx:427
 msgid "Shortcuts / Columns…"
 msgstr ""
 
-#: src/components/nav-menu.jsx:433
-#: src/components/nav-menu.jsx:447
+#: src/components/nav-menu.jsx:437
+#: src/components/nav-menu.jsx:451
 msgid "Settings…"
 msgstr ""
 
