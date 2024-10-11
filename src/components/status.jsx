@@ -903,7 +903,10 @@ function Status({
       {!isSizeLarge && sameInstance && (
         <>
           <div className="menu-control-group-horizontal status-menu">
-            <MenuItem onClick={replyStatus}>
+            <MenuItem
+              onClick={replyStatus}
+              className={`menu-reply`}
+            >
               <Icon icon="comment" />
               <span>
                 {repliesCount > 0 ? shortenNumber(repliesCount) : t`Reply`}

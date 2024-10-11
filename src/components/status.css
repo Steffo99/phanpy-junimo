@@ -2090,6 +2090,9 @@ a.card:is(:hover, :focus):visited {
   color: var(--link-color);
   background-color: var(--button-plain-bg-hover-color);
 }
+.status .action > button.plain.reply-button:not(:disabled):is(:hover, :focus) {
+  color: var(--reply-to-color);
+}
 .status .action > button.plain.reblog-button:not(:disabled):is(:hover, :focus) {
   color: var(--reblog-color);
 }
@@ -2139,9 +2142,12 @@ a.card:is(:hover, :focus):visited {
 .status .action > button.plain.favourite-button.checked .icon {
   animation: hearted 1s ease-out;
 }
+.status .action > button.plain.bookmark-button:not(:disabled):is(:hover, :focus) {
+  color: var(--bookmark-color);
+}
 .status .action > button.plain.bookmark-button.checked {
-  color: var(--link-color);
-  border-color: var(--link-color);
+  color: var(--bookmark-color);
+  border-color: var(--bookmark-color);
 }
 @keyframes bookmarked {
   25% {
@@ -2204,7 +2210,10 @@ a.card:is(:hover, :focus):visited {
       }
     }
   }
-
+  
+  .menu-reply.checked {
+    --checked-color: var(--reply-to-color);
+  }
   .menu-reblog.checked {
     --checked-color: var(--reblog-color);
   }
@@ -2212,7 +2221,7 @@ a.card:is(:hover, :focus):visited {
     --checked-color: var(--favourite-color);
   }
   .menu-bookmark.checked {
-    --checked-color: var(--link-color);
+    --checked-color: var(--bookmark-color);
   }
 }
 
@@ -2287,8 +2296,8 @@ a.card:is(:hover, :focus):visited {
     }
 
     &.bookmark-button.checked {
-      color: var(--link-color);
-      outline-color: var(--link-color);
+      color: var(--bookmark-color);
+      outline-color: var(--bookmark-color);
     }
   }
 
@@ -2776,7 +2785,7 @@ a.card:is(:hover, :focus):visited {
 .status-link:has(.status > .status-badge > .bookmark),
 .status-carousel-link:has(.status > .status-badge > .bookmark),
 .status.large:has(.bookmark-button.checked) {
-  --gradient-color-1: var(--link-faded-color);
+  --gradient-color-1: var(--bookmark-faded-color);
 }
 
 .status:has(> .status-badge > .favourite),
@@ -2797,7 +2806,7 @@ a.card:is(:hover, :focus):visited {
 .status-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .favourite),
 .status-carousel-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .favourite),
 .status.large:has(.bookmark-button.checked):has(.favourite-button.checked) {
-  --gradient-color-1: var(--link-faded-color);
+  --gradient-color-1: var(--bookmark-faded-color);
   --gradient-color-3: var(--favourite-faded-color);
 }
 
@@ -2806,7 +2815,7 @@ a.card:is(:hover, :focus):visited {
 .status-carousel-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .reblog),
 .status.large:has(.bookmark-button.checked):has(.reblog-button.checked)  {
   --gradient-color-1: var(--reblog-faded-color);
-  --gradient-color-3: var(--link-faded-color);
+  --gradient-color-3: var(--bookmark-faded-color);
 }
 
 .status:has(> .status-badge > .favourite):has(> .status-badge > .reblog),
@@ -2821,7 +2830,7 @@ a.card:is(:hover, :focus):visited {
 .status-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .favourite):has(.status > .status-badge > .reblog),
 .status-carousel-link:has(.status > .status-badge > .bookmark):has(.status > .status-badge > .favourite):has(.status > .status-badge > .reblog),
 .status.large:has(.bookmark-button.checked):has(.favourite-button.checked):has(.reblog-button.checked) {
-  --gradient-color-1: var(--link-faded-color);
+  --gradient-color-1: var(--bookmark-faded-color);
   --gradient-color-2: var(--reblog-faded-color);
   --gradient-color-3: var(--favourite-faded-color);
 }

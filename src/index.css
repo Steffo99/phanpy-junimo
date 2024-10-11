@@ -108,7 +108,7 @@
       var(--reblog-color) var(--on-color-percent),
       transparent
   );
-  --bookmark-color: var(--blue-color);
+  --bookmark-color: var(--green-color);
   --bookmark-text-color: color-mix(
       in srgb,
       var(--bookmark-color) var(--text-color-percent),
@@ -129,7 +129,7 @@
       var(--bookmark-color) var(--on-color-percent),
       transparent
   );
-  --pin-color: var(--green-color);
+  --pin-color: var(--blue-color);
   --pin-text-color: color-mix(
       in srgb,
       var(--pin-color) var(--text-color-percent),

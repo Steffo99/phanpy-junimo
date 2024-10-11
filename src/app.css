@@ -2078,6 +2078,22 @@ body > .szh-menu-container {
   opacity: 1;
 }
 
+.szh-menu .szh-menu__item--hover.menu-reply {
+  --menu-item-bg-color: var(--reply-to-color);
+}
+
+.szh-menu .szh-menu__item--hover.menu-favourite {
+  --menu-item-bg-color: var(--favourite-color);
+}
+
+.szh-menu .menu-reblog .szh-menu__item--hover {
+  --menu-item-bg-color: var(--reblog-color);
+}
+
+.szh-menu .szh-menu__item--hover.menu-bookmark {
+  --menu-item-bg-color: var(--bookmark-color);
+}
+
 .szh-menu {
   .menu-control-group-horizontal {
     display: grid;
