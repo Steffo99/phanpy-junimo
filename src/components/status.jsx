@@ -1304,22 +1304,25 @@ function Status({
               </span>
             </MenuItem>
           )}
-          <MenuConfirm
-            subMenu
-            className={"danger"}
-            confirmLabel={
-              <>
-                <Icon icon="trash" />
-                <span>
-                  <Trans>Delete this post?</Trans>
-                </span>
-              </>
-            }
-            onClick={() => {
-              // const yes = confirm('Delete this post?');
-              // if (yes) {
-              (
-                async () => {
+          {isSizeLarge && (
+            <MenuConfirm
+              subMenu
+              confirmLabel={
+                <>
+                  <Icon icon="trash" />
+                  <span>
+                    <Trans>Delete this post?</Trans>
+                  </span>
+                </>
+              }
+              itemProps={{
+                className: 'danger',
+              }}
+              menuItemClassName="danger"
+              onClick={() => {
+                // const yes = confirm('Delete this post?');
+                // if (yes) {
+                (async () => {
                   try {
                     await masto.v1.statuses.$select(id).remove();
                     const cachedStatus = getStatus(id, instance);
@@ -2728,6 +2731,8 @@ function Card({ card, selfReferential, selfAuthor, instance }) {
               width={width}
               height={height}
               loading="lazy"
+              decoding="async"
+              fetchPriority="low"
               alt={imageDescription || ''}
               onError={(e) => {
                 try {
