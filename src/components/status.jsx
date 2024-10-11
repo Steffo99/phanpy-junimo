@@ -1337,12 +1337,13 @@ function Status({
               )();
               // }
             }}
-          >
-            <Icon icon="trash" />
-            <span>
-              <Trans>Delete…</Trans>
-            </span>
-          </MenuConfirm>
+            >
+              <Icon icon="trash" />
+              <span>
+                <Trans>Delete…</Trans>
+              </span>
+            </MenuConfirm>
+          )}
         </div>
       )}
       {!isSelf && (
