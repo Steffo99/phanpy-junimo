@@ -1723,8 +1723,8 @@ msgid "Home / Following"
 msgstr ""
 
 #: src/components/shortcuts-settings.jsx:51
-msgid "Public (Local / Federated)"
-msgstr ""
+msgid "Local / Bubble / Federated"
+msgstr "Local / Bubble / Federated"
 
 #: src/components/shortcuts-settings.jsx:53
 msgid "Account"

@@ -48,7 +48,7 @@ const TYPE_TEXT = {
   following: msg`Home / Following`,
   notifications: msg`Notifications`,
   list: msg`Lists`,
-  public: msg`Public (Local / Federated)`,
+  public: msg`Local / Bubble / Federated`,
   search: msg`Search`,
   'account-statuses': msg`Account`,
   bookmarks: msg`Bookmarks`,
