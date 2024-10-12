@@ -7,7 +7,13 @@ import { MenuItem } from '@szhsin/react-menu';
 import { deepEqual } from 'fast-equals';
 import Fuse from 'fuse.js';
 import { forwardRef, memo } from 'preact/compat';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'preact/hooks';
 import { useHotkeys } from 'react-hotkeys-hook';
 import stringLength from 'string-length';
 // import { detectAll } from 'tinyld/light';
@@ -21,7 +27,6 @@ import Menu2 from '../components/menu2';
 import supportedLanguages from '../data/status-supported-languages';
 import urlRegex from '../data/url-regex';
 import { api } from '../utils/api';
-import contentTypesIconMap from '../utils/content-types-icon-map.js';
 import db from '../utils/db';
 import emojifyText from '../utils/emojify-text';
 import i18nDuration from '../utils/i18n-duration';
@@ -37,7 +42,11 @@ import shortenNumber from '../utils/shorten-number';
 import showToast from '../utils/show-toast';
 import states, { saveStatus } from '../utils/states';
 import store from '../utils/store';
-import { getCurrentAccount, getCurrentAccountNS, getCurrentInstanceConfiguration } from '../utils/store-utils';
+import {
+  getCurrentAccount,
+  getCurrentAccountNS,
+  getCurrentInstanceConfiguration,
+} from '../utils/store-utils';
 import supports from '../utils/supports';
 import useCloseWatcher from '../utils/useCloseWatcher';
 import useInterval from '../utils/useInterval';
@@ -49,7 +58,6 @@ import Icon from './icon';
 import Loader from './loader';
 import Modal from './modal';
 import Status from './status';
-
 
 const {
   PHANPY_IMG_ALT_API_URL: IMG_ALT_API_URL,
@@ -64,6 +72,14 @@ const supportedLanguagesMap = supportedLanguages.reduce((acc, l) => {
   };
   return acc;
 }, {});
+
+const contentTypesMap = {
+  'text/plain': { icon: 'font', text: t`Plain text` },
+  'text/html': { icon: 'brackets-angle', text: t`HTML` },
+  'text/markdown': { icon: 'asterisk', text: t`Markdown` },
+  'text/bbcode': { icon: 'brackets', text: t`BBCode` },
+  'text/x.misskeymarkdown': { icon: 'currency-dollar-2', text: t`MFM` },
+};
 
 /* NOTES:
   - Max character limit includes BOTH status text and Content Warning text
@@ -218,12 +234,13 @@ function Compose({
 
   const {
     statuses: {
+      supportedMimeTypes: supportedStatusMimeTypes = ['text/plain'],
       maxCharacters,
       maxMediaAttachments,  // Beware: it can be undefined!
       charactersReservedPerUrl,
     } = {},
     mediaAttachments: {
-      supportedMimeTypes,
+      supportedMimeTypes: supportedMediaMimeTypes = [],
       imageSizeLimit,
       imageMatrixLimit,
       videoSizeLimit,
@@ -238,10 +255,12 @@ function Compose({
     } = {},
   } = configuration || {};
 
+  const defaultContentType = supportedStatusMimeTypes[0];
+
   const textareaRef = useRef();
   const spoilerTextRef = useRef();
   const [visibility, setVisibility] = useState('public');
-  const [contentType, setContentType] = useState('text/plain');
+  const [contentType, setContentType] = useState(defaultContentType);
   const [sensitive, setSensitive] = useState(false);
   const [language, setLanguage] = useState(
     store.session.get('currentLanguage') || DEFAULT_LANG,
@@ -599,7 +618,7 @@ function Compose({
         const item = items[i];
         if (item.kind === 'file') {
           const file = item.getAsFile();
-          if (supportedMimeTypes !== undefined && !supportedMimeTypes.includes(file.type)) {
+          if (supportedMediaMimeTypes !== undefined && !supportedMediaMimeTypes.includes(file.type)) {
             unsupportedFiles.push(file);
           } else {
             files.push(file);
@@ -1076,7 +1095,7 @@ function Compose({
                   // params.inReplyToId = replyToStatus?.id || undefined;
                   params.in_reply_to_id = replyToStatus?.id || undefined;
                 }
-                if (supports('@akkoma/post-content-type')) {
+                if (supportedStatusMimeTypes.length > 1) {
                   params.content_type = contentType;
                 }
                 params = removeNullUndefined(params);
@@ -1165,19 +1184,17 @@ function Compose({
               />
               <Icon icon={`eye-${sensitive ? 'close' : 'open'}`} />
             </label>{' '}
-            {(
-              supports('@akkoma/post-content-type') | supports('@pleroma/post-content-type')
-            ) && (
+            {supportedStatusMimeTypes.length > 1 && (
               <>
                 <label
                   class={`toolbar-button ${
-                    contentType !== 'text/plain' && !sensitive
+                    contentType !== defaultContentType && !sensitive
                       ? 'show-field'
                       : ''
-                  } ${contentType !== 'text/plain' ? 'highlight' : ''}`}
+                  } ${contentType !== defaultContentType ? 'highlight' : ''}`}
                 >
                   <Icon
-                    icon={contentTypesIconMap[contentType]}
+                    icon={contentTypesMap[contentType].icon ?? 'asterisk'}
                     alt={visibility}
                   />
                   <select
@@ -1189,23 +1206,11 @@ function Compose({
                     disabled={uiState === 'loading'}
                     dir={'auto'}
                   >
-                    <option value="text/plain">
-                      <Trans>Plain text</Trans>
-                    </option>
-                    <option value="text/html">
-                      <Trans>HTML</Trans>
-                    </option>
-                    <option value="text/markdown">
-                      <Trans>Markdown</Trans>
-                    </option>
-                    <option value="text/bbcode">
-                      <Trans>BBCode</Trans>
-                    </option>
-                    {supports('@akkoma/post-content-type') && (
-                      <option value="text/x.misskeymarkdown">
-                        <Trans>MFM</Trans>
+                    {supportedStatusMimeTypes.map((mime) => (
+                      <option value={mime}>
+                        {contentTypesMap[mime].text ?? mime}
                       </option>
-                    )}
+                    ))}
                   </select>
                 </label>{' '}
               </>
@@ -1372,8 +1377,8 @@ function Compose({
               <label class="toolbar-button">
                 <input
                   type="file"
-                  accept={supportedMimeTypes?.join(',')}
-                  multiple={(maxMediaAttachments === undefined) || (maxMediaAttachments - mediaAttachments >= 2)}
+                  accept={supportedMediaMimeTypes?.join(',')}
+                  multiple={mediaAttachments.length < maxMediaAttachments - 1}
                   disabled={
                     uiState === 'loading' ||
                     mediaAttachments.length >= maxMediaAttachments ||
