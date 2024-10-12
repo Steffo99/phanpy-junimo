@@ -41,8 +41,7 @@ const TYPES = [
   'hashtag',
   'bookmarks',
   'favourites',
-  // NOTE: Hide for now
-  // 'account-statuses', // Need @acct search first
+  'account-statuses',
 ];
 const TYPE_TEXT = {
   following: msg`Home / Following`,
@@ -50,7 +49,7 @@ const TYPE_TEXT = {
   list: msg`Lists`,
   public: msg`Local / Bubble / Federated`,
   search: msg`Search`,
-  'account-statuses': msg`Account`,
+  'account-statuses': msg`Profile`,
   bookmarks: msg`Bookmarks`,
   favourites: msg`Likes`,
   hashtag: msg`Hashtag`,
@@ -105,6 +104,29 @@ const TYPE_PARAMS = {
       type: 'text',
       placeholder: 'cheeaun@mastodon.social',
     },
+    {
+      text: msg`− Replies`,
+      name: 'excludeReplies',
+      type: 'checkbox',
+    },
+    {
+      text: msg`− Boosts`,
+      name: 'excludeBoosts',
+      type: 'checkbox',
+    },
+    {
+      text: msg`Media`,
+      name: 'media',
+      type: 'checkbox',
+    },
+    {
+      text: msg`#`,
+      name: 'excludeReplies',
+      type: 'checkbox',
+      placeholder: msg`e.g. PixelArt (Max 5, space-separated)`,
+      pattern: '[^#]+',
+    },
+    // Month?
   ],
   hashtag: [
     {
@@ -202,6 +224,7 @@ export const SHORTCUTS_META = {
   'account-statuses': {
     id: 'account-statuses',
     title: fetchAccountTitle,
+    subtitle: ({ id }) => id.split('@')[1] ?? api().instance,
     path: ({ id }) => `/a/${id}`,
     icon: 'user',
   },

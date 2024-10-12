@@ -26,7 +26,9 @@ import NotificationService from './components/notification-service';
 import SearchCommand from './components/search-command';
 import Shortcuts from './components/shortcuts';
 import NotFound from './pages/404';
-import AccountStatuses from './pages/account-statuses';
+import AccountStatuses, {
+  AccountStatusesNavigation,
+} from './pages/account-statuses';
 import Bookmarks from './pages/bookmarks';
 import Catchup from './pages/catchup';
 import Favourites from './pages/favourites';
@@ -543,7 +545,7 @@ function SecondaryRoutes({ isLoggedIn }) {
         </>
       )}
       <Route path="/:instance?/t/:hashtag" element={<Hashtag />} />
-      <Route path="/:instance?/a/:id" element={<AccountStatuses />} />
+      <Route path="/:instance?/a/:id" element={<AccountStatusesNavigation />} />
       <Route path="/:instance?/p">
         <Route index element={<Public />} />
         <Route path="l" element={<Public variant={'local'} />} />
