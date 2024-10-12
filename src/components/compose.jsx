@@ -236,7 +236,7 @@ function Compose({
     statuses: {
       supportedMimeTypes: supportedStatusMimeTypes = ['text/plain'],
       maxCharacters,
-      maxMediaAttachments,  // Beware: it can be undefined!
+      maxMediaAttachments, // Beware: it can be undefined!
       charactersReservedPerUrl,
     } = {},
     mediaAttachments: {
@@ -618,7 +618,10 @@ function Compose({
         const item = items[i];
         if (item.kind === 'file') {
           const file = item.getAsFile();
-          if (supportedMediaMimeTypes !== undefined && !supportedMediaMimeTypes.includes(file.type)) {
+          if (
+            supportedMediaMimeTypes !== undefined &&
+            !supportedMediaMimeTypes.includes(file.type)
+          ) {
             unsupportedFiles.push(file);
           } else {
             files.push(file);
@@ -629,7 +632,9 @@ function Compose({
         alert(
           plural(unsupportedFiles.length, {
             one: `File ${unsupportedFiles[0].name} is not supported.`,
-            other: `Files ${lf.format(unsupportedFiles.map(f => f.name))} are not supported.`,
+            other: `Files ${lf.format(
+              unsupportedFiles.map((f) => f.name),
+            )} are not supported.`,
           }),
         );
       }
@@ -648,10 +653,10 @@ function Compose({
         e.stopPropagation();
         // Auto-cut-off files to avoid exceeding maxMediaAttachments
         let allowedFiles = files;
-        if(maxMediaAttachments !== undefined) {
+        if (maxMediaAttachments !== undefined) {
           const max = maxMediaAttachments - mediaAttachments.length;
           allowedFiles = allowedFiles.slice(0, max);
-          if(allowedFiles.length <= 0) {
+          if (allowedFiles.length <= 0) {
             alert(
               plural(maxMediaAttachments, {
                 one: 'You can only attach up to 1 file.',
@@ -1088,9 +1093,9 @@ function Compose({
                   );
                 } else if (!editStatus) {
                   params.visibility = visibility;
-                  if(params.visibility === "list") {
-                    const list_id = prompt("Target list ID?")
-                    params.visibility = `list:${list_id}`
+                  if (params.visibility === 'list') {
+                    const list_id = prompt('Target list ID?');
+                    params.visibility = `list:${list_id}`;
                   }
                   // params.inReplyToId = replyToStatus?.id || undefined;
                   params.in_reply_to_id = replyToStatus?.id || undefined;
@@ -1246,11 +1251,12 @@ function Compose({
                 <option value="private">
                   <Trans>Followers only</Trans>
                 </option>
-                {(supports('@pleroma/list-visibility-post') || supports('@akkoma/list-visibility-post')) &&
+                {(supports('@pleroma/list-visibility-post') ||
+                  supports('@akkoma/list-visibility-post')) && (
                   <option value="list">
                     <Trans>List only</Trans>
                   </option>
-                }
+                )}
                 <option value="direct">
                   <Trans>Private mention</Trans>
                 </option>
@@ -1470,7 +1476,8 @@ function Compose({
                   class="toolbar-button gif-picker-button"
                   disabled={
                     uiState === 'loading' ||
-                    (maxMediaAttachments !== undefined && mediaAttachments.length >= maxMediaAttachments) ||
+                    (maxMediaAttachments !== undefined &&
+                      mediaAttachments.length >= maxMediaAttachments) ||
                     !!poll
                   }
                   onClick={() => {
