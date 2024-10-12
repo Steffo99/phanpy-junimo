@@ -181,4 +181,5 @@ export const ICONS = {
   brackets: () => import('@iconify-icons/mingcute/brackets-line'),
   'currency-dollar-2': () =>
     import('@iconify-icons/mingcute/currency-dollar-2-line'),
+  star2: () => import('@iconify-icons/mingcute/star-2-line'),
 };
