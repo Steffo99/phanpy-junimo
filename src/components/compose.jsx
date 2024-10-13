@@ -240,7 +240,7 @@ function Compose({
       charactersReservedPerUrl,
     } = {},
     mediaAttachments: {
-      supportedMimeTypes: supportedMediaMimeTypes = [],
+      supportedMimeTypes: supportedMediaMimeTypes = undefined,
       imageSizeLimit,
       imageMatrixLimit,
       videoSizeLimit,
