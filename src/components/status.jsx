@@ -105,7 +105,7 @@ const visibilityTextShort = {
   private: msg`F`,
   list: msg`R`,
   direct: msg`DM`,
-}
+};
 
 const isIOS =
   window.ontouchstart !== undefined &&
@@ -348,10 +348,12 @@ function Status({
     // Non-Mastodon
     emojiReactions,
   } = status;
-  
-  const junimoUrl = `https://junimo.party/notice/${id}`
-  const phanpyUrl = `${window.location.origin}/#${instance ? `/${instance}/s/${id}` : `/s/${id}`}?view=full`
-  const isLocal = originalUrl === junimoUrl
+
+  const junimoUrl = `https://junimo.party/notice/${id}`;
+  const phanpyUrl = `${window.location.origin}/#${
+    instance ? `/${instance}/s/${id}` : `/s/${id}`
+  }?view=full`;
+  const isLocal = originalUrl === junimoUrl;
 
   const [languageAutoDetected, setLanguageAutoDetected] = useState(null);
   useEffect(() => {
@@ -903,10 +905,7 @@ function Status({
       {!isSizeLarge && sameInstance && (
         <>
           <div className="menu-control-group-horizontal status-menu">
-            <MenuItem
-              onClick={replyStatus}
-              className={`menu-reply`}
-            >
+            <MenuItem onClick={replyStatus} className={`menu-reply`}>
               <Icon icon="comment" />
               <span>
                 {repliesCount > 0 ? shortenNumber(repliesCount) : t`Reply`}
@@ -964,25 +963,23 @@ function Status({
               onClick={async () => {
                 try {
                   const done = await confirmBoostStatus();
-                  if(!isSizeLarge && done) {
+                  if (!isSizeLarge && done) {
                     showToast(
                       reblogged
-                      ? t`Unboosted @${username || acct}'s post`
-                      : t`Boosted @${username || acct}'s post`,
+                        ? t`Unboosted @${username || acct}'s post`
+                        : t`Boosted @${username || acct}'s post`,
                     );
                   }
-                }
-                catch(e) {
-                }
+                } catch (e) {}
               }}
             >
               <Icon icon="rocket" />
               <span>
                 {reblogsCount > 0
-                 ? shortenNumber(reblogsCount)
-                 : reblogged
-                   ? t`Unboost`
-                   : t`Boost…`}
+                  ? shortenNumber(reblogsCount)
+                  : reblogged
+                  ? t`Unboost`
+                  : t`Boost…`}
               </span>
             </MenuConfirm>
             <MenuItem
@@ -992,10 +989,10 @@ function Status({
               <Icon icon="heart" />
               <span>
                 {favouritesCount > 0
-                 ? shortenNumber(favouritesCount)
-                 : favourited
-                   ? t`Unlike`
-                   : t`Like`}
+                  ? shortenNumber(favouritesCount)
+                  : favourited
+                  ? t`Unlike`
+                  : t`Like`}
               </span>
             </MenuItem>
             {supports('@mastodon/post-bookmark') && (
@@ -1010,17 +1007,10 @@ function Status({
           </div>
         </>
       )}
-      {!isSizeLarge &&
-        sameInstance &&
-        (
-          isSizeLarge || showActionsBar
-        ) &&
-        (
-          <MenuDivider />
-        )}
-      {(
-        isSizeLarge || showActionsBar
-      ) && (
+      {!isSizeLarge && sameInstance && (isSizeLarge || showActionsBar) && (
+        <MenuDivider />
+      )}
+      {(isSizeLarge || showActionsBar) && (
         <>
           <MenuItem
             onClick={() => {
@@ -1042,9 +1032,7 @@ function Status({
       )}
       {!mediaFirst && (
         <>
-          {(
-            enableTranslate || !language || differentLanguage
-          ) && (
+          {(enableTranslate || !language || differentLanguage) && (
             <MenuDivider />
           )}
           {enableTranslate ? (
@@ -1064,7 +1052,7 @@ function Status({
                 <MenuItem
                   onClick={() => {
                     const postText = getPostText(status);
-                    if(postText) {
+                    if (postText) {
                       speak(postText, language);
                     }
                   }}
@@ -1077,46 +1065,40 @@ function Status({
               )}
             </div>
           ) : (
-             (
-               !language || differentLanguage
-             ) && (
-               <div className={supportsTTS ? 'menu-horizontal' : ''}>
-                 <MenuLink
-                   to={`${instance ? `/${instance}` : ''}/s/${id}?translate=1`}
-                 >
-                   <Icon icon="translate" />
-                   <span>
+            (!language || differentLanguage) && (
+              <div className={supportsTTS ? 'menu-horizontal' : ''}>
+                <MenuLink
+                  to={`${instance ? `/${instance}` : ''}/s/${id}?translate=1`}
+                >
+                  <Icon icon="translate" />
+                  <span>
                     <Trans>Translate</Trans>
                   </span>
-                 </MenuLink>
-                 {supportsTTS && (
-                   <MenuItem
-                     onClick={() => {
-                       const postText = getPostText(status);
-                       if(postText) {
-                         speak(postText, language);
-                       }
-                     }}
-                   >
-                     <Icon icon="speak" />
-                     <span>
+                </MenuLink>
+                {supportsTTS && (
+                  <MenuItem
+                    onClick={() => {
+                      const postText = getPostText(status);
+                      if (postText) {
+                        speak(postText, language);
+                      }
+                    }}
+                  >
+                    <Icon icon="speak" />
+                    <span>
                       <Trans>Speak</Trans>
                     </span>
-                   </MenuItem>
-                 )}
-               </div>
-             )
-           )}
+                  </MenuItem>
+                )}
+              </div>
+            )
+          )}
         </>
       )}
-      {(
-        (
-          !isSizeLarge && sameInstance
-        ) ||
+      {((!isSizeLarge && sameInstance) ||
         enableTranslate ||
         !language ||
-        differentLanguage
-      ) && <MenuDivider />}
+        differentLanguage) && <MenuDivider />}
       <MenuItem href={phanpyUrl}>
         <Icon icon="layout5" />
         <span
@@ -1128,10 +1110,8 @@ function Status({
           <span>
             <Trans>Full view</Trans>
           </span>
-          <br/>
-          <small>
-            {nicePostURL(phanpyUrl)}
-          </small>
+          <br />
+          <small>{nicePostURL(phanpyUrl)}</small>
         </span>
       </MenuItem>
       <MenuItem href={junimoUrl} target="_blank">
@@ -1146,9 +1126,7 @@ function Status({
             <Trans>On your server</Trans>
           </span>
           <br />
-          <small>
-            {nicePostURL(junimoUrl)}
-          </small>
+          <small>{nicePostURL(junimoUrl)}</small>
         </span>
       </MenuItem>
       {!isLocal && (
@@ -1164,9 +1142,7 @@ function Status({
               <Trans>On the original server</Trans>
             </span>
             <br />
-            <small>
-              {nicePostURL(originalUrl)}
-            </small>
+            <small>{nicePostURL(originalUrl)}</small>
           </span>
         </MenuItem>
       )}
@@ -1208,29 +1184,24 @@ function Status({
           </MenuItem>
         </>
       )}
-      {(
-        isSelf || mentionSelf || editedAt
-      ) && <MenuDivider />}
-      {(
-        isSelf || mentionSelf
-      ) && (
+      {(isSelf || mentionSelf || editedAt) && <MenuDivider />}
+      {(isSelf || mentionSelf) && (
         <MenuItem
           onClick={async () => {
             try {
               const newStatus = await masto.v1.statuses
-                                           .$select(id)
+                .$select(id)
                 [muted ? 'unmute' : 'mute']();
               saveStatus(newStatus, instance);
               showToast(
                 muted ? t`Conversation unmuted` : t`Conversation muted`,
               );
-            }
-            catch(e) {
+            } catch (e) {
               console.error(e);
               showToast(
                 muted
-                ? t`Unable to unmute conversation`
-                : t`Unable to mute conversation`,
+                  ? t`Unable to unmute conversation`
+                  : t`Unable to mute conversation`,
               );
             }
           }}
@@ -1243,13 +1214,13 @@ function Status({
               </span>
             </>
           ) : (
-             <>
-               <Icon icon="mute" />
-               <span>
+            <>
+              <Icon icon="mute" />
+              <span>
                 <Trans>Mute conversation</Trans>
               </span>
-             </>
-           )}
+            </>
+          )}
         </MenuItem>
       )}
       {isSelf && isPinnable && (
@@ -1257,16 +1228,15 @@ function Status({
           onClick={async () => {
             try {
               const newStatus = await masto.v1.statuses
-                                           .$select(id)
+                .$select(id)
                 [pinned ? 'unpin' : 'pin']();
               saveStatus(newStatus, instance);
               showToast(
                 pinned
-                ? t`Post unpinned from profile`
-                : t`Post pinned to profile`,
+                  ? t`Post unpinned from profile`
+                  : t`Post pinned to profile`,
               );
-            }
-            catch(e) {
+            } catch (e) {
               console.error(e);
               showToast(
                 pinned ? t`Unable to unpin post` : t`Unable to pin post`,
@@ -1282,13 +1252,13 @@ function Status({
               </span>
             </>
           ) : (
-             <>
-               <Icon icon="pin" />
-               <span>
+            <>
+              <Icon icon="pin" />
+              <span>
                 <Trans>Pin to profile</Trans>
               </span>
-             </>
-           )}
+            </>
+          )}
         </MenuItem>
       )}
       {isSelf && (
@@ -1307,46 +1277,42 @@ function Status({
               </span>
             </MenuItem>
           )}
-          {isSizeLarge && (
-            <MenuConfirm
-              subMenu
-              confirmLabel={
-                <>
-                  <Icon icon="trash" />
-                  <span>
-                    <Trans>Delete this post?</Trans>
-                  </span>
-                </>
-              }
-              itemProps={{
-                className: 'danger',
-              }}
-              menuItemClassName="danger"
-              onClick={() => {
-                // const yes = confirm('Delete this post?');
-                // if (yes) {
-                (async () => {
-                  try {
-                    await masto.v1.statuses.$select(id).remove();
-                    const cachedStatus = getStatus(id, instance);
-                    cachedStatus._deleted = true;
-                    showToast(t`Post deleted`);
-                  }
-                  catch(e) {
-                    console.error(e);
-                    showToast(t`Unable to delete post`);
-                  }
+          <MenuConfirm
+            subMenu
+            confirmLabel={
+              <>
+                <Icon icon="trash" />
+                <span>
+                  <Trans>Delete this post?</Trans>
+                </span>
+              </>
+            }
+            itemProps={{
+              className: 'danger',
+            }}
+            menuItemClassName="danger"
+            onClick={() => {
+              // const yes = confirm('Delete this post?');
+              // if (yes) {
+              (async () => {
+                try {
+                  await masto.v1.statuses.$select(id).remove();
+                  const cachedStatus = getStatus(id, instance);
+                  cachedStatus._deleted = true;
+                  showToast(t`Post deleted`);
+                } catch (e) {
+                  console.error(e);
+                  showToast(t`Unable to delete post`);
                 }
-              )();
+              })();
               // }
             }}
-            >
-              <Icon icon="trash" />
-              <span>
-                <Trans>Delete…</Trans>
-              </span>
-            </MenuConfirm>
-          )}
+          >
+            <Icon icon="trash" />
+            <span>
+              <Trans>Delete…</Trans>
+            </span>
+          </MenuConfirm>
         </div>
       )}
       {!isSelf && (
@@ -1369,42 +1335,39 @@ function Status({
       )}
     </>
   );
-  
+
   const contextMenuRef = useRef();
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const [contextMenuProps, setContextMenuProps] = useState({});
-  
+
   const showContextMenu =
-    allowContextMenu ||
-    (
-      !isSizeLarge && !previewMode && !_deleted && !quoted
-    );
-  
+    allowContextMenu || (!isSizeLarge && !previewMode && !_deleted && !quoted);
+
   // Only iOS/iPadOS browsers don't support contextmenu
   // Some comments report iPadOS might support contextmenu if a mouse is connected
   const bindLongPressContext = useLongPress(
     isIOS && showContextMenu
-    ? (e) => {
-      if(e.pointerType === 'mouse') {
-        return;
-      }
-      // There's 'pen' too, but not sure if contextmenu event would trigger from a pen
-      
-      const { clientX, clientY } = e.touches?.[0] || e;
-      // link detection copied from onContextMenu because here it works
-      const link = e.target.closest('a');
-      if(
-        link &&
-        statusRef.current.contains(link) &&
-        !link.getAttribute('href').startsWith('#')
-      ) {
-        return;
-      }
-      e.preventDefault();
-      setContextMenuProps({
-        anchorPoint: {
-          x: clientX,
-          y: clientY,
+      ? (e) => {
+          if (e.pointerType === 'mouse') {
+            return;
+          }
+          // There's 'pen' too, but not sure if contextmenu event would trigger from a pen
+
+          const { clientX, clientY } = e.touches?.[0] || e;
+          // link detection copied from onContextMenu because here it works
+          const link = e.target.closest('a');
+          if (
+            link &&
+            statusRef.current.contains(link) &&
+            !link.getAttribute('href').startsWith('#')
+          ) {
+            return;
+          }
+          e.preventDefault();
+          setContextMenuProps({
+            anchorPoint: {
+              x: clientX,
+              y: clientY,
             },
             direction: 'right',
           });
@@ -1818,59 +1781,65 @@ function Status({
                 <span class="status-deleted-tag">
                   <Trans>Deleted</Trans>
                 </span>
-              ) : originalUrl && !previewMode && !readOnly && !quoted && (
-                <Link
-                  to={instance ? `/${instance}/s/${id}` : `/s/${id}`}
-                  onClick={(e) => {
-                    if (
-                      e.metaKey ||
-                      e.ctrlKey ||
-                      e.shiftKey ||
-                      e.altKey ||
-                      e.which === 2
-                    ) {
-                      return;
-                    }
-                    e.preventDefault();
-                    e.stopPropagation();
-                    onStatusLinkClick?.(e, status);
-                    setContextMenuProps({
-                      anchorRef: {
-                        current: e.currentTarget,
-                      },
-                      align: 'end',
-                      direction: 'bottom',
-                      gap: 4,
-                    });
-                    setIsContextMenuOpen(true);
-                  }}
-                  class={`time ${
-                    isContextMenuOpen && contextMenuProps?.anchorRef
-                      ? 'is-open'
-                      : ''
-                  }`}
-                >
-                  {showCommentHint && !showCommentCount && (
-                    <Icon
-                      icon="comment2"
-                      size="s"
-                      // alt={`${repliesCount} ${
-                      //   repliesCount === 1 ? 'reply' : 'replies'
-                      // }`}
-                      alt={plural(repliesCount, {
-                        one: '# reply',
-                        other: '# replies',
-                      })}
-                    />
-                  )}{' '}
-                  <RelativeTime datetime={createdAtDate} format="micro" />
-                  {!previewMode && !readOnly && (
-                    <Icon icon={visibilityIconsMap[visibility]} alt={_(visibilityTextShort[visibility])} />
-                  )}
-                </Link>
+              ) : (
+                originalUrl &&
+                !previewMode &&
+                !readOnly &&
+                !quoted && (
+                  <Link
+                    to={instance ? `/${instance}/s/${id}` : `/s/${id}`}
+                    onClick={(e) => {
+                      if (
+                        e.metaKey ||
+                        e.ctrlKey ||
+                        e.shiftKey ||
+                        e.altKey ||
+                        e.which === 2
+                      ) {
+                        return;
+                      }
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onStatusLinkClick?.(e, status);
+                      setContextMenuProps({
+                        anchorRef: {
+                          current: e.currentTarget,
+                        },
+                        align: 'end',
+                        direction: 'bottom',
+                        gap: 4,
+                      });
+                      setIsContextMenuOpen(true);
+                    }}
+                    class={`time ${
+                      isContextMenuOpen && contextMenuProps?.anchorRef
+                        ? 'is-open'
+                        : ''
+                    }`}
+                  >
+                    {showCommentHint && !showCommentCount && (
+                      <Icon
+                        icon="comment2"
+                        size="s"
+                        // alt={`${repliesCount} ${
+                        //   repliesCount === 1 ? 'reply' : 'replies'
+                        // }`}
+                        alt={plural(repliesCount, {
+                          one: '# reply',
+                          other: '# replies',
+                        })}
+                      />
+                    )}{' '}
+                    <RelativeTime datetime={createdAtDate} format="micro" />
+                    {!previewMode && !readOnly && (
+                      <Icon
+                        icon={visibilityIconsMap[visibility]}
+                        alt={_(visibilityTextShort[visibility])}
+                      />
+                    )}
+                  </Link>
                 )
-              )
-            }
+              ))}
           </div>
           {!withinContext && (
             <>
@@ -1891,7 +1860,7 @@ function Status({
                     return mention.id === inReplyToAccountId;
                   })) && (
                   <div class="status-reply-badge">
-                    <Icon icon="reply" size={"s"}/>{' '}
+                    <Icon icon="reply" size={'s'} />{' '}
                     <NameText
                       account={inReplyToAccount}
                       instance={instance}
@@ -1943,8 +1912,14 @@ function Status({
                       }}
                     >
                       <Icon icon={showSpoiler ? 'eye-open' : 'eye-close'} />{' '}
-                      <span class={"spoiler-text"}>
-                        {spoilerText ? <EmojiText text={spoilerText} emojis={emojis} /> : showSpoiler ? t`Show less` : t`Show content`}
+                      <span class={'spoiler-text'}>
+                        {spoilerText ? (
+                          <EmojiText text={spoilerText} emojis={emojis} />
+                        ) : showSpoiler ? (
+                          t`Show less`
+                        ) : (
+                          t`Show content`
+                        )}
                       </span>
                     </button>
                   </>
@@ -1996,8 +1971,14 @@ function Status({
                         }}
                       >
                         <Icon icon={showSpoiler ? 'eye-open' : 'eye-close'} />{' '}
-                        <span class={"spoiler-text"}>
-                          {!!spoilerText ? <EmojiText text={spoilerText} emojis={emojis} /> : showSpoiler ? t`Show less` : t`Show content`}
+                        <span class={'spoiler-text'}>
+                          {!!spoilerText ? (
+                            <EmojiText text={spoilerText} emojis={emojis} />
+                          ) : showSpoiler ? (
+                            t`Show less`
+                          ) : (
+                            t`Show content`
+                          )}
                         </span>
                       </button>
                     )}
@@ -2194,7 +2175,11 @@ function Status({
                       alt={visibilityText[visibility]}
                     /> */}
                     <span>{_(visibilityText[visibility])}</span> &bull;{' '}
-                    <a href={originalUrl} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={originalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <time
                         class="created"
                         datetime={createdAtDate.toISOString()}
@@ -3392,7 +3377,7 @@ function nicePostURL(url) {
   if (!url) return;
   const urlObj = URL.parse(url);
   const { host, pathname, hash } = urlObj;
-  const pathnameAndHash = pathname + hash
+  const pathnameAndHash = pathname + hash;
   const path = pathnameAndHash.replace(/\/$/, '');
   // split only first slash
   const [_, username, restPath] = path.match(/\/(@[^\/]+)\/(.*)/) || [];
