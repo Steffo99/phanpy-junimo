@@ -77,7 +77,7 @@ export function AccountStatusesNavigation({}) {
 function AccountStatuses({
   id,
   month = null,
-  excludeReplies = true,
+  excludeReplies = false,
   excludeBoosts = false,
   tagged = null,
   media = false,
