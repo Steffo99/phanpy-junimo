@@ -28,11 +28,18 @@ const INLINE_CODE_REGEX = /`[^`]+`/;
 const TWITTER_DOMAIN_REGEX = /(twitter|x)\.com/i;
 const TWITTER_MENTION_REGEX = /@[a-zA-Z0-9_]+@(twitter|x)\.com/;
 const TWITTER_MENTION_CAPTURE_REGEX = /(@([a-zA-Z0-9_]+)@(twitter|x)\.com)/g;
+const CODE_INLINE_CAPTURE_REGEX = /(`[^]+?`)/g;
 
 function createDOM(html, isDocumentFragment) {
-  const tpl = document.createElement('template');
-  tpl.innerHTML = html;
-  return isDocumentFragment ? tpl.content : tpl;
+  if (isDocumentFragment) {
+    const tpl = document.createElement('template');
+    tpl.innerHTML = html;
+    return tpl.content;
+  } else {
+    const tpl = document.createElement('div');
+    tpl.innerHTML = html;
+    return tpl;
+  }
 }
 
 function _countEntities(p) {
@@ -138,13 +145,11 @@ function _enhanceContent(content, opts = {}) {
   // ======
   // Convert :shortcode: to <img />
   let textNodes;
-  if (enhancedContent.includes(':')) {
+  if (enhancedContent.includes(':') && emojis?.length) {
     textNodes = extractTextNodes(dom);
     for (const node of textNodes) {
       let html = escapeHTML(node.nodeValue);
-      if (emojis) {
-        html = emojifyText(html, emojis);
-      }
+      html = emojifyText(html, emojis);
       fauxDiv.innerHTML = html;
       node.replaceWith(...fauxDiv.childNodes);
     }
@@ -221,7 +226,7 @@ function _enhanceContent(content, opts = {}) {
     for (const node of textNodes) {
       let html = escapeHTML(node.nodeValue);
       if (INLINE_CODE_REGEX.test(html)) {
-        html = html.replaceAll(/(`[^]+?`)/g, '<code>$1</code>');
+        html = html.replaceAll(CODE_INLINE_CAPTURE_REGEX, '<code>$1</code>');
       }
       fauxDiv.innerHTML = html;
       // const nodes = [...fauxDiv.childNodes];
