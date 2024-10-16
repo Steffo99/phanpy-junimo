@@ -26,7 +26,7 @@ body {
 
 /* MENTIONS */
 
-a.mention {
+a.mention, a[rel="tag ugc"] {
   --kind-text-color: var(--link-text-color);
   --kind-off-color: var(--link-off-color);
   --kind-on-color: var(--link-on-color);
@@ -45,7 +45,7 @@ a.mention.u-url {
   --kind-on-color: var(--reply-to-on-color);
 }
 
-a.mention.hashtag {
+a.mention.hashtag, a[rel="tag ugc"] {
   --kind-text-color: var(--hashtag-text-color);
   --kind-off-color: var(--hashtag-off-color);
   --kind-on-color: var(--hashtag-on-color);
