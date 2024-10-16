@@ -2534,14 +2534,6 @@ ul.link-list li a .icon {
       3px 0 var(--bg-color);
   }
 }
-#columns:has(> :nth-child(3)) > *:nth-child(even),
-#columns:has(> :nth-child(3))
-  > *:nth-child(even)
-  .timeline-deck
-  > header
-  .header-grid {
-  background-color: var(--bg-blur-color);
-}
 #columns > .deck-container > .timeline-deck {
   content-visibility: auto;
 }
