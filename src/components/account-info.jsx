@@ -940,16 +940,27 @@ function RelatedActions({
 
   const [relationshipUIState, setRelationshipUIState] = useState('default');
   const [relationship, setRelationship] = useState(null);
-  
-  console.debug("Account info:", info)
 
-  const { id, acct, url: originalUrl, username, locked, lastStatusAt, note, fields, moved } =
-    info;
+  console.debug('Account info:', info);
+
+  const {
+    id,
+    acct,
+    url: originalUrl,
+    username,
+    locked,
+    lastStatusAt,
+    note,
+    fields,
+    moved,
+  } = info;
   const accountID = useRef(id);
-  
-  const junimoUrl = `https://junimo.party/users/${id}`
-  const phanpyUrl = `${window.location.origin}/#${currentInstance ? `/${currentInstance}/a/${id}` : `/a/${id}`}`
-  const isLocal = originalUrl === junimoUrl
+
+  const junimoUrl = `https://junimo.party/users/${id}`;
+  const phanpyUrl = `${window.location.origin}/#${
+    currentInstance ? `/${currentInstance}/a/${id}` : `/a/${id}`
+  }`;
+  const isLocal = originalUrl === junimoUrl;
 
   const {
     following,
@@ -970,7 +981,7 @@ function RelatedActions({
   const [isSelf, setIsSelf] = useState(false);
 
   const acctWithInstance = acct.includes('@') ? acct : `${acct}@${instance}`;
-  const [acctWithoutInstance, acctInstance] = acct.split("@");
+  const [acctWithoutInstance, acctInstance] = acct.split('@');
 
   useEffect(() => {
     if (info) {
@@ -1146,9 +1157,7 @@ function RelatedActions({
                 >
                   <Icon icon="at" />
                   <span>
-                    <Trans>
-                      Mention
-                    </Trans>
+                    <Trans>Mention</Trans>
                   </span>
                 </MenuItem>
                 <MenuItem
@@ -1164,7 +1173,7 @@ function RelatedActions({
                 <MenuDivider />
               </>
             )}
-            
+
             {/* Handle */}
             <MenuItem
               onClick={() => {
@@ -1188,11 +1197,14 @@ function RelatedActions({
                 <Trans>Handle</Trans>
                 <br />
                 <small class="bidi-isolate">
-                  <span>@{acctWithoutInstance}</span><span class={"more-insignificant"}>@{acctInstance}</span>
+                  <span>@{acctWithoutInstance}</span>
+                  {acctInstance && (
+                    <span class={'more-insignificant'}>@{acctInstance}</span>
+                  )}
                 </small>
               </span>
             </MenuItem>
-            
+
             {/* Phanpy */}
             <MenuItem
               onClick={() => {
@@ -1203,7 +1215,8 @@ function RelatedActions({
                   console.error(e);
                   showToast(t`Unable to copy permalink`);
                 }
-              }}>
+              }}
+            >
               <Icon icon="layout5" />
               <span
                 class="menu-double-lines"
@@ -1214,10 +1227,8 @@ function RelatedActions({
                 <span>
                   <Trans>This page</Trans>
                 </span>
-                <br/>
-                <small>
-                  {niceAccountURL(phanpyUrl)}
-                </small>
+                <br />
+                <small>{niceAccountURL(phanpyUrl)}</small>
               </span>
             </MenuItem>
             <MenuItem href={junimoUrl} target="_blank">
@@ -1232,9 +1243,7 @@ function RelatedActions({
                   <Trans>On your server</Trans>
                 </span>
                 <br />
-                <small>
-                  {niceAccountURL(junimoUrl)}
-                </small>
+                <small>{niceAccountURL(junimoUrl)}</small>
               </span>
             </MenuItem>
             {!isLocal && (
@@ -1250,9 +1259,7 @@ function RelatedActions({
                     <Trans>On the original server</Trans>
                   </span>
                   <br />
-                  <small>
-                    {niceAccountURL(originalUrl)}
-                  </small>
+                  <small>{niceAccountURL(originalUrl)}</small>
                 </span>
               </MenuItem>
             )}
@@ -1266,8 +1273,8 @@ function RelatedActions({
                 >
                   <Icon icon="pencil" />
                   <span>
-                        {privateNote ? t`Edit private note` : t`Add private note`}
-                      </span>
+                    {privateNote ? t`Edit private note` : t`Add private note`}
+                  </span>
                 </MenuItem>
               </>
             )}
@@ -1285,16 +1292,16 @@ function RelatedActions({
                       <Trans>Add/Remove from Lists</Trans>
                       <br />
                       <span class="more-insignificant">
-                            {lists.map((list) => list.title).join(', ')}
-                          </span>
+                        {lists.map((list) => list.title).join(', ')}
+                      </span>
                     </small>
                     <small class="more-insignificant">{lists.length}</small>
                   </>
                 ) : (
-                   <span>
-                        <Trans>Add to list</Trans>
-                      </span>
-                 )}
+                  <span>
+                    <Trans>Add to list</Trans>
+                  </span>
+                )}
               </MenuItem>
             )}
             {!!relationship && (
@@ -1308,16 +1315,16 @@ function RelatedActions({
                         (async () => {
                           try {
                             const rel = await currentMasto.v1.accounts
-                                                          .$select(accountID.current)
-                                                          .follow({
-                                                            notify: !notifying,
-                                                          });
+                              .$select(accountID.current)
+                              .follow({
+                                notify: !notifying,
+                              });
                             if (rel) setRelationship(rel);
                             setRelationshipUIState('default');
                             showToast(
                               rel.notifying
-                              ? t`Notifications enabled for @${username}'s posts.`
-                              : t` Notifications disabled for @${username}'s posts.`,
+                                ? t`Notifications enabled for @${username}'s posts.`
+                                : t` Notifications disabled for @${username}'s posts.`,
                             );
                           } catch (e) {
                             alert(e);
@@ -1329,8 +1336,8 @@ function RelatedActions({
                       <Icon icon="notification" />
                       <span>
                         {notifying
-                         ? t`Disable post notifications`
-                         : t`Enable post notifications`}
+                          ? t`Disable post notifications`
+                          : t`Enable post notifications`}
                       </span>
                     </MenuItem>
                     <MenuItem
@@ -1339,16 +1346,16 @@ function RelatedActions({
                         (async () => {
                           try {
                             const rel = await currentMasto.v1.accounts
-                                                          .$select(accountID.current)
-                                                          .follow({
-                                                            reblogs: !showingReblogs,
-                                                          });
+                              .$select(accountID.current)
+                              .follow({
+                                reblogs: !showingReblogs,
+                              });
                             if (rel) setRelationship(rel);
                             setRelationshipUIState('default');
                             showToast(
                               rel.showingReblogs
-                              ? t`Boosts from @${username} muted.`
-                              : t`Boosts from @${username} unmuted.`,
+                                ? t`Boosts from @${username} muted.`
+                                : t`Boosts from @${username} unmuted.`,
                             );
                           } catch (e) {
                             alert(e);
@@ -1461,7 +1468,7 @@ function RelatedActions({
                     </div>
                   </SubMenu2>
                 )}
-                
+
                 <MenuDivider />
 
                 {followedBy && (
@@ -1813,7 +1820,7 @@ function niceAccountURL(url) {
   if (!url) return;
   const urlObj = URL.parse(url);
   const { host, pathname, hash } = urlObj;
-  const pathnameAndHash = pathname + hash
+  const pathnameAndHash = pathname + hash;
   const path = pathnameAndHash.replace(/\/$/, '');
   // split only first slash
   const [_, username, restPath] = path.match(/\/(@[^\/]+)\/(.*)/) || [];
@@ -1827,8 +1834,8 @@ function niceAccountURL(url) {
           <span class="more-insignificant">/{restPath}</span>
         </>
       ) : (
-         <span class="more-insignificant">{path}</span>
-       )}
+        <span class="more-insignificant">{path}</span>
+      )}
     </>
   );
 }
