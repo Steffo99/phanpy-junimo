@@ -70,10 +70,22 @@
 .notification-type.notification-favourite {
   color: var(--favourite-color);
 }
+.notification-type.notification-pleroma\:emoji_reaction {
+  color: var(--favourite-color);
+}
 .notification-type.notification-reblog {
   color: var(--reblog-color);
 }
+.notification-type.notification-follow {
+  color: var(--group-color);
+}
+.notification-type.notification-move {
+  color: var(--group-color);
+}
 .notification-type.notification-poll {
+  color: var(--link-color);
+}
+.notification-type.notification-update {
   color: var(--link-color);
 }
 
