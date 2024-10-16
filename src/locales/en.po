@@ -188,7 +188,7 @@ msgstr ""
 #: src/pages/catchup.jsx:72
 #: src/pages/catchup.jsx:1447
 #: src/pages/catchup.jsx:2068
-#: src/pages/settings.jsx:1129
+#: src/pages/settings.jsx:1146
 msgid "Boosts"
 msgstr ""
 
@@ -1280,7 +1280,7 @@ msgstr ""
 #: src/pages/home.jsx:224
 #: src/pages/mentions.jsx:20
 #: src/pages/mentions.jsx:167
-#: src/pages/settings.jsx:1121
+#: src/pages/settings.jsx:1138
 #: src/pages/trending.jsx:381
 msgid "Mentions"
 msgstr ""
@@ -1336,7 +1336,7 @@ msgstr ""
 #: src/pages/catchup.jsx:2062
 #: src/pages/favourites.jsx:11
 #: src/pages/favourites.jsx:23
-#: src/pages/settings.jsx:1125
+#: src/pages/settings.jsx:1142
 msgid "Likes"
 msgstr ""
 
@@ -2383,7 +2383,7 @@ msgid "<0/> <1/> boosted"
 msgstr ""
 
 #: src/components/timeline.jsx:453
-#: src/pages/settings.jsx:1149
+#: src/pages/settings.jsx:1166
 msgid "New posts"
 msgstr ""
 
@@ -3222,7 +3222,7 @@ msgid "{0, plural, one {Announcement} other {Announcements}}"
 msgstr ""
 
 #: src/pages/notifications.jsx:614
-#: src/pages/settings.jsx:1137
+#: src/pages/settings.jsx:1154
 msgid "Follow requests"
 msgstr ""
 
@@ -3569,84 +3569,84 @@ msgstr ""
 msgid "<0>Built</0> by <1>@cheeaun</1>"
 msgstr ""
 
-#: src/pages/settings.jsx:786
+#: src/pages/settings.jsx:779
+msgid "<0><1>Modified</1> by <2>@steffo</2> & others</0>"
+msgstr "<0><1>Modified</1> by <2>@steffo</2> & others</0>"
+
+#: src/pages/settings.jsx:811
 msgid "Sponsor"
 msgstr ""
 
-#: src/pages/settings.jsx:794
+#: src/pages/settings.jsx:819
 msgid "Donate"
 msgstr ""
 
-#: src/pages/settings.jsx:802
-msgid "Privacy Policy"
-msgstr ""
-
-#: src/pages/settings.jsx:809
+#: src/pages/settings.jsx:826
 msgid "<0>Site:</0> {0}"
 msgstr ""
 
-#: src/pages/settings.jsx:816
+#: src/pages/settings.jsx:833
 msgid "<0>Version:</0> <1/> {0}"
 msgstr ""
 
-#: src/pages/settings.jsx:831
+#: src/pages/settings.jsx:848
 msgid "Version string copied"
 msgstr ""
 
-#: src/pages/settings.jsx:834
+#: src/pages/settings.jsx:851
 msgid "Unable to copy version string"
 msgstr ""
 
-#: src/pages/settings.jsx:1034
-#: src/pages/settings.jsx:1039
+#: src/pages/settings.jsx:1051
+#: src/pages/settings.jsx:1056
 msgid "Failed to update subscription. Please try again."
 msgstr ""
 
-#: src/pages/settings.jsx:1045
+#: src/pages/settings.jsx:1062
 msgid "Failed to remove subscription. Please try again."
 msgstr ""
 
-#: src/pages/settings.jsx:1052
+#: src/pages/settings.jsx:1069
 msgid "Push Notifications (beta)"
 msgstr ""
 
-#: src/pages/settings.jsx:1074
+#: src/pages/settings.jsx:1091
 msgid "Push notifications are blocked. Please enable them in your browser settings."
 msgstr ""
 
-#: src/pages/settings.jsx:1083
+#: src/pages/settings.jsx:1100
 msgid "Allow from <0>{0}</0>"
 msgstr ""
 
-#: src/pages/settings.jsx:1092
+#: src/pages/settings.jsx:1109
 msgid "anyone"
 msgstr ""
 
-#: src/pages/settings.jsx:1096
+#: src/pages/settings.jsx:1113
 msgid "people I follow"
 msgstr ""
 
-#: src/pages/settings.jsx:1100
+#: src/pages/settings.jsx:1117
 msgid "followers"
 msgstr ""
 
-#: src/pages/settings.jsx:1133
+#: src/pages/settings.jsx:1150
 msgid "Follows"
 msgstr ""
 
-#: src/pages/settings.jsx:1141
+#: src/pages/settings.jsx:1158
 msgid "Polls"
 msgstr ""
 
-#: src/pages/settings.jsx:1145
+#: src/pages/settings.jsx:1162
 msgid "Post edits"
 msgstr ""
 
-#: src/pages/settings.jsx:1166
+#: src/pages/settings.jsx:1183
 msgid "Push permission was not granted since your last login. You'll need to <0><1>log in</1> again to grant push permission</0>."
 msgstr ""
 
-#: src/pages/settings.jsx:1182
+#: src/pages/settings.jsx:1199
 msgid "NOTE: Push notifications only work for <0>one account</0>."
 msgstr ""
 
