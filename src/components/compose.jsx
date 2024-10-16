@@ -1061,9 +1061,9 @@ function Compose({
                   );
                 } else if (!editStatus) {
                   params.visibility = visibility;
-                  if(params.visibility === "list") {
-                    const list_id = prompt("Target list ID?")
-                    params.visibility = `list:${list_id}`
+                  if (params.visibility === 'list') {
+                    const list_id = prompt('Target list ID?');
+                    params.visibility = `list:${list_id}`;
                   }
                   // params.inReplyToId = replyToStatus?.id || undefined;
                   params.in_reply_to_id = replyToStatus?.id || undefined;
@@ -1173,22 +1173,24 @@ function Compose({
                 <option value="public">
                   <Trans>Public</Trans>
                 </option>
-                {(supports('@pleroma/local-visibility-post') || supports('@akkoma/local-visibility-post')) &&
+                {(supports('@pleroma/local-visibility-post') ||
+                  supports('@akkoma/local-visibility-post')) && (
                   <option value="local">
                     <Trans>Local</Trans>
                   </option>
-                }
+                )}
                 <option value="unlisted">
                   <Trans>Unlisted</Trans>
                 </option>
                 <option value="private">
                   <Trans>Followers only</Trans>
                 </option>
-                {(supports('@pleroma/list-visibility-post') || supports('@akkoma/list-visibility-post')) &&
+                {(supports('@pleroma/list-visibility-post') ||
+                  supports('@akkoma/list-visibility-post')) && (
                   <option value="list">
-                    <Trans>List only</Trans>
+                    <Trans>List (alpha)</Trans>
                   </option>
-                }
+                )}
                 <option value="direct">
                   <Trans>Private mention</Trans>
                 </option>
