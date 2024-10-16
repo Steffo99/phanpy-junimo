@@ -741,7 +741,7 @@ function Settings({ onClose }) {
               }}
             />
             <div>
-              <b>Phanpy</b>{' '}
+              <b>Phanpy</b> Junimo{' '}
               <a
                 href="https://hachyderm.io/@phanpy"
                 // target="_blank"
@@ -775,6 +775,31 @@ function Settings({ onClose }) {
                   @cheeaun
                 </a>
               </Trans>
+              <br />
+              <Trans>
+                <small>
+                  <a
+                    href="https://github.com/steffo99/phanpy-junimo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Modified
+                  </a>{' '}
+                  by{' '}
+                  <a
+                    href="https://junimo.party/@steffo"
+                    // target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      states.showAccount = 'cheeaun@mastodon.social';
+                    }}
+                  >
+                    @steffo
+                  </a>{' '}
+                  & others
+                </small>
+              </Trans>
             </div>
           </div>
           <p>
@@ -792,14 +817,6 @@ function Settings({ onClose }) {
               rel="noopener noreferrer"
             >
               <Trans>Donate</Trans>
-            </a>{' '}
-            &middot;{' '}
-            <a
-              href={PRIVACY_POLICY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Trans>Privacy Policy</Trans>
             </a>
           </p>
           {__BUILD_TIME__ && (
