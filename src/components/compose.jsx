@@ -1383,7 +1383,7 @@ function Compose({
               <label class="toolbar-button">
                 <input
                   type="file"
-                  accept={supportedMimeTypes?.join(',')}
+                  accept={supportedMediaMimeTypes?.join(',')}
                   multiple={
                     maxMediaAttachments === undefined ||
                     maxMediaAttachments - mediaAttachments >= 2
