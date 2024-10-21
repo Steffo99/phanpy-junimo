@@ -28,7 +28,7 @@ import Icon from './icon';
 import MenuConfirm from './menu-confirm';
 import Modal from './modal';
 
-export const SHORTCUTS_LIMIT = 9;
+export const SHORTCUTS_LIMIT = 99;
 
 const TYPES = [
   'following',
@@ -115,16 +115,9 @@ const TYPE_PARAMS = {
       type: 'checkbox',
     },
     {
-      text: msg`Media`,
+      text: msg`Media only`,
       name: 'media',
       type: 'checkbox',
-    },
-    {
-      text: msg`#`,
-      name: 'excludeReplies',
-      type: 'checkbox',
-      placeholder: msg`e.g. PixelArt (Max 5, space-separated)`,
-      pattern: '[^#]+',
     },
     // Month?
   ],
@@ -177,7 +170,7 @@ export const SHORTCUTS_META = {
     icon: 'notification',
   },
   list: {
-    id: ({ id }) => (id ? 'list' : 'lists'),
+    id: ({ id }) => (id ? `list-${id}` : 'lists'),
     title: ({ id }) => (id ? getListTitle(id) : t`Lists`),
     path: ({ id }) => (id ? `/l/${id}` : '/l'),
     icon: 'list',
@@ -225,10 +218,12 @@ export const SHORTCUTS_META = {
     excludeViewMode: ({ query }) => (!query ? ['multi-column'] : []),
   },
   'account-statuses': {
-    id: 'account-statuses',
+    id: ({ id }) => `profile-${id}`,
     title: fetchAccountTitle,
     subtitle: ({ id }) => id.split('@')[1] ?? api().instance,
-    path: ({ id }) => `/a/${id}`,
+    path: (a, b) => {
+      console.log('PATH', a, b);
+    },
     icon: 'user',
   },
   bookmarks: {
@@ -608,7 +603,7 @@ function ShortcutForm({
         const input = form.querySelector(`[name="${name}"]`);
         if (input && shortcut[name]) {
           if (type === 'checkbox') {
-            input.checked = shortcut[name] === 'on' ? true : false;
+            input.checked = shortcut[name] === 'on';
           } else {
             input.value = shortcut[name];
           }
