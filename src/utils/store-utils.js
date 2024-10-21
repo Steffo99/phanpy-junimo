@@ -123,17 +123,11 @@ function getInstanceConfiguration(instance) {
     maxMediaAttachments,
     maxTootChars,
     pollLimits,
-    pleroma: {
-      metadata: { postFormats },
-    },
   } = instance;
 
   const statuses = configuration?.statuses || {};
   if (maxMediaAttachments) {
     statuses.maxMediaAttachments ??= maxMediaAttachments;
-  }
-  if (postFormats) {
-    statuses.supportedMimeTypes ??= postFormats;
   }
 
   if (maxTootChars) {
