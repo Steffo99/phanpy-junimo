@@ -200,6 +200,17 @@ const SearchForm = forwardRef((props, ref) => {
             {
               label: (
                 <Trans>
+                  Look up <mark>{query}</mark>
+                </Trans>
+              ),
+              to: `/${query}`,
+              hidden: !/^https?:/.test(query),
+              top: /^https?:/.test(query),
+              type: 'link',
+            },
+            {
+              label: (
+                <Trans>
                   {query}{' '}
                   <small class="insignificant">
                     ‒ accounts, hashtags &amp; posts
@@ -235,17 +246,6 @@ const SearchForm = forwardRef((props, ref) => {
               type: 'link',
               icon: 'hashtag',
               queryType: 'hashtags',
-            },
-            {
-              label: (
-                <Trans>
-                  Look up <mark>{query}</mark>
-                </Trans>
-              ),
-              to: `/${query}`,
-              hidden: !/^https?:/.test(query),
-              top: /^https?:/.test(query),
-              type: 'link',
             },
             {
               label: (
