@@ -134,6 +134,8 @@ function getInstanceConfiguration(instance) {
     statuses.maxCharacters ??= maxTootChars;
   }
 
+  statuses.supportedMimeTypes ??= instance?.pleroma?.metadata?.postFormats;
+
   const polls = configuration?.polls || {};
   if (pollLimits) {
     polls.maxCharactersPerOption ??= pollLimits.maxOptionChars;
