@@ -33,7 +33,6 @@ function handleContentLinks(opts) {
           (mention) =>
             mention.acct === username || mention.username === username,
         );
-      console.warn('MENTION', mention, url);
       if (mention) {
         e.preventDefault();
         e.stopPropagation();

@@ -150,6 +150,27 @@
       var(--pin-color) var(--on-color-percent),
       transparent
   );
+  --bridge-color: var(--purple-color);
+  --bridge-text-color: color-mix(
+      in srgb,
+      var(--bridge-color) var(--text-color-percent),
+      var(--text-color)
+  );
+  --bridge-faded-color: color-mix(
+      in srgb,
+      var(--bridge-color) var(--faded-color-percent),
+      transparent
+  );
+  --bridge-off-color: color-mix(
+      in srgb,
+      var(--bridge-color) var(--off-color-percent),
+      transparent
+  );
+  --bridge-on-color: color-mix(
+      in srgb,
+      var(--bridge-color) var(--on-color-percent),
+      transparent
+  );
   --group-color: var(--green-color);
   --group-text-color: color-mix(
       in srgb,

@@ -45,6 +45,18 @@ a.mention.u-url {
   --kind-on-color: var(--reply-to-on-color);
 }
 
+a.mention.group {
+  --kind-text-color: var(--group-text-color);
+  --kind-off-color: var(--group-off-color);
+  --kind-on-color: var(--group-on-color);
+}
+
+a.mention.bridge {
+  --kind-text-color: var(--bridge-text-color);
+  --kind-off-color: var(--bridge-off-color);
+  --kind-on-color: var(--bridge-on-color);
+}
+
 a.mention.hashtag, a[rel="tag ugc"] {
   --kind-text-color: var(--hashtag-text-color);
   --kind-off-color: var(--hashtag-off-color);
