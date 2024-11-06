@@ -98,15 +98,6 @@ const visibilityText = {
   direct: msg`Private mention`,
 };
 
-const visibilityTextShort = {
-  public: msg`P`,
-  local: msg`L`,
-  unlisted: msg`U`,
-  private: msg`F`,
-  list: msg`R`,
-  direct: msg`DM`,
-};
-
 const isIOS =
   window.ontouchstart !== undefined &&
   /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -2156,6 +2147,7 @@ function Status({
                                   }
                                 : undefined
                             }
+                            checkAspectRatio={mediaAttachments.length === 1}
                           />
                         ))}
                       </div>
@@ -2201,11 +2193,20 @@ function Status({
                       alt={visibilityText[visibility]}
                     /> */}
                     <span>{_(visibilityText[visibility])}</span> &bull;{' '}
-                    <a
-                      href={originalUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={originalUrl} target="_blank" rel="noopener noreferrer">
+                      {
+                        // within a day
+                        new Date().getTime() - createdAtDate.getTime() <
+                          86400000 && (
+                          <>
+                            <RelativeTime
+                              datetime={createdAtDate}
+                              format="micro"
+                            />{' '}
+                            ‒{' '}
+                          </>
+                        )
+                      }
                       <time
                         class="created"
                         datetime={createdAtDate.toISOString()}
