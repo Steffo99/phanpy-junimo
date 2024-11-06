@@ -121,11 +121,23 @@ function _enhanceContent(content, opts = {}) {
         const [_, username, domain] = text.split('@');
         link.innerHTML = `@<span>${username}</span>`;
         link.classList.add('mention');
-        if(link.href.startsWith("https://a.gup.pe") || link.href.startsWith("https://mtgzone.com") || link.href.startsWith("https://lemmy")) {
-          link.classList.add("group");
+        if (
+          link.href.startsWith('https://a.gup.pe') ||
+          link.href.startsWith('https://mtgzone.com') ||
+          link.href.startsWith('https://lemmy')
+        ) {
+          link.classList.add('group');
         }
-        if(link.href.startsWith("https://bsky.brid.gy") || link.href.startsWith("https://bird.makeup") || link.href.startsWith("https://threads.net") || link.href.startsWith("https://rss-parrot.net") || link.href.startsWith("https://botsin.space")) {
-          link.classList.add("bridge");
+        if (
+          link.href.startsWith('https://bsky.brid.gy') ||
+          link.href.startsWith('https://bird.makeup') ||
+          link.href.startsWith('https://threads.net') ||
+          link.href.startsWith('https://rss-parrot.net') ||
+          link.href.startsWith('https://botsin.space') ||
+          link.href.startsWith('https://reentry.codl.fr') ||
+          link.href.startsWith('https://fedi.computernewb.com')
+        ) {
+          link.classList.add('bridge');
         }
       }
       // If text looks like #hashtag, then it's a hashtag
@@ -284,7 +296,7 @@ function _enhanceContent(content, opts = {}) {
       }
     }
   }
-  
+
   // Add 'has-url-text' to all links that contains a url
   if (hasLink) {
     const links = dom.querySelectorAll('a[href]');
@@ -295,7 +307,7 @@ function _enhanceContent(content, opts = {}) {
       }
     }
   }
-  
+
   // Add 'has-url-text' to all links that contains a url
   if (hasLink) {
     const links = dom.querySelectorAll('a[href]');
