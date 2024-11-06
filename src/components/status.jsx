@@ -98,6 +98,16 @@ const visibilityText = {
   direct: msg`Private mention`,
 };
 
+const visibilityTextShort = {
+  public: msg`P`,
+  local: msg`L`,
+  unlisted: msg`U`,
+  private: msg`F`,
+  list: msg`R`,
+  direct: msg`DM`,
+};
+
+
 const isIOS =
   window.ontouchstart !== undefined &&
   /iPad|iPhone|iPod/.test(navigator.userAgent);
