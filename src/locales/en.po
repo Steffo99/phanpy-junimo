@@ -659,8 +659,8 @@ msgid "Followers only"
 msgstr ""
 
 #: src/components/compose.jsx:1253
-msgid "List (alpha)"
-msgstr "List (alpha)"
+msgid "List (experimental)"
+msgstr "List (experimental)"
 
 #: src/components/compose.jsx:1257
 #: src/components/status.jsx:98
