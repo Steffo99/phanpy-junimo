@@ -1250,7 +1250,7 @@ function Compose({
                 {(supports('@pleroma/list-visibility-post') ||
                   supports('@akkoma/list-visibility-post')) && (
                   <option value="list">
-                    <Trans>List (alpha)</Trans>
+                    <Trans>List (experimental)</Trans>
                   </option>
                 )}
                 <option value="direct">
