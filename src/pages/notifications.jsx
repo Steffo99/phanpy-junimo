@@ -4,7 +4,13 @@ import { msg, Plural, t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { Fragment } from 'preact';
 import { memo } from 'preact/compat';
-import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'preact/hooks';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { InView } from 'react-intersection-observer';
 import { useSearchParams } from 'react-router-dom';
@@ -33,6 +39,7 @@ import { getRegistration } from '../utils/push-notifications';
 import shortenNumber from '../utils/shorten-number';
 import showToast from '../utils/show-toast';
 import states, { saveStatus } from '../utils/states';
+import store from '../utils/store';
 import { getCurrentInstance } from '../utils/store-utils';
 import supports from '../utils/supports';
 import usePageVisibility from '../utils/usePageVisibility';
@@ -63,7 +70,7 @@ export function mastoFetchNotifications(opts = {}) {
     memSupportsGroupedNotifications()
   ) {
     // https://github.com/mastodon/mastodon/pull/29889
-    return masto.v2_alpha.notifications.list({
+    return masto.v2.notifications.list({
       limit: NOTIFICATIONS_GROUPED_LIMIT,
       ...opts,
     });
@@ -403,6 +410,45 @@ function Notifications({ columnMode }) {
   //   }
   // }, [uiState]);
 
+  const [annualReportNotification, setAnnualReportNotification] =
+    useState(null);
+  useEffect(async () => {
+    // Skip this if not in December
+    const date = new Date();
+    if (date.getMonth() !== 11) return;
+
+    // Skip if doesn't support annual report
+    if (!supports('@mastodon/annual-report')) return;
+
+    let annualReportNotification = store.account.get(
+      'annualReportNotification',
+    );
+    if (annualReportNotification) {
+      setAnnualReportNotification(annualReportNotification);
+      return;
+    }
+    const notificationIterator = mastoFetchNotifications({
+      types: ['annual_report'],
+    });
+    try {
+      const notification = await notificationIterator.next();
+      annualReportNotification = notification?.value?.notificationGroups?.[0];
+      const annualReportYear = annualReportNotification?.annualReport?.year;
+      // If same year, show the annual report
+      if (annualReportYear == date.getFullYear()) {
+        console.log(
+          'ANNUAL REPORT',
+          annualReportYear,
+          annualReportNotification,
+        );
+        setAnnualReportNotification(annualReportNotification);
+        store.account.set('annualReportNotification', annualReportNotification);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }, []);
+
   const itemsSelector = '.notification';
   const jRef = useHotkeys('j', () => {
     const activeItem = document.activeElement.closest(itemsSelector);
@@ -471,15 +517,24 @@ function Notifications({ columnMode }) {
     }
   });
 
+  const today = new Date();
+  const todaySubHeading = useMemo(() => {
+    return niceDateTime(today, {
+      forceOpts: {
+        weekday: 'long',
+      },
+    });
+  }, [today]);
+
   return (
     <div
       id="notifications-page"
       class="deck-container"
       ref={(node) => {
         scrollableRef.current = node;
-        jRef.current = node;
-        kRef.current = node;
-        oRef.current = node;
+        jRef(node);
+        kRef(node);
+        oRef(node);
       }}
       tabIndex="-1"
     >
@@ -713,6 +768,13 @@ function Notifications({ columnMode }) {
               </div>
             </div>
           )}
+        {annualReportNotification && (
+          <div class="shazam-container">
+            <div class="shazam-container-inner">
+              <Notification notification={annualReportNotification} />
+            </div>
+          </div>
+        )}
         <div id="mentions-option">
           <label>
             <input
@@ -726,7 +788,8 @@ function Notifications({ columnMode }) {
           </label>
         </div>
         <h2 class="timeline-header">
-          <Trans>Today</Trans>
+          <Trans>Today</Trans>{' '}
+          <small class="insignificant bidi-isolate">{todaySubHeading}</small>
         </h2>
         {showTodayEmpty && (
           <p class="ui-state insignificant">
@@ -757,9 +820,21 @@ function Notifications({ columnMode }) {
                     : niceDateTime(currentDay, {
                         hideTime: true,
                       });
+                const subHeading = niceDateTime(currentDay, {
+                  forceOpts: {
+                    weekday: 'long',
+                  },
+                });
                 return (
                   <Fragment key={notification._ids || notification.id}>
-                    {differentDay && <h2 class="timeline-header">{heading}</h2>}
+                    {differentDay && (
+                      <h2 class="timeline-header">
+                        <span>{heading}</span>{' '}
+                        <small class="insignificant bidi-isolate">
+                          {subHeading}
+                        </small>
+                      </h2>
+                    )}
                     <Notification
                       instance={instance}
                       notification={notification}

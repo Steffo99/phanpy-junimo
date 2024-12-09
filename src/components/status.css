@@ -247,8 +247,11 @@
   :is(.content.truncated, .poll, .media-container.truncated) {
   mask-image: linear-gradient(to bottom, #000 40px, transparent);
 }
-.status-card .card {
-  display: none;
+.status-card {
+  .card,
+  .card-byline {
+    display: none;
+  }
 }
 .timeline-deck .status-card .content.truncated:after {
   /* Don't show "Read more" in status cards */
@@ -1601,7 +1604,7 @@ body:has(#modal-container .carousel) .status .media img:hover {
     margin-top: 8px;
     padding: 8px;
 
-    @supports (animation-timeline: scroll()) {
+    @supports ((animation-timeline: scroll()) and (animation-range: 0% 100%)) {
       animation: media-carousel-slide 1s linear both;
       animation-timeline: --media-carousel;
     }
@@ -1990,6 +1993,24 @@ a.card:is(:hover, :focus):visited {
   .card.large.card-post {
   flex-direction: column-reverse;
 }
+.card-byline-author {
+  display: inline-flex;
+  gap: 4px;
+  color: var(--text-insignificant-color);
+  padding: 2px 8px;
+  align-items: flex-start;
+
+  .icon {
+    min-height: 1em;
+  }
+
+  .avatar {
+    width: 16px !important;
+    height: 16px !important;
+    opacity: 0.8;
+    vertical-align: middle;
+  }
+}
 
 /* POLLS */
 
@@ -2110,8 +2131,8 @@ a.card:is(:hover, :focus):visited {
   color: var(--text-insignificant-color);
   font-size: 90%;
 }
-.status .extra-meta * {
-  vertical-align: middle;
+.status .extra-meta .icon {
+  vertical-align: text-bottom;
 }
 .status .extra-meta a {
   color: inherit;

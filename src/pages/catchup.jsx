@@ -842,10 +842,10 @@ function Catchup() {
     <div
       ref={(node) => {
         scrollableRef.current = node;
-        jRef.current = node;
-        kRef.current = node;
-        hlRef.current = node;
-        escRef.current = node;
+        jRef(node);
+        kRef(node);
+        hlRef(node);
+        escRef(node);
       }}
       id="catchup-page"
       class="deck-container"
@@ -1061,11 +1061,11 @@ function Catchup() {
                             onClick={async () => {
                               const yes = confirm(t`Remove this catch-up?`);
                               if (yes) {
-                                let t = showToast(
+                                let st = showToast(
                                   t`Removing Catch-up ${pc.id}`,
                                 );
                                 await db.catchup.del(pc.id);
-                                t?.hideToast?.();
+                                st?.hideToast?.();
                                 showToast(t`Catch-up ${pc.id} removed`);
                                 reloadCatchups();
                               }
@@ -1193,6 +1193,7 @@ function Catchup() {
                           href={url}
                           target="_blank"
                           rel="noopener noreferrer"
+                          class="link-block"
                           style={
                             accentColor
                               ? {
@@ -1467,7 +1468,7 @@ function Catchup() {
                     ))}
                   </fieldset> */}
                   <span class="filter-label">
-                    <Trans>Group</Trans>
+                    <Trans id="group.filter">Group</Trans>
                   </span>{' '}
                   <fieldset class="radio-field-group">
                     {FILTER_GROUPS.map((key) => (
@@ -1729,10 +1730,10 @@ const PostLine = memo(
           group
             ? 'group'
             : reblog
-            ? 'reblog'
-            : isFollowedTags?.length
-            ? 'followed-tags'
-            : ''
+              ? 'reblog'
+              : isFollowedTags?.length
+                ? 'followed-tags'
+                : ''
         } ${isReplyTo ? 'reply-to' : ''} ${
           isFiltered ? 'filtered' : ''
         } visibility-${visibility}`}
@@ -1825,8 +1826,8 @@ function postDensity(post) {
     (mediaAttachments?.length
       ? MEDIA_DENSITY * mediaAttachments.length
       : card?.image
-      ? CARD_DENSITY
-      : 0);
+        ? CARD_DENSITY
+        : 0);
   return density;
 }
 

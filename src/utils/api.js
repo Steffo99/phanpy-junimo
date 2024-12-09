@@ -57,6 +57,11 @@ export function initClient({ instance, accessToken }) {
   return client;
 }
 
+export function hasInstance(instance) {
+  const instances = store.local.getJSON('instances') || {};
+  return !!instances[instance];
+}
+
 // Get the instance information
 // The config is needed for composing
 export async function initInstance(client, instance) {
@@ -64,6 +69,7 @@ export async function initInstance(client, instance) {
   const { masto, accessToken } = client;
   // Request v2, fallback to v1 if fail
   let info;
+  __BENCHMARK.start('fetch-instance');
   try {
     info = await masto.v2.instance.fetch();
   } catch (e) {}
@@ -72,6 +78,7 @@ export async function initInstance(client, instance) {
       info = await masto.v1.instance.fetch();
     } catch (e) {}
   }
+  __BENCHMARK.end('fetch-instance');
   if (!info) return;
   console.log(info);
   const {
@@ -82,6 +89,7 @@ export async function initInstance(client, instance) {
     domain,
     configuration: { urls: { streaming } = {} } = {},
   } = info;
+
   const instances = store.local.getJSON('instances') || {};
   if (uri || domain) {
     instances[
@@ -95,6 +103,34 @@ export async function initInstance(client, instance) {
     instances[instance.toLowerCase()] = info;
   }
   store.local.setJSON('instances', instances);
+
+  let nodeInfo;
+  // GoToSocial requires we get the NodeInfo to identify server type
+  // spec: https://github.com/jhass/nodeinfo
+  try {
+    if (uri || domain) {
+      let urlBase = uri || `https://${domain}`;
+      const wellKnown = await (
+        await fetch(`${urlBase}/.well-known/nodeinfo`)
+      ).json();
+      if (Array.isArray(wellKnown?.links)) {
+        const nodeInfoUrl = wellKnown.links.find(
+          (link) =>
+            typeof link.rel === 'string' &&
+            link.rel.startsWith('http://nodeinfo.diaspora.software/ns/schema/'),
+        )?.href;
+        if (nodeInfoUrl && nodeInfoUrl.startsWith(urlBase)) {
+          nodeInfo = await (await fetch(nodeInfoUrl)).json();
+        }
+      }
+    }
+  } catch (e) {}
+  const nodeInfos = store.local.getJSON('nodeInfos') || {};
+  if (nodeInfo) {
+    nodeInfos[instance.toLowerCase()] = nodeInfo;
+  }
+  store.local.setJSON('nodeInfos', nodeInfos);
+
   // This is a weird place to put this but here's updating the masto instance with the streaming API URL set in the configuration
   // Reason: Streaming WebSocket URL may change, unlike the standard API REST URLs
   const supportsWebSocket = 'WebSocket' in window;
@@ -111,6 +147,7 @@ export async function initInstance(client, instance) {
     // masto.ws = streamClient;
     console.log('🎏 Streaming API client:', client);
   }
+  __BENCHMARK.end('init-instance');
 }
 
 // Get the account information and store it
@@ -129,11 +166,17 @@ export async function initAccount(client, instance, accessToken, vapidKey) {
   });
 }
 
+export function hasPreferences() {
+  return !!store.account.get('preferences');
+}
+
 // Get preferences
 export async function initPreferences(client) {
   try {
     const { masto } = client;
+    __BENCHMARK.start('fetch-preferences');
     const preferences = await masto.v1.preferences.fetch();
+    __BENCHMARK.end('fetch-preferences');
     store.account.set('preferences', preferences);
   } catch (e) {
     // silently fail

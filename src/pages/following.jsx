@@ -17,11 +17,19 @@ import useTitle from '../utils/useTitle';
 const LIMIT = 20;
 
 function Following({ title, path, id, ...props }) {
-  useTitle(title || t`Following`, path || '/following');
+  useTitle(
+    title ||
+      t({
+        id: 'following.title',
+        message: 'Following',
+      }),
+    path || '/following',
+  );
   const { masto, streaming, instance } = api();
   const snapStates = useSnapshot(states);
   const homeIterator = useRef();
   const latestItem = useRef();
+  __BENCHMARK.end('time-to-following');
 
   console.debug('RENDER Following', title, id);
   const supportsPixelfed = supports('@pixelfed/home-include-reblogs');
@@ -66,7 +74,6 @@ function Following({ title, path, id, ...props }) {
       });
     }
     __BENCHMARK.end('fetch-home-first');
-    __BENCHMARK.end('time-to-home');
     return {
       ...results,
       value,
@@ -131,7 +138,7 @@ function Following({ title, path, id, ...props }) {
 
   return (
     <Timeline
-      title={title || t`Following`}
+      title={title || t({ id: 'following.title', message: 'Following' })}
       id={id || 'following'}
       emptyText={t`Nothing to see here.`}
       errorText={t`Unable to load posts.`}
