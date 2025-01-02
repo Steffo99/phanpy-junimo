@@ -554,7 +554,7 @@ function SecondaryRoutes({ isLoggedIn }) {
         </>
       )}
       <Route path="/:instance?/t/:hashtag" element={<Hashtag />} />
-      <Route path="/:instance?/a/:id" element={<AccountStatusesNavigation />} />
+      <Route path="/:instance?/a/:id" element={<AccountStatuses />} />
       <Route path="/:instance?/p">
         <Route index element={<Public />} />
         <Route path="l" element={<Public variant={'local'} />} />

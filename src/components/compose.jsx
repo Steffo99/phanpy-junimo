@@ -1484,7 +1484,7 @@ function Compose({
               <span class="add-sub-toolbar-button-group" ref={addSubToolbarRef}>
                 <label class="toolbar-button">
                   <FilePickerInput
-                    supportedMimeTypes={supportedMimeTypes}
+                    supportedMimeTypes={supportedMediaMimeTypes}
                     maxMediaAttachments={maxMediaAttachments}
                     mediaAttachments={mediaAttachments}
                     disabled={
