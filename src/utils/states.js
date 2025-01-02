@@ -72,6 +72,7 @@ const states = proxy({
     cloakMode: false,
     numberlessMode: false,
     groupedNotificationsAlpha: false,
+    regexFilter: '',
   },
 });
 
@@ -110,6 +111,7 @@ export function initStates() {
     store.account.get('settings-numberlessMode') ?? false;
   states.settings.groupedNotificationsAlpha =
     store.account.get('settings-groupedNotificationsAlpha') ?? false;
+  states.settings.regexFilter = store.account.get('settings-regexFilter') ?? '';
 }
 
 subscribeKey(states, 'notificationsLast', (v) => {
@@ -164,6 +166,9 @@ subscribe(states, (changes) => {
     }
     if (path.join('.') === 'settings.groupedNotificationsAlpha') {
       store.account.set('settings-groupedNotificationsAlpha', !!value);
+    }
+    if (path.join('.') === 'settings.regexFilter') {
+      store.account.set('settings-regexFilter', states.settings.regexFilter);
     }
   }
 });
