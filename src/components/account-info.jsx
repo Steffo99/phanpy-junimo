@@ -1,7 +1,7 @@
 import './account-info.css';
 
-import { msg, plural, t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
+import { msg, plural } from '@lingui/core/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { MenuDivider, MenuItem } from '@szhsin/react-menu';
 import {
   useCallback,
@@ -24,7 +24,7 @@ import pmem from '../utils/pmem';
 import shortenNumber from '../utils/shorten-number';
 import showCompose from '../utils/show-compose';
 import showToast from '../utils/show-toast';
-import states, { hideAllModals } from '../utils/states';
+import states from '../utils/states';
 import store from '../utils/store';
 import { getCurrentAccountID, updateAccount } from '../utils/store-utils';
 import supports from '../utils/supports';
@@ -51,6 +51,7 @@ const MUTE_DURATIONS = [
   60 * 60 * 24, // 1 day
   60 * 60 * 24 * 3, // 3 days
   60 * 60 * 24 * 7, // 1 week
+  60 * 60 * 24 * 30, // 30 days
   0, // forever
 ];
 const MUTE_DURATIONS_LABELS = {
@@ -62,6 +63,7 @@ const MUTE_DURATIONS_LABELS = {
   86_400: i18nDuration(1, 'day'),
   259_200: i18nDuration(3, 'day'),
   604_800: i18nDuration(1, 'week'),
+  2592_000: i18nDuration(30, 'day'),
 };
 
 const LIMIT = 80;
@@ -133,7 +135,7 @@ function AccountInfo({
   instance,
   authenticated,
 }) {
-  const { i18n } = useLingui();
+  const { i18n, t } = useLingui();
   const { masto } = api({
     instance,
   });
@@ -933,7 +935,7 @@ function RelatedActions({
   onProfileUpdate = () => {},
 }) {
   if (!info) return null;
-  const { _ } = useLingui();
+  const { _, t } = useLingui();
   const {
     masto: currentMasto,
     instance: currentInstance,
@@ -1844,6 +1846,7 @@ function niceAccountURL(url) {
 }
 
 function TranslatedBioSheet({ note, fields, onClose }) {
+  const { t } = useLingui();
   const fieldsText =
     fields
       ?.map(({ name, value }) => `${name}\n${getHTMLText(value)}`)
@@ -1878,6 +1881,7 @@ function TranslatedBioSheet({ note, fields, onClose }) {
 }
 
 function AddRemoveListsSheet({ accountID, onClose }) {
+  const { t } = useLingui();
   const { masto } = api();
   const [uiState, setUIState] = useState('default');
   const [lists, setLists] = useState([]);
@@ -2022,6 +2026,7 @@ function PrivateNoteSheet({
   onRelationshipChange = () => {},
   onClose = () => {},
 }) {
+  const { t } = useLingui();
   const { masto } = api();
   const [uiState, setUIState] = useState('default');
   const textareaRef = useRef(null);
@@ -2116,6 +2121,7 @@ function PrivateNoteSheet({
 }
 
 function EditProfileSheet({ onClose = () => {} }) {
+  const { t } = useLingui();
   const { masto } = api();
   const [uiState, setUIState] = useState('loading');
   const [account, setAccount] = useState(null);
@@ -2317,9 +2323,10 @@ function AccountHandleInfo({ acct, instance }) {
   // acct = username or username@server
   let [username, server] = acct.split('@');
   if (!server) server = instance;
+  const encodedAcct = punycode.toASCII(acct);
   return (
     <div class="handle-info">
-      <span class="handle-handle">
+      <span class="handle-handle" title={encodedAcct}>
         <b class="handle-username">{username}</b>
         <span class="handle-at">@</span>
         <b class="handle-server">{server}</b>

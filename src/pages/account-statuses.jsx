@@ -1,5 +1,4 @@
-import { t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { MenuItem } from '@szhsin/react-menu';
 import {
   useCallback,
@@ -50,7 +49,9 @@ async function _isSearchEnabled(instance) {
 }
 const isSearchEnabled = pmem(_isSearchEnabled);
 
-export function AccountStatusesNavigation({}) {
+function AccountStatuses() {
+  const { i18n, t } = useLingui();
+  const snapStates = useSnapshot(states);
   const { id, ...params } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const month = searchParams.get('month');
@@ -58,34 +59,6 @@ export function AccountStatusesNavigation({}) {
   const excludeBoosts = !!searchParams.get('boosts');
   const tagged = searchParams.get('tagged');
   const media = !!searchParams.get('media');
-
-  return (
-    <AccountStatuses
-      id={id}
-      month={month}
-      excludeReplies={excludeReplies}
-      excludeBoosts={excludeBoosts}
-      tagged={tagged}
-      media={media}
-      params={params}
-      setSearchParams={setSearchParams}
-      navigable={true}
-    />
-  );
-}
-
-function AccountStatuses({
-  id,
-  month = null,
-  excludeReplies = true,
-  excludeBoosts = false,
-  tagged = null,
-  media = false,
-  params = {},
-  setSearchParams = () => {},
-  navigable = false,
-}) {
-  const snapStates = useSnapshot(states);
   const { masto, instance, authenticated } = api({ instance: params.instance });
   const { masto: currentMasto, instance: currentInstance } = api();
   const accountStatusesIterator = useRef();
@@ -256,7 +229,6 @@ function AccountStatuses({
   }
 
   const [featuredTags, setFeaturedTags] = useState([]);
-  const { i18n } = useLingui();
   let title = t`Account posts`;
   if (account?.acct) {
     const acctDisplay = (/@/.test(account.acct) ? '' : '@') + account.acct;
@@ -320,10 +292,6 @@ function AccountStatuses({
 
   const filterBarRef = useRef();
   const TimelineStart = useMemo(() => {
-    if (!navigable) {
-      return null;
-    }
-
     const filtered =
       !excludeReplies || excludeBoosts || tagged || media || !!month;
     const cachedAccount = snapStates.accounts[`${id}@${instance}`];

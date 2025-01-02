@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { Menu, MenuDivider, MenuItem } from '@szhsin/react-menu';
 import { useRef } from 'preact/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,6 +17,7 @@ import useTitle from '../utils/useTitle';
 const LIMIT = 20;
 
 function Public({ variant = 'federated', columnMode, ...props }) {
+  const { t } = useLingui();
   const snapStates = useSnapshot(states);
   const params = columnMode ? {} : useParams();
   const { masto, instance } = api({

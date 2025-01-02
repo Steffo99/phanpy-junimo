@@ -1,6 +1,6 @@
 import './settings.css';
 
-import { Plural, t, Trans } from '@lingui/macro';
+import { Plural, Trans, useLingui } from '@lingui/react/macro';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { useSnapshot } from 'valtio';
 
@@ -14,6 +14,7 @@ import targetLanguages from '../data/lingva-target-languages';
 import { api } from '../utils/api';
 import getTranslateTargetLanguage from '../utils/get-translate-target-language';
 import localeCode2Text from '../utils/localeCode2Text';
+import prettyBytes from '../utils/pretty-bytes';
 import {
   initSubscription,
   isPushSupported,
@@ -35,6 +36,7 @@ const {
 } = import.meta.env;
 
 function Settings({ onClose }) {
+  const { t } = useLingui();
   const snapStates = useSnapshot(states);
   const currentTheme = store.local.get('theme') || 'auto';
   const themeFormRef = useRef();
@@ -817,6 +819,22 @@ function Settings({ onClose }) {
               rel="noopener noreferrer"
             >
               <Trans>Donate</Trans>
+            </a>{' '}
+            &middot;{' '}
+            <a
+              href="https://patreon.com/cheeaun"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Patreon
+            </a>{' '}
+            &middot;{' '}
+            <a
+              href={PRIVACY_POLICY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Trans>Privacy Policy</Trans>
             </a>
           </p>
           {__BUILD_TIME__ && (
@@ -895,6 +913,13 @@ function Settings({ onClose }) {
             <button
               type="button"
               class="plain2 small"
+              onClick={async () => alert(await getCachesSize())}
+            >
+              Show cache size
+            </button>{' '}
+            <button
+              type="button"
+              class="plain2 small"
               onClick={() => {
                 const key = prompt('Enter cache key');
                 if (!key) return;
@@ -938,6 +963,33 @@ async function getCachesKeys() {
   return total;
 }
 
+async function getCachesSize() {
+  const keys = await caches.keys();
+  let total = {};
+  let TOTAL = 0;
+  for (const key of keys) {
+    const cache = await caches.open(key);
+    const k = await cache.keys();
+    for (const item of k) {
+      try {
+        const response = await cache.match(item);
+        const blob = await response.blob();
+        total[key] = (total[key] || 0) + blob.size;
+        TOTAL += blob.size;
+      } catch (e) {
+        alert('Failed to get cache size for ' + item);
+        alert(e);
+      }
+    }
+  }
+  return {
+    ...Object.fromEntries(
+      Object.entries(total).map(([k, v]) => [k, prettyBytes(v)]),
+    ),
+    TOTAL: prettyBytes(TOTAL),
+  };
+}
+
 function clearCacheKey(key) {
   return caches.delete(key);
 }
@@ -950,6 +1002,7 @@ async function clearCaches() {
 }
 
 function PushNotificationsSection({ onClose }) {
+  const { t } = useLingui();
   if (!isPushSupported()) return null;
 
   const { instance } = api();

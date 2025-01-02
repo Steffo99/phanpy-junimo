@@ -1,8 +1,8 @@
 import './status.css';
 import '@justinribeiro/lite-youtube';
 
-import { msg, plural, Plural, t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
+import { msg, plural, t } from '@lingui/core/macro';
+import { Plural, Trans, useLingui } from '@lingui/react/macro';
 import {
   ControlledMenu,
   Menu,
@@ -15,7 +15,7 @@ import { shallowEqual } from 'fast-equals';
 import prettify from 'html-prettify';
 import pThrottle from 'p-throttle';
 import { Fragment } from 'preact';
-import { memo } from 'preact/compat';
+import { forwardRef, memo } from 'preact/compat';
 import {
   useCallback,
   useContext,
@@ -136,6 +136,17 @@ function getPostText(status) {
   );
 }
 
+function forgivingQSA(selectors = [], dom = document) {
+  // Run QSA for list of selectors
+  // If a selector return invalid selector error, try the next one
+  for (const selector of selectors) {
+    try {
+      return dom.querySelectorAll(selector);
+    } catch (e) {}
+  }
+  return [];
+}
+
 function isTranslateble(content) {
   if (!content) return false;
   content = content.trim();
@@ -143,8 +154,9 @@ function isTranslateble(content) {
   const text = getHTMLText(content, {
     preProcess: (dom) => {
       // Remove .mention, pre, code, a:has(.invisible)
-      for (const a of dom.querySelectorAll(
-        '.mention, pre, code, a:has(.invisible)',
+      for (const a of forgivingQSA(
+        ['.mention, pre, code, a:has(.invisible)', '.mention, pre, code'],
+        dom,
       )) {
         a.remove();
       }
@@ -159,8 +171,12 @@ function getHTMLTextForDetectLang(content) {
       // Remove anything that can skew the language detection
 
       // Remove .mention, .hashtag, pre, code, a:has(.invisible)
-      for (const a of dom.querySelectorAll(
-        '.mention, .hashtag, pre, code, a:has(.invisible)',
+      for (const a of forgivingQSA(
+        [
+          '.mention, .hashtag, pre, code, a:has(.invisible)',
+          '.mention, .hashtag, pre, code',
+        ],
+        dom,
       )) {
         a.remove();
       }
@@ -303,7 +319,7 @@ function Status({
   showReplyParent,
   mediaFirst,
 }) {
-  const { _ } = useLingui();
+  const { _, t } = useLingui();
 
   if (skeleton) {
     return (
@@ -1005,8 +1021,8 @@ function Status({
                 {reblogsCount > 0
                   ? shortenNumber(reblogsCount)
                   : reblogged
-                  ? t`Unboost`
-                  : t`Boost…`}
+                    ? t`Unboost`
+                    : t`Boost…`}
               </span>
             </MenuConfirm>
             <MenuItem
@@ -1018,8 +1034,8 @@ function Status({
                 {favouritesCount > 0
                   ? shortenNumber(favouritesCount)
                   : favourited
-                  ? t`Unlike`
-                  : t`Like`}
+                    ? t`Unlike`
+                    : t`Like`}
               </span>
             </MenuItem>
             {supports('@mastodon/post-bookmark') && (
@@ -2329,42 +2345,42 @@ function Status({
                   disabled={!canBoost}
                 />
               </div> */}
-                <MenuConfirm
-                  disabled={!canBoost}
-                  onClick={confirmBoostStatus}
-                  confirmLabel={
-                    <>
-                      <Icon icon="rocket" />
-                      <span>{reblogged ? t`Unboost` : t`Boost`}</span>
-                    </>
-                  }
-                  menuExtras={
-                    <MenuItem
-                      onClick={() => {
-                        showCompose({
-                          draftStatus: {
-                            status: `\n\n${originalUrl}`,
-                          },
-                        });
-                      }}
-                    >
-                      <Icon icon="quote" />
-                      <span>
-                        <Trans>Quote</Trans>
-                      </span>
-                    </MenuItem>
-                  }
-                  menuFooter={
-                    mediaNoDesc &&
-                    !reblogged && (
-                      <div class="footer">
-                        <Icon icon="alert" />
-                        <Trans>Some media have no descriptions.</Trans>
-                      </div>
-                    )
-                  }
-                >
-                  <div class="action has-count">
+                <div class="action has-count">
+                  <MenuConfirm
+                    disabled={!canBoost}
+                    onClick={confirmBoostStatus}
+                    confirmLabel={
+                      <>
+                        <Icon icon="rocket" />
+                        <span>{reblogged ? t`Unboost` : t`Boost`}</span>
+                      </>
+                    }
+                    menuExtras={
+                      <MenuItem
+                        onClick={() => {
+                          showCompose({
+                            draftStatus: {
+                              status: `\n\n${originalUrl}`,
+                            },
+                          });
+                        }}
+                      >
+                        <Icon icon="quote" />
+                        <span>
+                          <Trans>Quote</Trans>
+                        </span>
+                      </MenuItem>
+                    }
+                    menuFooter={
+                      mediaNoDesc &&
+                      !reblogged && (
+                        <div class="footer">
+                          <Icon icon="alert" />
+                          <Trans>Some media have no descriptions.</Trans>
+                        </div>
+                      )
+                    }
+                  >
                     <StatusButton
                       checked={reblogged}
                       title={[t`Boost`, t`Unboost`]}
@@ -2375,8 +2391,8 @@ function Status({
                       // onClick={boostStatus}
                       disabled={!canBoost}
                     />
-                  </div>
-                </MenuConfirm>
+                  </MenuConfirm>
+                </div>
                 <div class="action has-count">
                   <StatusButton
                     checked={favourited}
@@ -2834,7 +2850,7 @@ function Card({ card, selfReferential, selfAuthor, instance }) {
         if (videoID) {
           return (
             <a class="card video" onClick={handleClick}>
-              <lite-youtube videoid={videoID} nocookie></lite-youtube>
+              <lite-youtube videoid={videoID} nocookie autoPause></lite-youtube>
             </a>
           );
         }
@@ -2893,6 +2909,7 @@ function EditedAtModal({
   fetchStatusHistory = () => {},
   onClose,
 }) {
+  const { t } = useLingui();
   const [uiState, setUIState] = useState('default');
   const [editHistory, setEditHistory] = useState([]);
 
@@ -3093,8 +3110,8 @@ function generateHTMLCode(post, instance, level = 0) {
             } else {
               mediaHTML = `
                 <a href="${sourceMediaURL}">📄 ${
-                description || sourceMediaURL
-              }</a>
+                  description || sourceMediaURL
+                }</a>
               `;
             }
 
@@ -3128,6 +3145,7 @@ function generateHTMLCode(post, instance, level = 0) {
 }
 
 function EmbedModal({ post, instance, onClose }) {
+  const { t } = useLingui();
   const {
     account: {
       url: accountURL,
@@ -3352,18 +3370,19 @@ function EmbedModal({ post, instance, onClose }) {
   );
 }
 
-function StatusButton({
-  checked,
-  count,
-  class: className,
-  title,
-  alt,
-  size,
-  icon,
-  iconSize = 'l',
-  onClick,
-  ...props
-}) {
+const StatusButton = forwardRef((props, ref) => {
+  let {
+    checked,
+    count,
+    class: className,
+    title,
+    alt,
+    size,
+    icon,
+    iconSize = 'l',
+    onClick,
+    ...otherProps
+  } = props;
   if (typeof title === 'string') {
     title = [title, title];
   }
@@ -3386,6 +3405,7 @@ function StatusButton({
 
   return (
     <button
+      ref={ref}
       type="button"
       title={buttonTitle}
       class={`plain ${size ? 'small' : ''} ${className} ${
@@ -3397,7 +3417,7 @@ function StatusButton({
         e.stopPropagation();
         onClick(e);
       }}
-      {...props}
+      {...otherProps}
     >
       <Icon icon={icon} size={iconSize} alt={iconAlt} />
       {!!count && (
@@ -3408,7 +3428,7 @@ function StatusButton({
       )}
     </button>
   );
-}
+});
 
 function nicePostURL(url) {
   if (!url) return;
@@ -3503,7 +3523,7 @@ function FilteredStatus({
   showFollowedTags,
   quoted,
 }) {
-  const { _ } = useLingui();
+  const { _, t } = useLingui();
   const snapStates = useSnapshot(states);
   const {
     id: statusID,
@@ -3550,12 +3570,12 @@ function FilteredStatus({
         quoted
           ? ''
           : isReblog
-          ? group
-            ? 'status-group'
-            : 'status-reblog'
-          : isFollowedTags
-          ? 'status-followed-tags'
-          : ''
+            ? group
+              ? 'status-group'
+              : 'status-reblog'
+            : isFollowedTags
+              ? 'status-followed-tags'
+              : ''
       }
       {...containerProps}
       // title={statusPeekText}

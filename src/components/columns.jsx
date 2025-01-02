@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react/macro';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useSnapshot } from 'valtio';
 
@@ -24,6 +24,7 @@ const scrollIntoViewOptions = {
 };
 
 function Columns() {
+  const { t } = useLingui();
   useTitle(t`Home`, '/');
   const snapStates = useSnapshot(states);
   const { shortcuts } = snapStates;
@@ -107,6 +108,18 @@ function Columns() {
         ) {
           e.preventDefault();
           states.showShortcutsSettings = true;
+        }
+      }}
+      onFocus={() => {
+        // Get current focused column
+        const currentFocusedColumn =
+          document.activeElement.closest('#columns > *');
+        if (currentFocusedColumn) {
+          // Remove focus classes from all columns
+          // Add focus class to current focused column
+          document.querySelectorAll('#columns > *').forEach((column) => {
+            column.classList.toggle('focus', column === currentFocusedColumn);
+          });
         }
       }}
     >
