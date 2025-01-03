@@ -457,7 +457,7 @@ function Status({
     [regexFilterLines],
   );
   const regexFilterInfo = useMemo(
-    () => regexFilters.map((f) => content.search(f)),
+    () => regexFilters.map((f) => content.search(f) || spoilerText?.search?.(f)),
     [regexFilters],
   );
   const regexFilterTriggered = useMemo(
