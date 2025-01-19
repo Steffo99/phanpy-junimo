@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/phanpy.iml" filepath="$PROJECT_DIR$/.idea/phanpy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phanpy-junimo.iml" filepath="$PROJECT_DIR$/phanpy-junimo.iml" />
     </modules>
   </component>
 </project>

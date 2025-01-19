@@ -961,11 +961,11 @@ function RelatedActions({
   } = info;
   const accountID = useRef(id);
 
-  const junimoUrl = `https://junimo.party/users/${id}`;
+  const localUrl = `https://${currentInstance}/@${acct}/`;
   const phanpyUrl = `${window.location.origin}/#${
     currentInstance ? `/${currentInstance}/a/${id}` : `/a/${id}`
   }`;
-  const isLocal = originalUrl === junimoUrl;
+  const isLocal = originalUrl === localUrl;
 
   const {
     following,
@@ -1236,7 +1236,7 @@ function RelatedActions({
                 <small>{niceAccountURL(phanpyUrl)}</small>
               </span>
             </MenuItem>
-            <MenuItem href={junimoUrl} target="_blank">
+            <MenuItem href={localUrl} target="_blank">
               <Icon icon="building" />
               <span
                 class="menu-double-lines"
@@ -1248,7 +1248,7 @@ function RelatedActions({
                   <Trans>On your server</Trans>
                 </span>
                 <br />
-                <small>{niceAccountURL(junimoUrl)}</small>
+                <small>{niceAccountURL(localUrl)}</small>
               </span>
             </MenuItem>
             {!isLocal && (

@@ -107,7 +107,6 @@ const visibilityTextShort = {
   direct: msg`DM`,
 };
 
-
 const isIOS =
   window.ontouchstart !== undefined &&
   /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -369,11 +368,7 @@ function Status({
       emojis: accountEmojis,
       bot,
       group,
-      source: {
-        pleroma: {
-          actorType = undefined
-        } = {},
-      } = {},
+      source: { pleroma: { actorType = undefined } = {} } = {},
     },
     id,
     repliesCount,
@@ -412,11 +407,11 @@ function Status({
     pleroma: { threadMuted } = {},
   } = status;
 
-  const junimoUrl = `https://junimo.party/notice/${id}`;
+  const localUrl = `https://${currentInstance}/@${acct}/${id}`;
   const phanpyUrl = `${window.location.origin}/#${
     instance ? `/${instance}/s/${id}` : `/s/${id}`
   }?view=full`;
-  const isLocal = originalUrl === junimoUrl;
+  const isLocal = originalUrl === localUrl;
 
   const [languageAutoDetected, setLanguageAutoDetected] = useState(null);
   useEffect(() => {
@@ -457,7 +452,8 @@ function Status({
     [regexFilterLines],
   );
   const regexFilterInfo = useMemo(
-    () => regexFilters.map((f) => content.search(f) || spoilerText?.search?.(f)),
+    () =>
+      regexFilters.map((f) => content.search(f) || spoilerText?.search?.(f)),
     [regexFilters],
   );
   const regexFilterTriggered = useMemo(
@@ -578,7 +574,7 @@ function Status({
   if (reblog) {
     // If has statusID, means useItemID (cached in states)
 
-    if (group || actorType === "Group") {
+    if (group || actorType === 'Group') {
       return (
         <div
           data-state-post-id={sKey}
@@ -586,11 +582,15 @@ function Status({
           onMouseEnter={debugHover}
         >
           <div class="status-pre-meta">
-              <Icon icon="group" size="l" alt={t`Group`} />{' '}
-              <Trans>
-                <span>Posted in</span>{" "}
-                <NameText account={status.account} instance={instance} showAvatar />{' '}
-              </Trans>
+            <Icon icon="group" size="l" alt={t`Group`} />{' '}
+            <Trans>
+              <span>Posted in</span>{' '}
+              <NameText
+                account={status.account}
+                instance={instance}
+                showAvatar
+              />{' '}
+            </Trans>
           </div>
           <Status
             status={statusID ? null : reblog}
@@ -1210,7 +1210,7 @@ function Status({
           <small>{nicePostURL(phanpyUrl)}</small>
         </span>
       </MenuItem>
-      <MenuItem href={junimoUrl} target="_blank">
+      <MenuItem href={localUrl} target="_blank">
         <Icon icon="building" />
         <span
           class="menu-double-lines"
@@ -1222,7 +1222,7 @@ function Status({
             <Trans>On your server</Trans>
           </span>
           <br />
-          <small>{nicePostURL(junimoUrl)}</small>
+          <small>{nicePostURL(localUrl)}</small>
         </span>
       </MenuItem>
       {!isLocal && (
@@ -2272,7 +2272,11 @@ function Status({
                       alt={visibilityText[visibility]}
                     /> */}
                     <span>{_(visibilityText[visibility])}</span> &bull;{' '}
-                    <a href={originalUrl} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={originalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {
                         // within a day
                         new Date().getTime() - createdAtDate.getTime() <
@@ -3524,6 +3528,7 @@ function StatusCompact({ sKey }) {
     content,
     language,
     filtered,
+    quoted,
   } = status;
   if (sensitive || spoilerText) return null;
   if (!content) return null;
