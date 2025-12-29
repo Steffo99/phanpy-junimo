@@ -2073,7 +2073,7 @@ function Status({
           SIZE_CLASS[size]
         } ${_deleted ? 'status-deleted' : ''} ${quoted ? 'status-card' : ''} ${
           isContextMenuOpen ? 'status-menu-open' : ''
-        } ${mediaFirst && hasMediaAttachments ? 'status-media-first' : ''}`}
+        } ${mediaFirst && hasMediaAttachments ? 'status-media-first' : ''} ${ favourited ? 'status-favourited' : '' } ${ reblogged ? 'status-reblogged' : '' }`}
         onMouseEnter={debugHover}
         onContextMenu={(e) => {
           if (!showContextMenu) return;
