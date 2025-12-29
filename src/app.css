@@ -1099,12 +1099,6 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
 }
 
 .status-carousel {
-  --carousel-faded-color: var(--bg-faded-color);
-  background: linear-gradient(
-    to bottom var(--forward),
-    var(--carousel-faded-color),
-    transparent
-  );
   position: relative;
   container-type: inline-size;
 }
@@ -1113,14 +1107,6 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image:
-    radial-gradient(
-      ellipse 50% 32px at bottom center,
-      var(--carousel-faded-color),
-      transparent
-    ), linear-gradient(to top, var(--bg-color) 8px, transparent 64px);
-  background-repeat: no-repeat;
-  background-position: bottom center;
 }
 .status-carousel header {
   padding: 8px 16px 0;
@@ -1133,7 +1119,6 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   padding: 0;
   font-size: 14px;
   text-transform: uppercase;
-  color: var(--carousel-color);
   text-shadow: 0 1px var(--bg-color);
 }
 .status-carousel > ul {
@@ -1210,10 +1195,6 @@ a[href^='http'][rel*='nofollow']:visited:not(:has(div)) {
   min-height: 160px;
   max-height: max(160px, 50vh);
 } */
-.status-carousel.boosts-carousel {
-  --carousel-color: var(--reblog-color);
-  --carousel-faded-color: var(--reblog-faded-color);
-}
 .status-carousel.boosts-carousel .status-reblog {
   background-image: none;
 }
