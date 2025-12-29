@@ -55,18 +55,6 @@
     transparent var(--post-gradient-height)
   );
 }
-.visibility-direct {
-  --yellow-stripes: repeating-linear-gradient(
-    135deg,
-    var(--reply-to-faded-color),
-    var(--reply-to-faded-color) 10px,
-    var(--reply-to-faded-color) 10px,
-    transparent 10px,
-    transparent 20px
-  );
-  /* diagonal stripes of yellow */
-  background-image: var(--yellow-stripes);
-}
 
 /* STATUS PRE META */
 
@@ -154,9 +142,6 @@
   );
   padding-bottom: 8px;
   background-image: var(--fade-in-out-bg);
-}
-.status.large.visibility-direct {
-  background-image: var(--fade-in-out-bg), var(--yellow-stripes);
 }
 
 .status-card-link {
@@ -476,10 +461,6 @@
   );
   background-repeat: no-repeat;
   background-size: 100% calc(100% - var(--top-padding) / 2);
-
-  &.visibility-direct {
-    background-image: var(--yellow-stripes);
-  }
 
   .status-pre-meta + & {
     background-image: none;
@@ -2664,16 +2645,10 @@ a.card:is(:hover, :focus):visited {
   &:focus {
     background-image: var(--bg-gradient);
   }
-  &.visibility-direct:focus {
-    background-image: var(--bg-gradient), var(--yellow-stripes);
-  }
 
   @media (pointer: fine), (hover: hover) {
     &:hover {
       background-image: var(--bg-gradient);
-    }
-    &.visibility-direct:hover {
-      background-image: var(--bg-gradient), var(--yellow-stripes);
     }
   }
 }
