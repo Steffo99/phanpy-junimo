@@ -1,36 +1,6 @@
 /* REBLOG + REPLY-TO */
 
-:root {
-  --post-gradient-angle: 160deg;
-  --post-gradient-chip-angle: -20deg;
-  &:dir(rtl) {
-    --post-gradient-angle: -160deg;
-    --post-gradient-chip-angle: 20deg;
-  }
-  --post-gradient-height: min(160px, 50%);
-}
-
-.status-reblog {
-  background: linear-gradient(
-    var(--post-gradient-angle),
-    var(--reblog-faded-color),
-    transparent var(--post-gradient-height)
-  );
-}
-.status-group {
-  background: linear-gradient(
-    var(--post-gradient-angle),
-    var(--group-faded-color),
-    transparent var(--post-gradient-height)
-  );
-}
 .status-followed-tags {
-  background: linear-gradient(
-    var(--post-gradient-angle),
-    var(--hashtag-faded-color),
-    transparent var(--post-gradient-height)
-  );
-
   .timeline-item-container:not(.timeline-item-container-start) & {
     background: radial-gradient(
       ellipse at 0 1.2em,
@@ -40,32 +10,6 @@
     background-size: 100% 3em;
     background-repeat: no-repeat;
   }
-}
-.status-reply-to {
-  background: linear-gradient(
-    var(--post-gradient-angle),
-    var(--reply-to-faded-color),
-    transparent var(--post-gradient-height)
-  );
-}
-:is(.status-reblog, .status-group, .status-followed-tags) .status-reply-to {
-  background: linear-gradient(
-    var(--post-gradient-chip-angle),
-    var(--reply-to-faded-color),
-    transparent var(--post-gradient-height)
-  );
-}
-.visibility-direct {
-  --yellow-stripes: repeating-linear-gradient(
-    135deg,
-    var(--reply-to-faded-color),
-    var(--reply-to-faded-color) 10px,
-    var(--reply-to-faded-color) 10px,
-    transparent 10px,
-    transparent 20px
-  );
-  /* diagonal stripes of yellow */
-  background-image: var(--yellow-stripes);
 }
 
 /* STATUS PRE META */
@@ -154,9 +98,6 @@
   );
   padding-bottom: 8px;
   background-image: var(--fade-in-out-bg);
-}
-.status.large.visibility-direct {
-  background-image: var(--fade-in-out-bg), var(--yellow-stripes);
 }
 
 .status-card-link {
@@ -468,18 +409,6 @@
   padding-top: var(--top-padding);
   padding-bottom: 0;
   margin-bottom: calc(-1 * var(--top-padding) / 2);
-  background-image: linear-gradient(
-    var(--post-gradient-angle),
-    transparent 2.5%,
-    var(--reply-to-faded-color) 10%,
-    transparent
-  );
-  background-repeat: no-repeat;
-  background-size: 100% calc(100% - var(--top-padding) / 2);
-
-  &.visibility-direct {
-    background-image: var(--yellow-stripes);
-  }
 
   .status-pre-meta + & {
     background-image: none;
@@ -2668,16 +2597,10 @@ a.card:is(:hover, :focus):visited {
   &:focus {
     background-image: var(--bg-gradient);
   }
-  &.visibility-direct:focus {
-    background-image: var(--bg-gradient), var(--yellow-stripes);
-  }
 
   @media (pointer: fine), (hover: hover) {
     &:hover {
       background-image: var(--bg-gradient);
-    }
-    &.visibility-direct:hover {
-      background-image: var(--bg-gradient), var(--yellow-stripes);
     }
   }
 }
