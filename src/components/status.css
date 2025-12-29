@@ -3095,3 +3095,20 @@ a.card:is(:hover, :focus):visited {
     animation: appear 1s ease-out;
   }
 }
+
+.status {
+	transition-property: background-color;
+	transition-duration: 1s;
+}
+
+.status-favourited {
+	background-color: rgba(from var(--favourite-color) r g b / 0.05);
+}
+
+.status-reblogged {
+	background-color: rgba(from var(--reblog-color) r g b / 0.05);
+}
+
+.status-favourited.status-reblogged {
+	background-color: rgba(from color-mix(in srgb, var(--reblog-color) 50%, var(--favourite-color) 50%) r g b / 0.10);
+}
