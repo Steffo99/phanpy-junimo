@@ -29,7 +29,6 @@ import { isFiltered } from '../utils/filters';
 import getTranslateTargetLanguage from '../utils/get-translate-target-language';
 import getHTMLText from '../utils/getHTMLText';
 import htmlContentLength from '../utils/html-content-length';
-import isRTL from '../utils/is-rtl';
 import localeMatch from '../utils/locale-match';
 import mem from '../utils/mem';
 import niceDateTime from '../utils/nice-date-time';
@@ -1443,43 +1442,18 @@ function Status({
           </MenuItem>
         </>
       )}
-      <SubMenu2
-        direction={isRTL() ? 'left' : 'right'}
-        overflow="auto"
-        gap={-8}
-        itemProps={{
-          onClick: (e) => {
-            // Copy url to clipboard on click
-            try {
-              navigator.clipboard.writeText(url);
-              showToast(t`Link copied`);
-            } catch (e) {
-              console.error(e);
-              showToast(t`Unable to copy link`);
-            }
-          },
-        }}
-        label={
-          <>
-            <Icon icon="link" />
-            <small
-              class="menu-double-lines should-cloak"
-              style={{
-                maxWidth: '16em',
-              }}
-            >
-              {nicePostURL(url)}
-            </small>
-            <Icon icon="chevron-right" />
-          </>
-        }
-      >
-        <MenuItem href={url} target="_blank">
-          <Icon icon="external" />
-          <span>
-            <Trans>Open link</Trans>
-          </span>
-        </MenuItem>
+      <MenuItem href={url} target="_blank">
+        <Icon icon="external" />
+        <small
+          class="menu-double-lines should-cloak"
+          style={{
+            maxWidth: '16em',
+          }}
+        >
+          {nicePostURL(url)}
+        </small>
+      </MenuItem>
+      <div class="menu-horizontal">
         <MenuItem
           onClick={() => {
             // Copy url to clipboard
@@ -1492,7 +1466,7 @@ function Status({
             }
           }}
         >
-          <Icon icon="copy" />
+          <Icon icon="link" />
           <span>
             <Trans>Copy</Trans>
           </span>
@@ -1520,7 +1494,7 @@ function Status({
               </span>
             </MenuItem>
           )}
-      </SubMenu2>
+      </div>
       {isPublic && isSizeLarge && (
         <MenuItem
           onClick={() => {
@@ -2725,6 +2699,7 @@ function Status({
                   instance={instance}
                   level={quoted}
                   collapsed={!isSizeLarge && !withinContext}
+                  fallbackQuote={quote}
                 />
                 {!!card &&
                   /^https/i.test(card?.url) &&
@@ -2928,7 +2903,14 @@ function Status({
                     confirmLabel={
                       <>
                         <Icon icon="rocket" />
-                        <span>{reblogged ? t`Unboost` : t`Boost`}</span>
+                        <span class="menu-grow">
+                          {reblogged ? t`Unboost` : t`Boost`}
+                        </span>
+                        {reblogsCount > 0 && (
+                          <small class="more-insignificant">
+                            {shortenNumber(reblogsCount)}
+                          </small>
+                        )}
                       </>
                     }
                     menuExtras={
@@ -2950,7 +2932,12 @@ function Status({
                                 {quoteMetaText}
                               </small>
                             ) : (
-                              <span>{quoteText}</span>
+                              <span class="menu-grow">{quoteText}</span>
+                            )}
+                            {quotesCount > 0 && (
+                              <small class="more-insignificant">
+                                {shortenNumber(quotesCount)}
+                              </small>
                             )}
                           </MenuItem>
                         )}
@@ -2985,7 +2972,11 @@ function Status({
                       ]}
                       alt={[t`Boost`, t`Boosted`]}
                       class="reblog-button"
-                      icon="rocket"
+                      icon={
+                        reblogsCount <= 0 && quotesCount > 0
+                          ? 'quote'
+                          : 'rocket'
+                      }
                       count={reblogsCount}
                       extraCount={quotesCount}
                       // onClick={boostStatus}
@@ -3193,7 +3184,11 @@ const QuoteStatus = memo(({ quote, level = 0 }) => {
   const q = quote;
   let unfulfilledState;
 
-  const quoteStatus = snapStates.statuses[statusKey(q.id, q.instance)];
+  // Static as in there's no live update (edited, liked, etc.)
+  const isStaticQuote = !!q.quoteStatus;
+
+  const quoteStatus =
+    snapStates.statuses[statusKey(q.id, q.instance)] || q.quoteStatus;
   if (quoteStatus) {
     const isSelf = currentAccount && currentAccount === quoteStatus.account?.id;
     const filterInfo =
@@ -3270,6 +3265,7 @@ const QuoteStatus = memo(({ quote, level = 0 }) => {
       >
         <Status
           statusID={q.id}
+          status={isStaticQuote ? quoteStatus : undefined}
           instance={q.instance}
           size="s"
           quoted={level + 1}
@@ -3296,43 +3292,71 @@ const ShallowQuote = ({ quote } = {}) => {
   );
 };
 
-const QuoteStatuses = memo(({ id, instance, level = 0, collapsed = false }) => {
-  if (!id || !instance) return;
-  const { _ } = useLingui();
-  const snapStates = useSnapshot(states);
-  const sKey = statusKey(id, instance);
-  const quotes = snapStates.statusQuotes[sKey];
-  let uniqueQuotes = quotes?.filter(
-    (q, i, arr) => q.native || arr.findIndex((q2) => q2.url === q.url) === i,
-  );
+const QuoteStatuses = memo(
+  ({ id, instance, level = 0, collapsed = false, fallbackQuote }) => {
+    if (!id || !instance) return;
+    const { _ } = useLingui();
+    const snapStates = useSnapshot(states);
+    const sKey = statusKey(id, instance);
+    const quotes = snapStates.statusQuotes[sKey];
+    let uniqueQuotes = quotes?.filter(
+      (q, i, arr) => q.native || arr.findIndex((q2) => q2.url === q.url) === i,
+    );
 
-  if (!uniqueQuotes?.length) return;
-  if (level > 2) {
-    return <ShallowQuote quote={uniqueQuotes[0]} />;
-  }
+    const containerRef = useTruncated();
 
-  if (collapsed) {
-    // Only show the first quote if "collapsed"
-    uniqueQuotes = [uniqueQuotes[0]];
-  }
+    if (!uniqueQuotes?.length && fallbackQuote?.quotedStatus) {
+      // Just render it
+      return (
+        <div
+          class="status-card-container"
+          ref={containerRef}
+          data-read-more={_(readMoreText)}
+          data-quote-container-static={true}
+        >
+          <QuoteStatus
+            quote={{
+              // Same structure as the one in saveStatus (utils/states)
+              id,
+              instance,
+              // url
+              state: fallbackQuote.state,
+              // account
+              native: true,
+              // Inject whole quoteStatus instead of reading from states
+              quoteStatus: fallbackQuote.quotedStatus,
+            }}
+          />
+        </div>
+      );
+    }
 
-  const containerRef = useTruncated();
+    if (!uniqueQuotes?.length) return;
+    if (level > 2) {
+      return <ShallowQuote quote={uniqueQuotes[0]} />;
+    }
 
-  return (
-    <div
-      class="status-card-container"
-      ref={containerRef}
-      data-read-more={_(readMoreText)}
-    >
-      {uniqueQuotes.map((q) => {
-        const quoteKey = q.id
-          ? statusKey(q.id, q.instance)
-          : `${q.instance || ''}-${q.state}`;
-        return <QuoteStatus key={quoteKey} quote={q} level={level} />;
-      })}
-    </div>
-  );
-});
+    if (collapsed) {
+      // Only show the first quote if "collapsed"
+      uniqueQuotes = [uniqueQuotes[0]];
+    }
+
+    return (
+      <div
+        class="status-card-container"
+        ref={containerRef}
+        data-read-more={_(readMoreText)}
+      >
+        {uniqueQuotes.map((q) => {
+          const quoteKey = q.id
+            ? statusKey(q.id, q.instance)
+            : `${q.instance || ''}-${q.state}`;
+          return <QuoteStatus key={quoteKey} quote={q} level={level} />;
+        })}
+      </div>
+    );
+  },
+);
 
 function EditedAtModal({
   statusID,
