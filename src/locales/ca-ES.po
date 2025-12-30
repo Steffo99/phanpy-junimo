@@ -218,7 +218,7 @@ msgid "Original"
 msgstr "Original"
 
 #: src/components/account-info.jsx:1050
-#: src/components/status.jsx:2729
+#: src/components/status.jsx:2758
 #: src/pages/catchup.jsx:74
 #: src/pages/catchup.jsx:1575
 #: src/pages/catchup.jsx:2230
@@ -229,7 +229,7 @@ msgstr "Respostes"
 
 #: src/components/account-info.jsx:1055
 #: src/components/quotes-modal.jsx:81
-#: src/components/status.jsx:2734
+#: src/components/status.jsx:2763
 #: src/pages/catchup.jsx:75
 #: src/pages/catchup.jsx:1578
 msgid "Quotes"
@@ -237,9 +237,9 @@ msgstr "Cites"
 
 #: src/components/account-info.jsx:1060
 #: src/pages/catchup.jsx:76
-#: src/pages/catchup.jsx:1577
-#: src/pages/catchup.jsx:2242
-#: src/pages/settings.jsx:1252
+#: src/pages/catchup.jsx:1566
+#: src/pages/catchup.jsx:2231
+#: src/pages/settings.jsx:1224
 msgid "Boosts"
 msgstr "Impulsos"
 
@@ -281,8 +281,8 @@ msgstr "Veure estadístiques de les publicacions"
 #: src/components/shortcuts-settings.jsx:231
 #: src/components/shortcuts-settings.jsx:584
 #: src/components/shortcuts-settings.jsx:785
-#: src/components/status.jsx:3390
-#: src/components/status.jsx:3602
+#: src/components/status.jsx:3370
+#: src/components/status.jsx:3582
 #: src/components/translated-bio-sheet.jsx:21
 #: src/pages/accounts.jsx:45
 #: src/pages/catchup.jsx:1712
@@ -501,7 +501,7 @@ msgid "Attachment #{i} failed"
 msgstr "El fitxer adjunt #{i} ha fallat"
 
 #: src/components/compose.jsx:1445
-#: src/components/status.jsx:2485
+#: src/components/status.jsx:2523
 #: src/components/timeline.jsx:990
 msgid "Content warning"
 msgstr "Avís de contingut"
@@ -596,12 +596,12 @@ msgstr "Programa"
 
 #: src/components/compose.jsx:2031
 #: src/components/keyboard-shortcuts-help.jsx:164
-#: src/components/status.jsx:1102
-#: src/components/status.jsx:1136
-#: src/components/status.jsx:2129
-#: src/components/status.jsx:2130
-#: src/components/status.jsx:2864
-#: src/components/status.jsx:2876
+#: src/components/status.jsx:1103
+#: src/components/status.jsx:1137
+#: src/components/status.jsx:2155
+#: src/components/status.jsx:2156
+#: src/components/status.jsx:2893
+#: src/components/status.jsx:2905
 msgid "Reply"
 msgstr "Respon"
 
@@ -1049,9 +1049,9 @@ msgid "<0>l</0> or <1>f</1>"
 msgstr "<0>l</0> o <1>f</1>"
 
 #: src/components/keyboard-shortcuts-help.jsx:185
-#: src/components/status.jsx:1172
-#: src/components/status.jsx:2907
-#: src/components/status.jsx:2973
+#: src/components/status.jsx:1173
+#: src/components/status.jsx:2935
+#: src/components/status.jsx:2990
 msgid "Boost"
 msgstr "Impulsa"
 
@@ -1060,9 +1060,9 @@ msgid "<0>Shift</0> + <1>b</1>"
 msgstr "<0>Shift</0> + <1>b</1>"
 
 #: src/components/keyboard-shortcuts-help.jsx:197
-#: src/components/status.jsx:1274
-#: src/components/status.jsx:3002
-#: src/components/status.jsx:3003
+#: src/components/status.jsx:1275
+#: src/components/status.jsx:3015
+#: src/components/status.jsx:3016
 msgid "Bookmark"
 msgstr "Afegeix als marcadors"
 
@@ -1155,13 +1155,13 @@ msgstr "Descripció dels mitjans"
 #: src/components/media-alt-modal.jsx:55
 #: src/components/media-attachment.jsx:430
 #: src/components/media-modal.jsx:372
-#: src/components/related-actions.jsx:273
-#: src/components/status.jsx:2153
-#: src/components/status.jsx:2170
-#: src/components/status.jsx:2303
-#: src/components/status.jsx:3023
-#: src/components/status.jsx:3026
-#: src/pages/account-statuses.jsx:559
+#: src/components/related-actions.jsx:263
+#: src/components/status.jsx:2179
+#: src/components/status.jsx:2196
+#: src/components/status.jsx:2329
+#: src/components/status.jsx:3036
+#: src/components/status.jsx:3039
+#: src/pages/account-statuses.jsx:544
 #: src/pages/accounts.jsx:127
 #: src/pages/hashtag.jsx:203
 #: src/pages/list.jsx:171
@@ -1309,8 +1309,8 @@ msgstr "Filtrat: {filterTitleStr}"
 
 #: src/components/media-post.jsx:133
 #: src/components/status-compact.jsx:70
-#: src/components/status.jsx:3528
-#: src/components/status.jsx:3606
+#: src/components/status.jsx:3508
+#: src/components/status.jsx:3586
 #: src/components/timeline.jsx:979
 #: src/pages/catchup.jsx:79
 #: src/pages/catchup.jsx:2033
@@ -2578,10 +2578,10 @@ msgstr "Només els seguidors poden citar aquesta publicació"
 msgid "You are not allowed to quote this post"
 msgstr "No se us permet citar aquesta publicació"
 
-#: src/components/status.jsx:370
-#: src/components/status.jsx:3168
-#: src/components/status.jsx:3169
-#: src/components/status.jsx:3170
+#: src/components/status.jsx:371
+#: src/components/status.jsx:3181
+#: src/components/status.jsx:3182
+#: src/components/status.jsx:3183
 msgid "Post unavailable"
 msgstr "Publicació no disponible"
 
@@ -2646,15 +2646,15 @@ msgstr "{0, plural, one {}other {<0>@{1}</0> primera, # altres a sota}}"
 msgid "Only <0>@{0}</0>"
 msgstr "Només <0>@{0}</0>"
 
-#: src/components/status.jsx:1172
-#: src/components/status.jsx:1249
-#: src/components/status.jsx:2907
-#: src/components/status.jsx:2971
+#: src/components/status.jsx:1173
+#: src/components/status.jsx:1250
+#: src/components/status.jsx:2935
+#: src/components/status.jsx:2988
 msgid "Unboost"
 msgstr "Desfés l'impuls"
 
-#: src/components/status.jsx:1211
-#: src/components/status.jsx:2956
+#: src/components/status.jsx:1212
+#: src/components/status.jsx:2973
 msgid "Quote with link"
 msgstr "Cita amb enllaç"
 
@@ -2670,32 +2670,32 @@ msgstr "S'ha eliminat l'impuls de la publicació de @{0}"
 msgid "Boosted @{0}'s post"
 msgstr "Heu impulsat la publicació de @{0}"
 
-#: src/components/status.jsx:1251
-#: src/components/status.jsx:2970
+#: src/components/status.jsx:1252
+#: src/components/status.jsx:2987
 msgid "Boost/Quote…"
 msgstr "Impuls/Cita…"
 
-#: src/components/status.jsx:1252
-#: src/components/status.jsx:2970
+#: src/components/status.jsx:1253
+#: src/components/status.jsx:2987
 msgid "Boost…"
 msgstr "Impulsa…"
 
-#: src/components/status.jsx:1264
-#: src/components/status.jsx:2143
-#: src/components/status.jsx:2990
+#: src/components/status.jsx:1265
+#: src/components/status.jsx:2169
+#: src/components/status.jsx:3003
 msgid "Unlike"
 msgstr "Ja no m'agrada"
 
-#: src/components/status.jsx:1265
-#: src/components/status.jsx:2143
-#: src/components/status.jsx:2144
-#: src/components/status.jsx:2990
-#: src/components/status.jsx:2991
+#: src/components/status.jsx:1266
+#: src/components/status.jsx:2169
+#: src/components/status.jsx:2170
+#: src/components/status.jsx:3003
+#: src/components/status.jsx:3004
 msgid "Like"
 msgstr "M'agrada"
 
-#: src/components/status.jsx:1274
-#: src/components/status.jsx:3002
+#: src/components/status.jsx:1275
+#: src/components/status.jsx:3015
 msgid "Unbookmark"
 msgstr "Suprimeix l'adreça d'interès"
 
@@ -2818,19 +2818,19 @@ msgstr "Elimina la cita…"
 msgid "Report post…"
 msgstr "Denuncia la publicació…"
 
-#: src/components/status.jsx:2144
-#: src/components/status.jsx:2180
-#: src/components/status.jsx:2991
+#: src/components/status.jsx:2170
+#: src/components/status.jsx:2206
+#: src/components/status.jsx:3004
 msgid "Liked"
 msgstr "M'ha agradat"
 
-#: src/components/status.jsx:2177
-#: src/components/status.jsx:2973
+#: src/components/status.jsx:2203
+#: src/components/status.jsx:2990
 msgid "Boosted"
 msgstr "Millorats"
 
-#: src/components/status.jsx:2187
-#: src/components/status.jsx:3003
+#: src/components/status.jsx:2213
+#: src/components/status.jsx:3016
 msgid "Bookmarked"
 msgstr "Afegit a marcadors"
 
@@ -2838,8 +2838,8 @@ msgstr "Afegit a marcadors"
 msgid "Pinned"
 msgstr "Fixat"
 
-#: src/components/status.jsx:2248
-#: src/components/status.jsx:2744
+#: src/components/status.jsx:2274
+#: src/components/status.jsx:2773
 msgid "Deleted"
 msgstr "Eliminat"
 
@@ -2848,79 +2848,79 @@ msgstr "Eliminat"
 msgid "{repliesCount, plural, one {# reply} other {# replies}}"
 msgstr "{repliesCount, plural, one {# resposta} other {# respostes}}"
 
-#: src/components/status.jsx:2455
-#: src/components/status.jsx:2514
-#: src/components/status.jsx:2624
+#: src/components/status.jsx:2486
+#: src/components/status.jsx:2548
+#: src/components/status.jsx:2654
 msgid "Show less"
 msgstr "Mostra'n menys"
 
-#: src/components/status.jsx:2457
-#: src/components/status.jsx:2516
+#: src/components/status.jsx:2486
+#: src/components/status.jsx:2548
 msgid "Show content"
 msgstr "Mostra el contingut"
 
 #. placeholder {0}: filterInfo.titlesStr
 #. placeholder {0}: filterInfo?.titlesStr
-#: src/components/status.jsx:2620
-#: src/pages/catchup.jsx:2032
+#: src/components/status.jsx:2650
+#: src/pages/catchup.jsx:2021
 msgid "Filtered: {0}"
 msgstr "Filtrat: {0}"
 
-#: src/components/status.jsx:2624
+#: src/components/status.jsx:2654
 msgid "Show media"
 msgstr "Mostra els mèdia"
 
-#: src/components/status.jsx:2779
+#: src/components/status.jsx:2808
 msgid "Edited"
 msgstr "Editat"
 
-#: src/components/status.jsx:2865
-#: src/components/status.jsx:2877
+#: src/components/status.jsx:2894
+#: src/components/status.jsx:2906
 msgid "Comments"
 msgstr "Comentaris"
 
-#: src/components/status.jsx:3166
+#: src/components/status.jsx:3179
 msgid "Post hidden by your filters"
 msgstr "Publicació amagada pels filtres"
 
-#: src/components/status.jsx:3167
+#: src/components/status.jsx:3180
 msgid "Post pending"
 msgstr "Publicació pendent"
 
-#: src/components/status.jsx:3171
+#: src/components/status.jsx:3184
 msgid "Post removed by author"
 msgstr "Publicació eliminada per l'autor o l'autora"
 
-#: src/components/status.jsx:3172
+#: src/components/status.jsx:3185
 msgid "Post hidden because you've blocked @{name}."
 msgstr "Publicació amagada perquè heu bloquejat a @{name}."
 
-#: src/components/status.jsx:3174
+#: src/components/status.jsx:3187
 msgid "Post hidden because you've blocked {domain}."
 msgstr "Publicació amagada perquè heu bloquejat a {domain}."
 
-#: src/components/status.jsx:3175
+#: src/components/status.jsx:3188
 msgid "Post hidden because you've muted @{name}."
 msgstr "Publicació amagada perquè heu silenciat a @{name}."
 
-#: src/components/status.jsx:3250
+#: src/components/status.jsx:3259
 msgid "Show anyway"
 msgstr "Mostra-ho de totes maneres"
 
-#: src/components/status.jsx:3395
+#: src/components/status.jsx:3375
 msgid "Edit History"
 msgstr "Edita l'Historial"
 
-#: src/components/status.jsx:3399
+#: src/components/status.jsx:3379
 msgid "Failed to load history"
 msgstr "No s'ha pogut carregar l'historial"
 
-#: src/components/status.jsx:3404
+#: src/components/status.jsx:3384
 msgid "Loading…"
 msgstr "Carregant…"
 
 #. [Name] [Visibility icon] boosted
-#: src/components/status.jsx:3536
+#: src/components/status.jsx:3516
 msgid "<0/> <1/> boosted"
 msgstr "<0/> <1/> ha impulsat"
 

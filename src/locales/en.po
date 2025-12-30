@@ -2041,11 +2041,11 @@ msgstr ""
 #. placeholder {0}: typeof MUTE_DURATIONS_LABELS[duration] === 'function' ? MUTE_DURATIONS_LABELS[duration]() : _(MUTE_DURATIONS_LABELS[duration])
 #: src/components/related-actions.jsx:682
 msgid "Muted @{username} for {0}"
-msgstr ""
+msgstr "Muted @{username} for {0}"
 
 #: src/components/related-actions.jsx:694
 msgid "Unable to mute @{username}"
-msgstr ""
+msgstr "Unable to mute @{username}"
 
 #: src/components/related-actions.jsx:715
 msgid "Remove <0>@{username}</0> from followers?"
@@ -2053,7 +2053,7 @@ msgstr ""
 
 #: src/components/related-actions.jsx:735
 msgid "@{username} removed from followers"
-msgstr ""
+msgstr "@{username} removed from followers>>>>>>> upstream/main"
 
 #: src/components/related-actions.jsx:747
 msgid "Remove follower…"
@@ -2599,7 +2599,7 @@ msgstr ""
 #. placeholder {0}: username || acct
 #: src/components/status.jsx:968
 msgid "Unbookmarked @{0}'s post"
-msgstr ""
+msgstr "Unbookmarked @{0}'s post"
 
 #. placeholder {0}: username || acct
 #: src/components/status.jsx:969
@@ -2839,7 +2839,7 @@ msgstr ""
 #: src/components/status.jsx:2286
 #: src/components/status.jsx:2354
 msgid "{repliesCount, plural, one {# reply} other {# replies}}"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 #: src/components/status.jsx:2455
 #: src/components/status.jsx:2514
@@ -2857,7 +2857,7 @@ msgstr ""
 #: src/components/status.jsx:2620
 #: src/pages/catchup.jsx:2032
 msgid "Filtered: {0}"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 #: src/components/status.jsx:2624
 msgid "Show media"

@@ -218,7 +218,7 @@ msgid "Original"
 msgstr "原创"
 
 #: src/components/account-info.jsx:1050
-#: src/components/status.jsx:2729
+#: src/components/status.jsx:2732
 #: src/pages/catchup.jsx:74
 #: src/pages/catchup.jsx:1575
 #: src/pages/catchup.jsx:2230
@@ -229,7 +229,7 @@ msgstr "回复"
 
 #: src/components/account-info.jsx:1055
 #: src/components/quotes-modal.jsx:81
-#: src/components/status.jsx:2734
+#: src/components/status.jsx:2737
 #: src/pages/catchup.jsx:75
 #: src/pages/catchup.jsx:1578
 msgid "Quotes"
@@ -237,8 +237,8 @@ msgstr "引用"
 
 #: src/components/account-info.jsx:1060
 #: src/pages/catchup.jsx:76
-#: src/pages/catchup.jsx:1577
-#: src/pages/catchup.jsx:2242
+#: src/pages/catchup.jsx:1566
+#: src/pages/catchup.jsx:2231
 #: src/pages/settings.jsx:1252
 msgid "Boosts"
 msgstr "转嘟"
@@ -281,8 +281,8 @@ msgstr "查看嘟文统计"
 #: src/components/shortcuts-settings.jsx:231
 #: src/components/shortcuts-settings.jsx:584
 #: src/components/shortcuts-settings.jsx:785
-#: src/components/status.jsx:3390
-#: src/components/status.jsx:3602
+#: src/components/status.jsx:3360
+#: src/components/status.jsx:3572
 #: src/components/translated-bio-sheet.jsx:21
 #: src/pages/accounts.jsx:45
 #: src/pages/catchup.jsx:1712
@@ -501,7 +501,7 @@ msgid "Attachment #{i} failed"
 msgstr "附加附件 #{i} 失败"
 
 #: src/components/compose.jsx:1445
-#: src/components/status.jsx:2485
+#: src/components/status.jsx:2497
 #: src/components/timeline.jsx:990
 msgid "Content warning"
 msgstr "内容警告"
@@ -600,8 +600,8 @@ msgstr "定时发嘟"
 #: src/components/status.jsx:1136
 #: src/components/status.jsx:2129
 #: src/components/status.jsx:2130
-#: src/components/status.jsx:2864
-#: src/components/status.jsx:2876
+#: src/components/status.jsx:2867
+#: src/components/status.jsx:2879
 msgid "Reply"
 msgstr "回复"
 
@@ -1050,8 +1050,8 @@ msgstr "<0>l</0> 或 <1>f</1>"
 
 #: src/components/keyboard-shortcuts-help.jsx:185
 #: src/components/status.jsx:1172
-#: src/components/status.jsx:2907
-#: src/components/status.jsx:2973
+#: src/components/status.jsx:2910
+#: src/components/status.jsx:2976
 msgid "Boost"
 msgstr "转嘟"
 
@@ -1061,8 +1061,8 @@ msgstr "<0>Shift</0> + <1>b</1>"
 
 #: src/components/keyboard-shortcuts-help.jsx:197
 #: src/components/status.jsx:1274
-#: src/components/status.jsx:3002
-#: src/components/status.jsx:3003
+#: src/components/status.jsx:3005
+#: src/components/status.jsx:3006
 msgid "Bookmark"
 msgstr "收藏"
 
@@ -1159,8 +1159,8 @@ msgstr "媒体描述"
 #: src/components/status.jsx:2153
 #: src/components/status.jsx:2170
 #: src/components/status.jsx:2303
-#: src/components/status.jsx:3023
 #: src/components/status.jsx:3026
+#: src/components/status.jsx:3029
 #: src/pages/account-statuses.jsx:559
 #: src/pages/accounts.jsx:127
 #: src/pages/hashtag.jsx:203
@@ -1309,8 +1309,8 @@ msgstr "已过滤: {filterTitleStr}"
 
 #: src/components/media-post.jsx:133
 #: src/components/status-compact.jsx:70
-#: src/components/status.jsx:3528
-#: src/components/status.jsx:3606
+#: src/components/status.jsx:3498
+#: src/components/status.jsx:3576
 #: src/components/timeline.jsx:979
 #: src/pages/catchup.jsx:79
 #: src/pages/catchup.jsx:2033
@@ -2577,9 +2577,9 @@ msgid "You are not allowed to quote this post"
 msgstr "你无权引用这条嘟文"
 
 #: src/components/status.jsx:370
-#: src/components/status.jsx:3168
-#: src/components/status.jsx:3169
-#: src/components/status.jsx:3170
+#: src/components/status.jsx:3171
+#: src/components/status.jsx:3172
+#: src/components/status.jsx:3173
 msgid "Post unavailable"
 msgstr "嘟文不可用"
 
@@ -2646,13 +2646,13 @@ msgstr "仅 <0>@{0}</0>"
 
 #: src/components/status.jsx:1172
 #: src/components/status.jsx:1249
-#: src/components/status.jsx:2907
-#: src/components/status.jsx:2971
+#: src/components/status.jsx:2910
+#: src/components/status.jsx:2974
 msgid "Unboost"
 msgstr "取消转嘟"
 
 #: src/components/status.jsx:1211
-#: src/components/status.jsx:2956
+#: src/components/status.jsx:2959
 msgid "Quote with link"
 msgstr "以链接形式引用"
 
@@ -2669,31 +2669,31 @@ msgid "Boosted @{0}'s post"
 msgstr "已转嘟 @{0} 的嘟文"
 
 #: src/components/status.jsx:1251
-#: src/components/status.jsx:2970
+#: src/components/status.jsx:2973
 msgid "Boost/Quote…"
 msgstr "转嘟/引用…"
 
 #: src/components/status.jsx:1252
-#: src/components/status.jsx:2970
+#: src/components/status.jsx:2973
 msgid "Boost…"
 msgstr "转嘟…"
 
 #: src/components/status.jsx:1264
 #: src/components/status.jsx:2143
-#: src/components/status.jsx:2990
+#: src/components/status.jsx:2993
 msgid "Unlike"
 msgstr "取消喜欢"
 
 #: src/components/status.jsx:1265
 #: src/components/status.jsx:2143
 #: src/components/status.jsx:2144
-#: src/components/status.jsx:2990
-#: src/components/status.jsx:2991
+#: src/components/status.jsx:2993
+#: src/components/status.jsx:2994
 msgid "Like"
 msgstr "赞"
 
 #: src/components/status.jsx:1274
-#: src/components/status.jsx:3002
+#: src/components/status.jsx:3005
 msgid "Unbookmark"
 msgstr "取消收藏"
 
@@ -2818,17 +2818,17 @@ msgstr "举报嘟文…"
 
 #: src/components/status.jsx:2144
 #: src/components/status.jsx:2180
-#: src/components/status.jsx:2991
+#: src/components/status.jsx:2994
 msgid "Liked"
 msgstr "已点赞"
 
 #: src/components/status.jsx:2177
-#: src/components/status.jsx:2973
+#: src/components/status.jsx:2976
 msgid "Boosted"
 msgstr "已转嘟"
 
 #: src/components/status.jsx:2187
-#: src/components/status.jsx:3003
+#: src/components/status.jsx:3006
 msgid "Bookmarked"
 msgstr "已收藏"
 
@@ -2837,7 +2837,7 @@ msgid "Pinned"
 msgstr "已置顶"
 
 #: src/components/status.jsx:2248
-#: src/components/status.jsx:2744
+#: src/components/status.jsx:2747
 msgid "Deleted"
 msgstr "已删除"
 
@@ -2846,79 +2846,79 @@ msgstr "已删除"
 msgid "{repliesCount, plural, one {# reply} other {# replies}}"
 msgstr "{repliesCount, plural, other {# 条回复}}"
 
-#: src/components/status.jsx:2455
-#: src/components/status.jsx:2514
-#: src/components/status.jsx:2624
+#: src/components/status.jsx:2460
+#: src/components/status.jsx:2522
+#: src/components/status.jsx:2628
 msgid "Show less"
 msgstr "折叠"
 
-#: src/components/status.jsx:2457
-#: src/components/status.jsx:2516
+#: src/components/status.jsx:2460
+#: src/components/status.jsx:2522
 msgid "Show content"
 msgstr "显示内容"
 
 #. placeholder {0}: filterInfo.titlesStr
 #. placeholder {0}: filterInfo?.titlesStr
-#: src/components/status.jsx:2620
-#: src/pages/catchup.jsx:2032
+#: src/components/status.jsx:2624
+#: src/pages/catchup.jsx:2021
 msgid "Filtered: {0}"
 msgstr "已过滤: {0}"
 
-#: src/components/status.jsx:2624
+#: src/components/status.jsx:2628
 msgid "Show media"
 msgstr "显示媒体"
 
-#: src/components/status.jsx:2779
+#: src/components/status.jsx:2782
 msgid "Edited"
 msgstr "已编辑"
 
-#: src/components/status.jsx:2865
-#: src/components/status.jsx:2877
+#: src/components/status.jsx:2868
+#: src/components/status.jsx:2880
 msgid "Comments"
 msgstr "评论"
 
-#: src/components/status.jsx:3166
+#: src/components/status.jsx:3169
 msgid "Post hidden by your filters"
 msgstr "嘟文已被你的过滤规则隐藏"
 
-#: src/components/status.jsx:3167
+#: src/components/status.jsx:3170
 msgid "Post pending"
 msgstr "待发布嘟文"
 
-#: src/components/status.jsx:3171
+#: src/components/status.jsx:3174
 msgid "Post removed by author"
 msgstr "嘟文已被作者删除"
 
-#: src/components/status.jsx:3172
+#: src/components/status.jsx:3175
 msgid "Post hidden because you've blocked @{name}."
 msgstr "嘟文已被隐藏，原因是你屏蔽了 @{name}。"
 
-#: src/components/status.jsx:3174
+#: src/components/status.jsx:3177
 msgid "Post hidden because you've blocked {domain}."
 msgstr "嘟文已被隐藏，原因是你屏蔽了 {domain}。"
 
-#: src/components/status.jsx:3175
+#: src/components/status.jsx:3178
 msgid "Post hidden because you've muted @{name}."
 msgstr "嘟文已被隐藏，原因是你隐藏了 @{name}。"
 
-#: src/components/status.jsx:3250
+#: src/components/status.jsx:3249
 msgid "Show anyway"
 msgstr "仍然显示"
 
-#: src/components/status.jsx:3395
+#: src/components/status.jsx:3365
 msgid "Edit History"
 msgstr "编辑记录"
 
-#: src/components/status.jsx:3399
+#: src/components/status.jsx:3369
 msgid "Failed to load history"
 msgstr "无法加载编辑记录"
 
-#: src/components/status.jsx:3404
+#: src/components/status.jsx:3374
 msgid "Loading…"
 msgstr "正在加载…"
 
 #. [Name] [Visibility icon] boosted
-#: src/components/status.jsx:3536
+#: src/components/status.jsx:3506
 msgid "<0/> <1/> boosted"
 msgstr "<0/> <1/> 转嘟了"
 
