@@ -3094,20 +3094,28 @@ a.card:is(:hover, :focus):visited {
   }
 }
 
-.status {
+.status,
+.status-pre-meta {
 	transition-property: background-color;
 	transition-duration: 1s;
 }
 
-.timeline:not(.flat) > li {
-	transition-property: border-color;
-	transition-duration: 1s;
-}
-
 .status-favourited {
-	background-color: rgba(from var(--favourite-color) r g b / 0.05);
+	background-color: rgba(from var(--favourite-color) r g b / 0.15);
 }
 
 .status-reblogged {
-	background-color: rgba(from var(--reblog-color) r g b / 0.07);
+	background-color: rgba(from var(--reblog-color) r g b / 0.15);
+}
+
+.status-pre-meta {
+	margin-bottom: 0;
+}
+
+.status-pre-meta:has(+ .status-favourited) {
+	background-color: rgba(from var(--favourite-color) r g b / 0.15);
+}
+
+.status-pre-meta:has(+ .status-reblogged) {
+	background-color: rgba(from var(--reblog-color) r g b / 0.15);
 }
