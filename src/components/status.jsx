@@ -60,7 +60,7 @@ import LazyShazam from './lazy-shazam';
 import Link from './link';
 import Loader from './loader';
 import MathBlock from './math-block';
-import Media, { isMediaCaptionLong } from './media';
+import Media from './media';
 import MediaFirstContainer from './media-first-container';
 import MenuConfirm from './menu-confirm';
 import MenuLink from './menu-link';
@@ -1884,7 +1884,7 @@ function Status({
   const showMultipleMediaCaptions =
     mediaAttachments.length > 1 &&
     displayedMediaAttachments.some(
-      (media) => !!media.description && !isMediaCaptionLong(media.description),
+      (media) => !!media.description,
     );
   const captionChildren = useMemo(() => {
     if (!showMultipleMediaCaptions) return null;
