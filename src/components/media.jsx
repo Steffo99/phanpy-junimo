@@ -56,15 +56,6 @@ const AltBadge = (props) => {
   );
 };
 
-const MEDIA_CAPTION_LIMIT = 140;
-const MEDIA_CAPTION_LIMIT_LONGER = 280;
-export const isMediaCaptionLong = mem((caption) =>
-  caption?.length
-    ? caption.length > MEDIA_CAPTION_LIMIT ||
-      /[\n\r].*[\n\r]/.test(caption.trim())
-    : false,
-);
-
 function Media({
   class: className = '',
   media,
@@ -225,41 +216,29 @@ function Media({
           ...averageColorStyle,
         };
 
-  const longDesc = isMediaCaptionLong(description);
-  let showInlineDesc =
-    !!showCaption && !showOriginal && !!description && !longDesc;
-  if (
-    allowLongerCaption &&
-    !showInlineDesc &&
-    description?.length <= MEDIA_CAPTION_LIMIT_LONGER
-  ) {
-    showInlineDesc = true;
-  }
-  const Figure = !showInlineDesc
-    ? Fragment
-    : (props) => {
-        const { children, ...restProps } = props;
-        return (
-          <figure {...restProps}>
-            {children}
-            <figcaption
-              class="media-caption"
-              lang={lang}
-              dir="auto"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                states.showMediaAlt = {
-                  alt: description,
-                  lang,
-                };
-              }}
-            >
-              {description}
-            </figcaption>
-          </figure>
-        );
-      };
+  const Figure = (props) => {
+    const { children, ...restProps } = props;
+    return (
+      <figure {...restProps}>
+        {children}
+        <figcaption
+          class="media-caption"
+          lang={lang}
+          dir="auto"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            states.showMediaAlt = {
+              alt: description,
+              lang,
+            };
+          }}
+        >
+          {description}
+        </figcaption>
+      </figure>
+    );
+  };
 
   const postViewState = () =>
     window.matchMedia('(min-width: calc(40em + 350px))').matches
@@ -334,7 +313,7 @@ function Media({
           class={`media media-image ${className}`}
           onClick={interceptOnClick}
           data-orientation={orientation}
-          data-has-alt={!showInlineDesc || undefined}
+          data-has-alt={undefined}
           style={
             showOriginal
               ? {
@@ -388,7 +367,7 @@ function Media({
             <>
               <img
                 src={mediaURL}
-                alt={showInlineDesc ? '' : description}
+                alt={''}
                 width={width}
                 height={height}
                 data-orientation={orientation}
@@ -472,9 +451,6 @@ function Media({
                   }
                 }}
               />
-              {!showInlineDesc && (
-                <AltBadge alt={description} lang={lang} index={altIndex} />
-              )}
             </>
           )}
         </Parent>
@@ -554,7 +530,7 @@ function Media({
           data-label={
             isGIF && !showOriginal && !autoGIFAnimate ? 'GIF' : undefined
           }
-          data-has-alt={!showInlineDesc || undefined}
+          data-has-alt={undefined}
           // style={{
           //   backgroundColor:
           //     rgbAverageColor && `rgb(${rgbAverageColor.join(',')})`,
@@ -656,7 +632,7 @@ function Media({
               {previewUrl && !isPreviewVideoMaybe ? (
                 <img
                   src={previewUrl}
-                  alt={showInlineDesc ? '' : description}
+                  alt={''}
                   width={width}
                   height={height}
                   data-orientation={orientation}
@@ -715,9 +691,6 @@ function Media({
               </div>
             </>
           )}
-          {!showOriginal && !showInlineDesc && (
-            <AltBadge alt={description} lang={lang} index={altIndex} />
-          )}
         </Parent>
       </Figure>
     );
@@ -730,7 +703,7 @@ function Media({
           data-formatted-duration={
             !showOriginal ? formattedDuration : undefined
           }
-          data-has-alt={!showInlineDesc || undefined}
+          data-has-alt={undefined}
           onClick={onClick}
           style={!showOriginal && mediaStyles}
         >
@@ -758,7 +731,7 @@ function Media({
           ) : previewUrl ? (
             <img
               src={previewUrl}
-              alt={showInlineDesc ? '' : description}
+              alt={''}
               width={width}
               height={height}
               data-orientation={orientation}
@@ -776,9 +749,6 @@ function Media({
               <div class="media-play">
                 <Icon icon="play" size="xl" alt="▶" />
               </div>
-              {!showInlineDesc && (
-                <AltBadge alt={description} lang={lang} index={altIndex} />
-              )}
             </>
           )}
         </Parent>
